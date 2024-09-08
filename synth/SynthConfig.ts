@@ -231,7 +231,7 @@ export class Config {
 		{name: "double harmonic :)", realName: "double harmonic major", flags: [true,  true, false, false,  true,  true, false,  true,  true, false, false,  true]},
 		{name: "double harmonic :(", realName: "double harmonic minor", flags: [true, false,  true,  true, false, false,  true,  true,  true, false, false,  true]},
 		{name: "strange :)",         realName: "whole tone",            flags: [true, false,  true, false,  true, false,  true, false,  true, false,  true, false]},
-		{name: "strange :(",         realName: "whole-half diminished?", flags: [false, true,  false, true,  false, true,  false, true,  false, true,  false, true]},
+		{name: "strange :(",         realName: "whole-half diminished", flags: [false, true,  false, true,  false, true,  false, true,  false, true,  false, true]},
 		{name: "expert",             realName: "chromatic",             flags: [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true]},
 	]);
 	public static readonly keys: DictionaryArray<Key> = toNameMap([
@@ -273,7 +273,7 @@ export class Config {
 	public static readonly rhythms: DictionaryArray<Rhythm> = toNameMap([
 		{name: "÷3 (triplets)", stepsPerBeat: 3, ticksPerArpeggio: 4, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: [/*0*/ 5, /*8*/ 12, /*16*/ 18 /*24*/]},
 		{name: "÷4 (standard)", stepsPerBeat: 4, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: [/*0*/ 3, /*6*/ 9, /*12*/ 17, /*18*/ 21 /*24*/]},
-		{name: "÷5 (buggy)",    stepsPerBeat: 5, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
+		//{name: "÷5 (buggy)",    stepsPerBeat: 5, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷6",            stepsPerBeat: 6, ticksPerArpeggio: 4, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷8",            stepsPerBeat: 8, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "freehand",      stepsPerBeat:24, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
