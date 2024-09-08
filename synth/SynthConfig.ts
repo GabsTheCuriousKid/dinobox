@@ -230,7 +230,7 @@ export class Config {
 		{name: "normal :(",          realName: "aeolian",               flags: [true, false,  true,  true, false,  true, false,  true,  true, false,  true, false]},
 		{name: "double harmonic :)", realName: "double harmonic major", flags: [true,  true, false, false,  true,  true, false,  true,  true, false, false,  true]},
 		{name: "double harmonic :(", realName: "double harmonic minor", flags: [true, false,  true,  true, false, false,  true,  true,  true, false, false,  true]},
-		{name: "strange :)",         realName: "whole tone",            flags: [true, false,  true, false,  true, false,  true, false,  true, false,  true, false]},
+		{name: "strange",            realName: "whole tone",            flags: [true, false,  true, false,  true, false,  true, false,  true, false,  true, false]},
 		//{name: "strange",         realName: "whole-half diminished?",flags: [false, true,  false, true,  false, true,  false, true,  false, true,  false, true]},
 		{name: "expert",             realName: "chromatic",             flags: [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true]},
 	]);
