@@ -154,6 +154,9 @@ export class PatternEditor {
 		} else if (rhythmStepsPerBeat % 2 == 0) {
 			// Beat is divisible by 2.
 			return Config.partsPerBeat / 2;
+		} else if (rhythmStepsPerBeat % 5 == 0) {
+			// Beat is divisible by 5.
+			return Config.partsPerBeat / 5;
 		}
 		return Config.partsPerBeat;
 	}
