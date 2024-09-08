@@ -9,12 +9,6 @@ self.addEventListener("install", function(event) {
 				"/beepbox_editor.min.js",
 				"/player/",
 				"/player/beepbox_player.min.js",
-				"/3_0/",
-				"/3_0/beepbox_editor.min.js",
-				"/3_0/player/",
-				"/3_0/player/beepbox_player.min.js",
-				"/2_3/",
-				"/2_3/beepbox_editor.min.js",
 				"https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js",
 			]).then(() => self.skipWaiting());
 		})

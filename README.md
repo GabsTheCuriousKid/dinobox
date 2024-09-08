@@ -1,7 +1,7 @@
 # DinoBox
 
-DinoBox is a modification of Beepbox, an online tool for sketching and sharing instrumental melodies.
-Try it out [here](https://www.beepbox.co)!
+DinoBox is a modification of [Beepbox](https://www.beepbox.co), an online tool for sketching and sharing instrumental melodies.
+Try it out [here](https://www.dinobox.vercel.app)!
 
 All song data is packaged into the URL at the top of your browser. When you make
 changes to the song, the URL is updated to reflect your changes. When you are
