@@ -3313,7 +3313,8 @@ export class Song {
 				"romani :(": "double harmonic :(",
 				"dbl harmonic :)": "double harmonic :)",
 				"dbl harmonic :(": "double harmonic :(",
-				"enigma": "strange",
+				"enigma :)": "strange :)",
+				"enigma :(": "strange :(",
 			};
 			const scaleName: string = (oldScaleNames[jsonObject["scale"]] != undefined) ? oldScaleNames[jsonObject["scale"]] : jsonObject["scale"];
 			const scale: number = Config.scales.findIndex(scale => scale.name == scaleName);
