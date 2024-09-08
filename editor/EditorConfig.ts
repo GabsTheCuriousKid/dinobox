@@ -22,9 +22,9 @@ export function prettyNumber(value: number): string {
 }
 
 export class EditorConfig {
-	public static readonly version: string = "4.2";
+	public static readonly version: string = "1.0";
 	
-	public static readonly versionDisplayName: string = "BeepBox";
+	public static readonly versionDisplayName: string = "DinoBox";
 	public static readonly releaseNotesURL: string = "https://github.com/johnnesky/beepbox/releases/tag/v" + EditorConfig.version;
 	
 	public static readonly isOnMac: boolean = /^Mac/i.test(navigator.platform) || /Mac OS X/i.test(navigator.userAgent) || /^(iPhone|iPad|iPod)/i.test(navigator.platform) || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);

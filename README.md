@@ -1,4 +1,4 @@
-# BeepBox
+# DinoBox
 
 DinoBox is a modification of Beepbox, an online tool for sketching and sharing instrumental melodies.
 Try it out [here](https://www.beepbox.co)!
