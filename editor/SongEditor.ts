@@ -538,6 +538,7 @@ export class SongEditor {
 		this._optionsMenu.addEventListener("change", this._optionsMenuHandler);
 		this._tempoStepper.addEventListener("change", this._whenSetTempo);
 		this._volumeStepper.addEventListener("change", this._whenSetVolume);
+		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
 		this._scaleSelect.addEventListener("change", this._whenSetScale);
 		this._keySelect.addEventListener("change", this._whenSetKey);
 		this._rhythmSelect.addEventListener("change", this._whenSetRhythm);
@@ -1128,7 +1129,7 @@ export class SongEditor {
 		this._addEnvelopeButton.disabled = (instrument.envelopeCount >= Config.maxEnvelopeCount);
 		
 		this._volumeSlider.value = String(prefs.volume);
-		this._volumeStepper.value = String(prefs.volume);
+		this._volumeStepper.value = String(this._volumeSlider.value);
 		
 		// If an interface element was selected, but becomes invisible (e.g. an instrument
 		// select menu) just select the editor container so keyboard commands still work.
@@ -1696,9 +1697,9 @@ export class SongEditor {
 		}
 	}
 	
-	/*private _setVolumeSlider = (): void => {
+	private _setVolumeSlider = (): void => {
 		this.doc.setVolume(Number(this._volumeSlider.value));
-	}*/
+	}
 	
 	private _copyInstrument = (): void => {
 		const channel: Channel = this.doc.song.channels[this.doc.channel];
