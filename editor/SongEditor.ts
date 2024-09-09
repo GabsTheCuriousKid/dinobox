@@ -433,7 +433,7 @@ export class SongEditor {
 				span({style: "display: flex;"},
 				this._volumeSlider,
 				this._volumeStepper,
-			),
+			)),
 		),
 		this._menuArea,
 		this._songSettingsArea,
@@ -575,7 +575,7 @@ export class SongEditor {
 		this._prevBarButton.addEventListener("click", this._whenPrevBarPressed);
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
 		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
-		this._volumeStepper.addEventListener("keydown", this._setVolumeSlider);
+		this._volumeStepper.addEventListener("keydown", this._setVolumeSlider, false);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
 		
