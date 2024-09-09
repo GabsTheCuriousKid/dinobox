@@ -575,7 +575,7 @@ export class SongEditor {
 		this._prevBarButton.addEventListener("click", this._whenPrevBarPressed);
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
 		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
-		this._volumeStepper.addEventListener("keydown", this._setVolumeSlider, false);
+		this._volumeStepper.addEventListener("keydown", this._setVolumeStepper);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
 		
@@ -1697,6 +1697,10 @@ export class SongEditor {
 	
 	private _setVolumeSlider = (): void => {
 		this.doc.setVolume(Number(this._volumeSlider.value));
+	}
+
+	private _setVolumeStepper = (): void => {
+		this.doc.setVolume(Number(this._volumeStepper.value));
 	}
 	
 	private _copyInstrument = (): void => {
