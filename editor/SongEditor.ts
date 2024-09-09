@@ -1158,9 +1158,11 @@ export class SongEditor {
 			this._settingsArea.scrollTop = this._settingsArea.scrollHeight;
 			this.doc.addedEnvelope = false;
 		}
+		let vsv = this._volumeStepper.value
+		let vslv = this._volumeSlider.value
 		while (true) {
 			setTimeout(function() {
-				this._volumeStepper.value = String(this._volumeSlider.value);
+				vsv = String(vslv);
 			},25)
 		}
 	}
