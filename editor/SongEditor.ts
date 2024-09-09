@@ -575,7 +575,7 @@ export class SongEditor {
 		this._prevBarButton.addEventListener("click", this._whenPrevBarPressed);
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
 		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
-		this._volumeStepper.addEventListener("keydown", this._setVolumeSlider);
+		this._volumeStepper.addEventListener("keydown", this._tempoStepperCaptureNumberKeys, false);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
 		
@@ -1128,6 +1128,7 @@ export class SongEditor {
 		this._addEnvelopeButton.disabled = (instrument.envelopeCount >= Config.maxEnvelopeCount);
 		
 		this._volumeSlider.value = String(prefs.volume);
+		this._volumeStepper.value = String(this._volumeSlider.value);
 		
 		// If an interface element was selected, but becomes invisible (e.g. an instrument
 		// select menu) just select the editor container so keyboard commands still work.
