@@ -142,7 +142,7 @@ export class SongEditor {
 	private readonly _stopButton: HTMLButtonElement = button({class: "stopButton", style: "display: none;", type: "button", title: "Stop Recording (Space)"}, "Stop Recording");
 	private readonly _prevBarButton: HTMLButtonElement = button({class: "prevBarButton", type: "button", title: "Previous Bar (left bracket)"});
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
-	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
+	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"}, this.doc, (oldValue: number, newValue: number) => new ChangeVolume(this.doc, oldValue, newValue));
 	private readonly _volumeStepper: HTMLInputElement = input({style: "width: 3em; vertical-align: middle;", type: "number", step: "1"});
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, "File"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
@@ -537,6 +537,7 @@ export class SongEditor {
 		this._editMenu.addEventListener("change", this._editMenuHandler);
 		this._optionsMenu.addEventListener("change", this._optionsMenuHandler);
 		this._tempoStepper.addEventListener("change", this._whenSetTempo);
+		this._volumeStepper.addEventListener("change", this._whenSetVolume);
 		this._scaleSelect.addEventListener("change", this._whenSetScale);
 		this._keySelect.addEventListener("change", this._whenSetKey);
 		this._rhythmSelect.addEventListener("change", this._whenSetRhythm);
@@ -574,7 +575,6 @@ export class SongEditor {
 		});
 		this._prevBarButton.addEventListener("click", this._whenPrevBarPressed);
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
-		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
 		this._volumeStepper.addEventListener("keydown", this._tempoStepperCaptureNumberKeys, false);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
@@ -722,7 +722,7 @@ export class SongEditor {
 	}
 	
 	private _onFocusIn = (event: Event): void => {
-		if (this.doc.synth.recording && event.target != this.mainLayer && event.target != this._stopButton && event.target != this._volumeSlider) {
+		if (this.doc.synth.recording && event.target != this.mainLayer && event.target != this._stopButton && event.target != this._volumeSlider && this._volumeStepper) {
 			// Don't allow using tab to focus on the song settings while recording,
 			// since interacting with them while recording would mess up the recording.
 			this._refocusStage();
@@ -1128,7 +1128,7 @@ export class SongEditor {
 		this._addEnvelopeButton.disabled = (instrument.envelopeCount >= Config.maxEnvelopeCount);
 		
 		this._volumeSlider.value = String(prefs.volume);
-		this._volumeStepper.value = String(this._volumeSlider.value);
+		this._volumeStepper.value = String(prefs.volume);
 		
 		// If an interface element was selected, but becomes invisible (e.g. an instrument
 		// select menu) just select the editor container so keyboard commands still work.
@@ -1730,6 +1730,10 @@ export class SongEditor {
 	
 	private _whenSetTempo = (): void => {
 		this.doc.record(new ChangeTempo(this.doc, -1, parseInt(this._tempoStepper.value) | 0));
+	}
+
+	private _whenSetVolume = (): void => {
+		this.doc.record(new ChangeVolume(this.doc, -1, parseInt(this._volumeStepper.value) | 0));
 	}
 	
 	private _whenSetScale = (): void => {
