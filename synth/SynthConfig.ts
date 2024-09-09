@@ -232,8 +232,9 @@ export class Config {
 		{name: "double harmonic :(", realName: "double harmonic minor", flags: [true, false,  true,  true, false, false,  true,  true,  true, false, false,  true]},
 		{name: "strange",            realName: "whole tone",            flags: [true, false,  true, false,  true, false,  true, false,  true, false,  true, false]},
 		{name: "what",               realName: "what?",                 flags: [true, true,  false, true,  false, true,  false, true,  false, true,  false, true]},
-		{name: "bright :)",          realName: "lydian",                flags: [true, false,  true, false,  true, false,  true, true,  false, true,  false, true]},
-		{name: "bright :(",          realName: "mixolydian",            flags: [true, false,  true, false,  true, true,  true, true,  false, true,  false, true]},
+		{name: "bright :)",          realName: "c lydian",              flags: [true, false,  true, false,  true, false,  true, true,  false, true,  false, true]},
+		{name: "bright :(",          realName: "g mixolydian",          flags: [true, false,  true, false,  true, true,  true, true,  false, true,  false, true]},
+		{name: "limited :(",         realName: "tritone",               flags: [true, false,  false, false,  false, false,  true, false,  false, false,  false, false]},
 		{name: "expert",             realName: "chromatic",             flags: [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true]},
 	]);
 	public static readonly keys: DictionaryArray<Key> = toNameMap([
@@ -377,7 +378,7 @@ export class Config {
 		{name: "arpeggio",        customInterval: false, arpeggiates:  true, strumParts: 0, singleTone:  true},
 		{name: "custom interval", customInterval:  true, arpeggiates: false, strumParts: 0, singleTone:  true},
 	]);
-	public static readonly maxChordSize: number = 4;
+	public static readonly maxChordSize: number = 37;
 	public static readonly operatorCount: number = 4;
 	public static readonly maxPitchOrOperatorCount: number = Math.max(Config.maxChordSize, Config.operatorCount);
 	public static readonly algorithms: DictionaryArray<Algorithm> = toNameMap([
