@@ -1696,9 +1696,9 @@ export class SongEditor {
 		}
 	}
 	
-	private _setVolumeSlider = (): void => {
+	/*private _setVolumeSlider = (): void => {
 		this.doc.setVolume(Number(this._volumeSlider.value));
-	}
+	}*/
 	
 	private _copyInstrument = (): void => {
 		const channel: Channel = this.doc.song.channels[this.doc.channel];
