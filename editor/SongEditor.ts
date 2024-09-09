@@ -143,7 +143,6 @@ export class SongEditor {
 	private readonly _prevBarButton: HTMLButtonElement = button({class: "prevBarButton", type: "button", title: "Previous Bar (left bracket)"});
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
 	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
-	private readonly _volumeStepper: HTMLInputElement = input({style: "width: 3em; vertical-align: middle;", type: "number", step: "1"});
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, "File"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "new"}, "+ New Blank Song"),
@@ -432,7 +431,6 @@ export class SongEditor {
 				span({class: "volume-speaker"}),
 				span({style: "display: flex;"},
 				this._volumeSlider,
-				this._volumeStepper,
 			)),
 		),
 		this._menuArea,
@@ -537,7 +535,6 @@ export class SongEditor {
 		this._editMenu.addEventListener("change", this._editMenuHandler);
 		this._optionsMenu.addEventListener("change", this._optionsMenuHandler);
 		this._tempoStepper.addEventListener("change", this._whenSetTempo);
-		this._volumeStepper.addEventListener("change", this._whenSetVolume);
 		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
 		this._scaleSelect.addEventListener("change", this._whenSetScale);
 		this._keySelect.addEventListener("change", this._whenSetKey);
@@ -576,7 +573,6 @@ export class SongEditor {
 		});
 		this._prevBarButton.addEventListener("click", this._whenPrevBarPressed);
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
-		this._volumeStepper.addEventListener("keydown", this._tempoStepperCaptureNumberKeys, false);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
 		
@@ -1158,13 +1154,6 @@ export class SongEditor {
 			this._settingsArea.scrollTop = this._settingsArea.scrollHeight;
 			this.doc.addedEnvelope = false;
 		}
-		let vsv = this._volumeStepper.value
-		let vslv = this._volumeSlider.value
-		while (true) {
-			setTimeout(function() {
-				vsv = String(vslv);
-			},25)
-		}
 	}
 	
 	public updatePlayButton = (): void => {
@@ -1738,10 +1727,6 @@ export class SongEditor {
 	
 	private _whenSetTempo = (): void => {
 		this.doc.record(new ChangeTempo(this.doc, -1, parseInt(this._tempoStepper.value) | 0));
-	}
-
-	private _whenSetVolume = (): void => {
-		this.doc.record(new ChangeVolume(this.doc, -1, parseInt(this._volumeStepper.value) | 0));
 	}
 	
 	private _whenSetScale = (): void => {
