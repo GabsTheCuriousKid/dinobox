@@ -48,6 +48,7 @@ export class ExportPrompt implements Prompt {
 		option({value: "wav"}, ".wav"),
 		option({value: "mp3"}, ".mp3"),
 		option({value: "midi"}, ".mid"),
+		option({value: "aiff"}, ".aiff"),
 		// option({value: "raw"},  ".raw (i don't know)"),
 		option({value: "json"}, ".json (for any DinoBox version)"),
 		option({value: "html"}, ".html (opens DinoBox)"),
@@ -171,6 +172,9 @@ export class ExportPrompt implements Prompt {
 				break;
 			case "midi":
 				this._exportToMidi();
+				break;
+			case "aiff":
+				this._exportToAiff();
 				break;
 			case "raw":
 				this._exportToRaw();
