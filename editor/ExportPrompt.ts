@@ -40,7 +40,7 @@ function save(blob: Blob, name: string): void {
 }
 
 export class ExportPrompt implements Prompt {
-	private readonly _fileName: HTMLInputElement = input({type: "text", style: "width: 10em;", value: "BeepBox-Song", maxlength: 250, "autofocus": "autofocus"});
+	private readonly _fileName: HTMLInputElement = input({type: "text", style: "width: 10em;", value: "DinoBox-Song", maxlength: 250, "autofocus": "autofocus"});
 	private readonly _enableIntro: HTMLInputElement = input({type: "checkbox"});
 	private readonly _loopDropDown: HTMLInputElement = input({style:"width: 2em;", type: "number", min: "1", max: "4", step: "1"});
 	private readonly _enableOutro: HTMLInputElement = input({type: "checkbox"});
@@ -48,8 +48,9 @@ export class ExportPrompt implements Prompt {
 		option({value: "wav"}, ".wav"),
 		option({value: "mp3"}, ".mp3"),
 		option({value: "midi"}, ".mid"),
-		option({value: "json"}, ".json (for any BeepBox version)"),
-		option({value: "html"}, ".html (opens BeepBox)"),
+		option({value: "raw"},  ".raw (i don't know)"),
+		option({value: "json"}, ".json (for any DinoBox version)"),
+		option({value: "html"}, ".html (opens DinoBox)"),
 	);
 	private readonly _cancelButton: HTMLButtonElement = button({class: "cancelButton"});
 	private readonly _exportButton: HTMLButtonElement = button({class: "exportButton", style: "width:45%;"}, "Export");
@@ -170,6 +171,9 @@ export class ExportPrompt implements Prompt {
 				break;
 			case "midi":
 				this._exportToMidi();
+				break;
+			case "raw":
+				this._exportToRaw();
 				break;
 			case "json":
 				this._exportToJson();
@@ -735,6 +739,22 @@ export class ExportPrompt implements Prompt {
 		const blob: Blob = new Blob([writer.toCompactArrayBuffer()], {type: "audio/midi"});
 		save(blob, this._fileName.value.trim() + ".mid");
 		
+		this._close();
+	}
+
+	private _exportToRaw(): void {
+		const { recordedSamplesL, recordedSamplesR } = this._synthesize(48000);
+		
+		// Combine left and right channel data into a single array
+		const rawData = new Float32Array(recordedSamplesL.length * 2);
+		for (let i = 0; i < recordedSamplesL.length; i++) {
+			rawData[i * 2] = recordedSamplesL[i]; // Left channel
+			rawData[i * 2 + 1] = recordedSamplesR[i]; // Right channel
+		}
+	
+		// Create a Blob from the Float32Array
+		const blob = new Blob([rawData.buffer], { type: "audio/raw" });
+		save(blob, this._fileName.value.trim() + ".raw");
 		this._close();
 	}
 	
