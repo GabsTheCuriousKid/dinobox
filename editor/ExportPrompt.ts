@@ -48,7 +48,7 @@ export class ExportPrompt implements Prompt {
 		option({value: "wav"}, ".wav"),
 		option({value: "mp3"}, ".mp3"),
 		option({value: "midi"}, ".mid"),
-		option({value: "raw"},  ".raw (i don't know)"),
+		// option({value: "raw"},  ".raw (i don't know)"),
 		option({value: "json"}, ".json (for any DinoBox version)"),
 		option({value: "html"}, ".html (opens DinoBox)"),
 	);
@@ -755,6 +755,45 @@ export class ExportPrompt implements Prompt {
 		// Create a Blob from the Float32Array
 		const blob = new Blob([rawData.buffer], { type: "audio/raw" });
 		save(blob, this._fileName.value.trim() + ".raw");
+		this._close();
+	}
+
+	private _exportToAiff(): void {
+		const sampleRate: number = 48000;
+		const { recordedSamplesL, recordedSamplesR } = this._synthesize(sampleRate);
+		const sampleFrames: number = recordedSamplesL.length;
+	
+		const aiffHeaderSize = 38;
+		const totalFileSize = aiffHeaderSize + sampleFrames * 4;
+		const arrayBuffer = new ArrayBuffer(totalFileSize);
+		const data = new DataView(arrayBuffer);
+		let index = 0;
+	
+		data.setUint32(index, 0x46464952, false); index += 4;
+		data.setUint32(index, totalFileSize - 8, true); index += 4;
+		data.setUint32(index, 0x41494343, false); index += 4;
+	
+		data.setUint32(index, 0x434F4D4D, false); index += 4;
+		data.setUint32(index, 18, true); index += 4;
+		data.setUint16(index, 2, true); index += 2;
+		data.setUint32(index, sampleFrames, true); index += 4;
+		data.setUint16(index, 16, true); index += 2;
+		data.setUint32(index, sampleRate, true); index += 4;
+	
+		data.setUint32(index, 0x53564E44, false); index += 4;
+		data.setUint32(index, totalFileSize - aiffHeaderSize - 8, true); index += 4;
+		data.setUint32(index, 0, true); index += 4;
+		data.setUint32(index, 0, true); index += 4;
+	
+		for (let i = 0; i < sampleFrames; i++) {
+			const valL = Math.floor(Math.max(-1, Math.min(1, recordedSamplesL[i])) * 32767);
+			const valR = Math.floor(Math.max(-1, Math.min(1, recordedSamplesR[i])) * 32767);
+			data.setInt16(index, valL, false); index += 2;
+			data.setInt16(index, valR, false); index += 2;
+		}
+	
+		const blob = new Blob([arrayBuffer], { type: "audio/aiff" });
+		save(blob, this._fileName.value.trim() + ".aiff");
 		this._close();
 	}
 	
