@@ -250,10 +250,11 @@ export class Config {
 		{name: "A",  isWhiteKey:  true, basePitch: 21},
 		{name: "A♯", isWhiteKey: false, basePitch: 22},
 		{name: "B",  isWhiteKey:  true, basePitch: 23},
+		{name: "Test",  isWhiteKey:  false, basePitch: 24},
 	]);
 	public static readonly blackKeyNameParents: ReadonlyArray<number> = [-1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1];
-	public static readonly tempoMin: number = 30;
-	public static readonly tempoMax: number = 300;
+	public static readonly tempoMin: number = 10;
+	public static readonly tempoMax: number = 400;
 	public static readonly echoDelayRange: number = 24;
 	public static readonly echoDelayStepTicks: number = 4;
 	public static readonly echoSustainRange: number = 8;
@@ -378,7 +379,7 @@ export class Config {
 		{name: "arpeggio",        customInterval: false, arpeggiates:  true, strumParts: 0, singleTone:  true},
 		{name: "custom interval", customInterval:  true, arpeggiates: false, strumParts: 0, singleTone:  true},
 	]);
-	public static readonly maxChordSize: number = 37;
+	public static readonly maxChordSize: number = 111;
 	public static readonly operatorCount: number = 4;
 	public static readonly maxPitchOrOperatorCount: number = Math.max(Config.maxChordSize, Config.operatorCount);
 	public static readonly algorithms: DictionaryArray<Algorithm> = toNameMap([
