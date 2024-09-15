@@ -142,6 +142,8 @@ export class SongEditor {
 	private readonly _stopButton: HTMLButtonElement = button({class: "stopButton", style: "display: none;", type: "button", title: "Stop Recording (Space)"}, "Stop Recording");
 	private readonly _prevBarButton: HTMLButtonElement = button({class: "prevBarButton", type: "button", title: "Previous Bar (left bracket)"});
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
+	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span("undo"));
+	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span("redo"));
 	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, "File"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
@@ -431,6 +433,10 @@ export class SongEditor {
 				span({class: "volume-speaker"}),
 				this._volumeSlider,
 			),
+			div({class: "other-controls"},
+				this._undoButton,
+				this._redoButton,
+			),
 		),
 		this._menuArea,
 		this._songSettingsArea,
@@ -574,6 +580,9 @@ export class SongEditor {
 		this._nextBarButton.addEventListener("click", this._whenNextBarPressed);
 		this._zoomInButton.addEventListener("click", this._zoomIn);
 		this._zoomOutButton.addEventListener("click", this._zoomOut);
+
+		this._undoButton.addEventListener("click", this._undo);
+		this._redoButton.addEventListener("click", this._redo);
 		
 		this._patternArea.addEventListener("mousedown", this._refocusStage);
 		this._trackArea.addEventListener("mousedown", this._refocusStage);
@@ -1875,6 +1884,14 @@ export class SongEditor {
 		this.doc.prefs.save();
 		this.doc.notifier.changed();
 		this._refocusStage();
+	}
+
+	private _undo = (): void => { 
+		this.doc.undo();
+	}
+
+	private _redo = (): void => { 
+		this.doc.redo();
 	}
 	
 	private _fileMenuHandler = (event:Event): void => {

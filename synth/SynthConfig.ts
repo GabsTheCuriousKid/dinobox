@@ -250,7 +250,7 @@ export class Config {
 		{name: "A",  isWhiteKey:  true, basePitch: 21},
 		{name: "A♯", isWhiteKey: false, basePitch: 22},
 		{name: "B",  isWhiteKey:  true, basePitch: 23},
-		{name: "Test",  isWhiteKey:  false, basePitch: 24},
+		{name: "Test",isWhiteKey:  false, basePitch: 23.5},
 	]);
 	public static readonly blackKeyNameParents: ReadonlyArray<number> = [-1, 1, -1, 1, -1, 1, -1, -1, 1, -1, 1, -1];
 	public static readonly tempoMin: number = 10;
@@ -275,12 +275,17 @@ export class Config {
 	public static readonly partsPerBeat: number = 24;
 	public static readonly ticksPerPart: number = 2;
 	public static readonly rhythms: DictionaryArray<Rhythm> = toNameMap([
+		{name: "÷1",            stepsPerBeat: 1, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: null},
+		{name: "÷2",            stepsPerBeat: 2, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷3 (triplets)", stepsPerBeat: 3, ticksPerArpeggio: 4, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: [/*0*/ 5, /*8*/ 12, /*16*/ 18 /*24*/]},
 		{name: "÷4 (standard)", stepsPerBeat: 4, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: [/*0*/ 3, /*6*/ 9, /*12*/ 17, /*18*/ 21 /*24*/]},
 		//{name: "÷5 (buggy)",    stepsPerBeat: 5, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷6",            stepsPerBeat: 6, ticksPerArpeggio: 4, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷8",            stepsPerBeat: 8, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
+		{name: "÷12",           stepsPerBeat:12, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
+		{name: "÷16",           stepsPerBeat:16, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "freehand",      stepsPerBeat:24, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
+		{name: "absolute freedom",stepsPerBeat:48, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 	]);
 	
 	public static readonly instrumentTypeNames: ReadonlyArray<string> = ["chip", "FM", "noise", "spectrum", "drumset", "harmonics", "PWM", "Picked String", "supersaw"]; // See InstrumentType enum above.
@@ -415,6 +420,7 @@ export class Config {
 		{name: "13×", mult: 13.0, hzOffset: 0.0, amplitudeSign: 1.0},
 		{name: "16×", mult: 16.0, hzOffset: 0.0, amplitudeSign: 1.0},
 		{name: "20×", mult: 20.0, hzOffset: 0.0, amplitudeSign: 1.0},
+		{name: "30×", mult: 30.0, hzOffset: 0.0, amplitudeSign: 1.0},
 	]);
 	public static readonly envelopes: DictionaryArray<Envelope> = toNameMap([
 		{name: "none",     type: EnvelopeType.none,     speed:  0.0},
@@ -448,6 +454,8 @@ export class Config {
 		{name: "3⟲ 4⟲",       indices: [ [],  [], [3], [4]]},
 		{name: "1⟲ 2⟲ 3⟲",    indices: [[1], [2], [3],  []]},
 		{name: "2⟲ 3⟲ 4⟲",    indices: [ [], [2], [3], [4]]},
+		{name: "1⟲ 3⟲ 4⟲",  indices: [[1], [], [3], [4]]},
+		{name: "1⟲ 2⟲ 4⟲",  indices: [[1], [2], [], [4]]},
 		{name: "1⟲ 2⟲ 3⟲ 4⟲", indices: [[1], [2], [3], [4]]},
 		{name: "1→2",         indices: [ [], [1],  [],  []]},
 		{name: "1→3",         indices: [ [],  [], [1],  []]},
