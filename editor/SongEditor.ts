@@ -4,6 +4,7 @@ import {InstrumentType, EffectType, Config, getPulseWidthRatio, effectsIncludeTr
 import {Preset, PresetCategory, EditorConfig, isMobile, prettyNumber} from "./EditorConfig.js";
 import {ColorConfig, ChannelColors} from "./ColorConfig.js";
 import "./Layout.js"; // Imported here for the sake of ensuring this code is transpiled early.
+import {ThemePrompt} from "./ThemePrompt";
 import {Instrument, Channel, Synth} from "../synth/synth.js";
 import {HTML} from "imperative-html/dist/esm/elements-strict.js";
 import {Preferences} from "./Preferences.js";
@@ -194,7 +195,7 @@ export class SongEditor {
 		option({value: "enableChannelMuting"}, "Enable Channel Muting"),
 		option({value: "displayBrowserUrl"}, "Display Song Data in URL"),
 		option({value: "layout"}, "Choose Layout..."),
-		option({value: "colorTheme"}, "Light Theme"),
+		option({value: "colorTheme"}, "Choose Theme..."),
 		option({value: "recordingSetup"}, "Set Up Note Recording..."),
 	);
 	private readonly _scaleSelect: HTMLSelectElement = buildOptions(select(), Config.scales.map(scale=>scale.name));
@@ -706,6 +707,9 @@ export class SongEditor {
 				case "stringSustain":
 					this.prompt = new SustainPrompt(this.doc);
 					break;
+				case "colorTheme":
+					this.prompt = new ThemePrompt(this.doc);
+					break;
 				default:
 					this.prompt = new TipPrompt(this.doc, promptName);
 					break;
@@ -798,7 +802,7 @@ export class SongEditor {
 			(prefs.enableChannelMuting ? "✓ " : "　") + "Enable Channel Muting",
 			(prefs.displayBrowserUrl ? "✓ " : "　") + "Display Song Data in URL",
 			"　Choose Layout...",
-			(prefs.colorTheme == "light classic" ? "✓ " : "　") + "Light Theme",
+			"　Choose Theme...",
 			"　Set Up Note Recording...",
 		];
 		for (let i: number = 0; i < optionCommands.length; i++) {
@@ -2035,8 +2039,7 @@ export class SongEditor {
 				this._openPrompt("layout");
 				break;
 			case "colorTheme":
-				this.doc.prefs.colorTheme = this.doc.prefs.colorTheme == "light classic" ? "dark classic" : "light classic";
-				ColorConfig.setTheme(this.doc.prefs.colorTheme);
+				this._openPrompt("colorTheme");
 				break;
 			case "recordingSetup":
 				this._openPrompt("recordingSetup");
