@@ -14,9 +14,9 @@ export class LanguagePrompt implements Prompt {
 	);
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, "Okay");
-
+	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : null
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
-		h2("Set Language"),
+		h2(this.SetLanguage),
 		
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._languageSelect),
