@@ -11,6 +11,7 @@ import {Preferences} from "./Preferences.js";
 import {SongDocument} from "./SongDocument.js";
 import {Prompt} from "./Prompt.js";
 import {TipPrompt} from "./TipPrompt.js";
+import {LanguagePrompt} from "./LanguagePrompt.js";
 import {PatternEditor} from "./PatternEditor.js";
 import {EnvelopeEditor} from "./EnvelopeEditor.js";
 import {FadeInOutEditor} from "./FadeInOutEditor.js";
@@ -195,6 +196,7 @@ export class SongEditor {
 		option({value: "enableChannelMuting"}, "Enable Channel Muting"),
 		option({value: "displayBrowserUrl"}, "Display Song Data in URL"),
 		option({value: "layout"}, "Choose Layout..."),
+		option({value: "language"}, "Choose Language..."),
 		option({value: "colorTheme"}, "Choose Theme..."),
 		option({value: "recordingSetup"}, "Set Up Note Recording..."),
 	);
@@ -710,6 +712,9 @@ export class SongEditor {
 				case "colorTheme":
 					this.prompt = new ThemePrompt(this.doc);
 					break;
+				case "language":
+					this.prompt = new LanguagePrompt(this.doc);
+					break;
 				default:
 					this.prompt = new TipPrompt(this.doc, promptName);
 					break;
@@ -802,6 +807,7 @@ export class SongEditor {
 			(prefs.enableChannelMuting ? "✓ " : "　") + "Enable Channel Muting",
 			(prefs.displayBrowserUrl ? "✓ " : "　") + "Display Song Data in URL",
 			"　Choose Layout...",
+			"　Choose Language...",
 			"　Choose Theme...",
 			"　Set Up Note Recording...",
 		];
@@ -2037,6 +2043,9 @@ export class SongEditor {
 				break;
 			case "layout":
 				this._openPrompt("layout");
+				break;
+			case "language":
+				this._openPrompt("language");
 				break;
 			case "colorTheme":
 				this._openPrompt("colorTheme");
