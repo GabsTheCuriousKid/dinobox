@@ -284,29 +284,38 @@
 		}
 
 		function localStorageLanguage() {
-			let language = window.localStorage.getItem("language")
-			localStorage.setItem("language_SAVEDATA", language)
-		}
-		function checkIfLanguageChanged() {
-			let language = window.localStorage.getItem("language")
-			let language_SAVEDATA = window.localStorage.getItem("language_SAVEDATA")
-			if (language_SAVEDATA != language) {
-				return true;
-			} else {
-				return false;
-			}
+    		const language = window.localStorage.getItem("language");
+    		if (!window.localStorage.getItem("language_SAVEDATA")) {
+        		localStorage.setItem("language_SAVEDATA", language);
+    		}
 		}
 
-		localStorageLanguage()
-		while (checkIfLanguageChanged() ) {
-			if (window.localStorage.getItem("language") == "english" ) {
-				document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
-				localStorageLanguage()
-			} else if (window.localStorage.getItem("language") == "german" ) {
-				document.getElementById("introduction").innerHTML = "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, einen online Tool für Skizzieren und Teilen von Instrumentalmusik";
-				localStorageLanguage()
-			}
+		function checkIfLanguageChanged() {
+    		const language = window.localStorage.getItem("language");
+    		const savedLanguage = window.localStorage.getItem("language_SAVEDATA");
+    		return language !== savedLanguage;
 		}
+
+		function updateLanguageContent() {
+    		const language = window.localStorage.getItem("language");
+    		if (language === "english") {
+        		document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
+    		} else if (language === "german") {
+        		document.getElementById("introduction").innerHTML = "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
+    		}
+
+    		window.localStorage.setItem("language_SAVEDATA", language);
+		}
+
+		localStorageLanguage();
+
+		if (checkIfLanguageChanged()) {
+		    updateLanguageContent();
+		}
+
+		document.addEventListener("languageChange", function() {
+    		updateLanguageContent();
+		});
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
