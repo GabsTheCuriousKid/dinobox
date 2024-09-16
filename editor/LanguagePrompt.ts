@@ -39,6 +39,7 @@ export class LanguagePrompt implements Prompt {
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
+		this._languageSelect.addEventListener("change", this._previewLanguage);
 	}
 
 	private _close = (): void => {
@@ -66,6 +67,10 @@ export class LanguagePrompt implements Prompt {
 		window.localStorage.setItem("language", this._languageSelect.value);
 		this._doc.prompt = null;
 		this._doc.undo();
+	}
+
+	private _previewLanguage = (): void => {
+		this._doc.notifier.changed();
 	}
 }
 //}
