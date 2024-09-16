@@ -17,9 +17,12 @@ export class LanguagePrompt implements Prompt {
 
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2("Set Language"),
-		p("this doesn't work right now."),
+		
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._languageSelect),
+		),
+		p({style: "text-align: left; margin: 0.5em 0;"},
+			"this doesn't work right now."
 		),
 		div({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" },
 			this._okayButton,
@@ -50,6 +53,7 @@ export class LanguagePrompt implements Prompt {
 	}
 
 	private _saveChanges = (): void => {
+		window.localStorage.setItem("language", this._languageSelect.value);
 		this._doc.prompt = null;
 		this._doc.undo();
 	}

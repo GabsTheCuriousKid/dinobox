@@ -282,6 +282,10 @@
 			document.getElementById("bar-editing").innerHTML = "Tap the boxes to move to a different part of the song, or tap on the currently selected box to swap which pattern is played during that part of the song.";
 			document.getElementById("offline-instructions").innerHTML = 'You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>';
 		}
+
+		if (window.localStorage.getItem("language") == "german" ) {
+			document.getElementById("introduction").innerHTML = "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, einen online Tool für Skizzieren und Teilen von Instrumentalmusik";
+		}
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
