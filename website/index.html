@@ -285,30 +285,36 @@
 
 		function localStorageLanguage() {
     		const language = window.localStorage.getItem("language");
-    		if (!window.localStorage.getItem("language_SAVEDATA")) {
-        		localStorage.setItem("language_SAVEDATA", language);
-    		}
+    		window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
 		function updateLanguageContent() {
     		const language = window.localStorage.getItem("language");
-
     		if (language === "english") {
-        		document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
+        		document.getElementById("introduction").innerHTML = 
+        		    "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
     		} else if (language === "german") {
-        		document.getElementById("introduction").innerHTML = "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
+        		document.getElementById("introduction").innerHTML = 
+        		    "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
     		}
-    		window.localStorage.setItem("language_SAVEDATA", language);
+    			window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
 		localStorageLanguage();
 		updateLanguageContent();
 
 		window.addEventListener('storage', function(event) {
-    		if (event.key === "language" && event.newValue !== localStorage.getItem("language_SAVEDATA")) {
+		    if (event.key === "language" && event.newValue !== localStorage.getItem("language_SAVEDATA")) {
 		        updateLanguageContent();
 		    }
 		});
+
+		setInterval(() => {
+	    	const language = window.localStorage.getItem("language");
+		    if (language !== window.localStorage.getItem("language_SAVEDATA")) {
+		        updateLanguageContent();
+		    }
+		}, 100);
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
