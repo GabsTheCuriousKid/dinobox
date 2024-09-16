@@ -20,11 +20,14 @@ export class ThemePrompt implements Prompt {
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
 	);
+	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : null
+	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : null
+
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
-	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, "Okay");
+	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
-		h2("Set Theme"),
+		h2(this.SetTheme),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),

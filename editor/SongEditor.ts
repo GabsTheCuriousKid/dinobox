@@ -311,6 +311,10 @@ export class SongEditor {
 		this.customizeInst_language,
 	);
 	private readonly _addEnvelopeButton: HTMLButtonElement = button({type: "button", class: "add-envelope"});
+
+	private readonly Effects_language: string | null = window.localStorage.getItem("language") === "german" ? "Effekte" : window.localStorage.getItem("language") === "english" ? "Effects" : null
+	private readonly Envelopes_language: string | null = window.localStorage.getItem("language") === "german" ? "Umschläge" : window.localStorage.getItem("language") === "english" ? "Envelopes" : null
+
 	private readonly _customInstrumentSettingsGroup: HTMLDivElement = div({class: "editor-controls"},
 		this._eqFilterRow,
 		this._fadeInOutRow,
@@ -330,7 +334,7 @@ export class SongEditor {
 		this._stringSustainRow,
 		this._unisonSelectRow,
 		div({style: `margin: 2px 0; margin-left: 2em; display: flex; align-items: center;`},
-			span({style: `flex-grow: 1; text-align: center;`}, span({class: "tip", onclick: ()=>this._openPrompt("effects")}, "Effects")),
+			span({style: `flex-grow: 1; text-align: center;`}, span({class: "tip", onclick: ()=>this._openPrompt("effects")}, this.Effects_language)),
 			div({class: "effects-menu"}, this._effectsSelect),
 		),
 		this._transitionRow,
@@ -348,7 +352,7 @@ export class SongEditor {
 		this._echoDelayRow,
 		this._reverbRow,
 		div({style: `margin: 2px 0; margin-left: 2em; display: flex; align-items: center;`},
-			span({style: `flex-grow: 1; text-align: center;`}, span({class: "tip", onclick: ()=>this._openPrompt("envelopes")}, "Envelopes")),
+			span({style: `flex-grow: 1; text-align: center;`}, span({class: "tip", onclick: ()=>this._openPrompt("envelopes")}, this.Envelopes_language)),
 			this._addEnvelopeButton,
 		),
 		this._envelopeEditor.container,
@@ -414,6 +418,7 @@ export class SongEditor {
 
 	private readonly SongSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Song Einstellungen" : window.localStorage.getItem("language") === "english" ? "Song Settings" : null
 	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : null
+	private readonly Key_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel:" : window.localStorage.getItem("language") === "english" ? "Key:" : null
 	private readonly Rhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Rhythmus:" : window.localStorage.getItem("language") === "english" ? "Rhythm:" : null
 	private readonly _songSettingsArea: HTMLDivElement = div({class: "song-settings-area"},
 		div({class: "editor-controls"},
@@ -425,7 +430,7 @@ export class SongEditor {
 				div({class: "selectContainer"}, this._scaleSelect),
 			),
 			div({class: "selectRow"},
-				span({class: "tip", onclick: ()=>this._openPrompt("key")}, "Key:"),
+				span({class: "tip", onclick: ()=>this._openPrompt("key")}, this.Key_language),
 				div({class: "selectContainer"}, this._keySelect),
 			),
 			div({class: "selectRow"},
@@ -497,7 +502,11 @@ export class SongEditor {
 	private readonly _operatorFrequencySelects: HTMLSelectElement[] = []
 	private readonly _drumsetSpectrumEditors: SpectrumEditor[] = [];
 	private readonly _drumsetEnvelopeSelects: HTMLSelectElement[] = [];
-	
+
+	private readonly ForceScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten an der Skala ausrichten" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Scale" : null
+	private readonly DetectKey_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel erkennen" : window.localStorage.getItem("language") === "english" ? "Detect Key" : null
+	private readonly ForceRhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten zum Rhythmus anpassen" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Rhythm" : null
+
 	constructor(beepboxEditorContainer: HTMLElement) {
 		this.doc.notifier.watch(this.whenUpdated);
 		new MidiInputHandler(this.doc);
@@ -508,14 +517,14 @@ export class SongEditor {
 			this._fileMenu.removeChild(this._fileMenu.querySelector("[value='shareUrl']")!);
 		}
 		
-		this._scaleSelect.appendChild(optgroup({label: "Edit"},
-			option({value: "forceScale"}, "Snap Notes To Scale"),
+		this._scaleSelect.appendChild(optgroup({label: this.Edit_language},
+			option({value: "forceScale"}, this.ForceScale_language),
 		));
-		this._keySelect.appendChild(optgroup({label: "Edit"},
-			option({value: "detectKey"}, "Detect Key"),
+		this._keySelect.appendChild(optgroup({label: this.Edit_language},
+			option({value: "detectKey"}, this.DetectKey_language),
 		));
-		this._rhythmSelect.appendChild(optgroup({label: "Edit"},
-			option({value: "forceRhythm"}, "Snap Notes To Rhythm"),
+		this._rhythmSelect.appendChild(optgroup({label: this.Edit_language},
+			option({value: "forceRhythm"}, this.ForceRhythm_language),
 		));
 		
 		this._phaseModGroup.appendChild(div({class: "selectRow", style: `color: ${ColorConfig.secondaryText}; height: 1em; margin-top: 0.5em;`},
