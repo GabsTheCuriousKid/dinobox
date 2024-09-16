@@ -221,7 +221,7 @@
 					<h2>
 						About
 					</h2>
-					<p>
+					<p id="developed">
 						DinoBox is developed by <a href="https://scratch.mit.edu/users/MrIncredibleMakerZe" target="_blank">MrIncredibleMaker</a>.
 					</p>
 					<p>
@@ -295,11 +295,15 @@
         		    "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
 				document.getElementById("songdata").innerHTML = 
         		    "All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!";
+				document.getElementById("developed").innerHTML = 
+        		    "DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
     		} else if (language === "german") {
         		document.getElementById("introduction").innerHTML = 
         		    "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
 				document.getElementById("songdata").innerHTML = 
-        		    "Alle deine musik daten ist in der URL oben in Ihrem Browser enthalten\nWenn Sie Änderungen am Song vornehmen, der URL ändert sich um deine Änderungen zu reflectieren.\nWenn du zufrieden mit deinen musik bist, einfach nur der URL kopieren und einfügen um Ihr Lied zu speichern und zu teilen!";
+        		    "Alle deine musik daten ist in der URL oben in Ihrem Browser enthalten.\nWenn Sie Änderungen am Song vornehmen, der URL ändert sich um deine Änderungen zu reflektieren.\nWenn du zufrieden mit deinen musik bist, einfach nur der URL kopieren und einfügen um Ihr Lied zu speichern und zu teilen!";
+				document.getElementById("developed").innerHTML = 
+        		    "DinoBox wurde erstellt von <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
     		}
     			window.localStorage.setItem("language_SAVEDATA", language);
 		}
