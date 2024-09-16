@@ -12,11 +12,13 @@ export class LanguagePrompt implements Prompt {
 		option({ value: "english" }, "English"),
 		option({ value: "german" }, "Deutsch"),
 	);
-	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
-	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, "Okay");
-
+	
 	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : null
-	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "in Entwicklung" : window.localStorage.getItem("language") === "english" ? "in Development" : null
+	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "in Entwicklung. Aktualisiere die Seite um die Sprache zu ändern." : window.localStorage.getItem("language") === "english" ? "in Development. Refresh the page to change the language." : null
+	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : null
+
+	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
+	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2(this.SetLanguage),

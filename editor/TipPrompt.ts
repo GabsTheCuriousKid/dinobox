@@ -10,6 +10,9 @@ export class TipPrompt implements Prompt {
 	private readonly _closeButton: HTMLButtonElement = button({class: "cancelButton"});
 	
 	public readonly container: HTMLDivElement;
+
+	private readonly Scale_Language: string | null = window.localStorage.getItem("language") === "german" ? "Skala" : window.localStorage.getItem("language") === "english" ? "Scale" : null
+	private readonly TempoDescription_Language: string | null = window.localStorage.getItem("language") === "german" ? "Dieses Einstellung kontrolliert die schnellichkeit von deinen Lied, gemessen in Beate-pro-Minute.  Ein „Beat“ ist die Dauer der kleinen grauen Rechtecke im Editor. (In der herkömmlichen Musiknotation entspricht eine „Viertelnote“ normalerweise einem „Beat“.)" : window.localStorage.getItem("language") === "english" ? "This setting controls the speed of your song, measured in beats-per-minute. A \"beat\" is the duration of the little gray rectangles in the pattern editor. (In conventional music notation, a \"quarter note\" is usually equivalent to \"beat\".)" : null
 	
 	constructor(private _doc: SongDocument, type: string) {
 		let message: HTMLDivElement;
@@ -17,7 +20,7 @@ export class TipPrompt implements Prompt {
 		switch (type) {
 			case "scale": {
 				message = div(
-					h2("Scale"),
+					h2(this.Scale_Language),
 					p("This setting limits the available pitches for adding notes. You may think that there's no point in limiting your choices, but the set of pitches you use has a strong influence on the mood and feel of your song, and these scales serve as guides to help you choose appropriate pitches. Don't worry, you can change the scale at any time, so you're not locked into it. Try making little melodies using all the available pitches of a scale to get a sense for how it sounds."),
 					p("Most of the scales have a major version, marked with a smiley face, and a minor version, marked with a sad face. Assuming your song uses all pitches in the scale and especially \"tonic\" pitches (the brown rows in the pattern editor) then major scales tend to sound more playful or optimistic, whereas minor scales sound more serious or sad."),
 				);
@@ -32,7 +35,7 @@ export class TipPrompt implements Prompt {
 			case "tempo": {
 				message = div(
 					h2("Song Tempo"),
-					p("This setting controls the speed of your song, measured in beats-per-minute. A \"beat\" is the duration of the little gray rectangles in the pattern editor. (In conventional music notation, a \"quarter note\" is usually equivalent to \"beat\".)"),
+					p(this.TempoDescription_Language),
 				);
 			} break;
 			case "reverb": {

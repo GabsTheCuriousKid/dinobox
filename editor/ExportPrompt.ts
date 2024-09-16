@@ -64,9 +64,12 @@ export class ExportPrompt implements Prompt {
 		0x51, // double pulse -> sawtooth wave
 		0x51, // spiky -> sawtooth wave
 	];
+
+	private readonly ExportOptions: string | null = window.localStorage.getItem("language") === "german" ? "Exportoptionen" : window.localStorage.getItem("language") === "english" ? "Export Options" : null
+	private readonly FileType_Language: string | null = window.localStorage.getItem("language") === "german" ? "Datei Typ:" : window.localStorage.getItem("language") === "english" ? "File Type:" : null
 	
 	public readonly container: HTMLDivElement = div({class: "prompt noSelection", style: "width: 200px;"},
-		h2("Export Options"),
+		h2(this.ExportOptions),
 		div({style: "display: flex; flex-direction: row; align-items: center; justify-content: space-between;"},
 			"File name:",
 			this._fileName,
@@ -83,7 +86,7 @@ export class ExportPrompt implements Prompt {
 				div({style: "display: table-cell; vertical-align: middle;"}, this._enableOutro),
 			),
 		),
-		div({style: "text-align: left;"}, "File Type:"),
+		div({style: "text-align: left;"}, this.FileType_Language),
 		div({class: "selectContainer", style: "width: 100%;"}, this._formatSelect),
 		div({style: "text-align: left;"}, "(Be patient, exporting may take some time...)"),
 		div({style: "display: flex; flex-direction: row-reverse; justify-content: space-between;"},
