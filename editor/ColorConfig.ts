@@ -291,8 +291,8 @@ export class ColorConfig {
 		"light competition": `
 			:root {
 				-webkit-text-stroke-width: 0.5px;
-				--page-margin: #685d88;
-				--editor-background: #966778;
+				--page-margin: #966778;
+				--editor-background: black;
 				--hover-preview: black;
 				--playhead: rgba(0,0,0,0.5);
 				--primary-text: black;
@@ -463,14 +463,14 @@ export class ColorConfig {
 				--noise5-primary-channel: #bf6cb2;
 				--noise5-secondary-note: #3e1237;
 				--noise5-primary-note: #bf6cb2;
-				--noise6-secondary-channel: #009B9B;
-				--noise6-primary-channel:   #00C7C7;
-				--noise6-secondary-note:    #007D7D;
-				--noise6-primary-note:      #7FE4E4;
-				--noise7-secondary-channel:  #B2006B;
-				--noise7-primary-channel:    #FF00A8;
-				--noise7-secondary-note:     #9B0059;
-				--noise7-primary-note:       #FF7FCC;
+				--noise6-secondary-channel: #006B6B;
+				--noise6-primary-channel:   #009B9B;
+				--noise6-secondary-note:    #005C5C;
+				--noise6-primary-note:      #00B2B2;
+				--noise7-secondary-channel: #A4006B;
+				--noise7-primary-channel:   #FF009B;
+				--noise7-secondary-note:    #8B0059;
+				--noise7-primary-note:      #FF7FCC;
 			}
 		`,
 		"flame": `
@@ -553,10 +553,10 @@ export class ColorConfig {
 				--noise5-primary-channel: #bf1a6f;
 				--noise5-secondary-note: #420625;
 				--noise5-primary-note: #bf1a6f;
-				--noise6-secondary-channel: #009B9B;
-				--noise6-primary-channel:   #00C7C7;
-				--noise6-secondary-note:    #007D7D;
-				--noise6-primary-note:      #7FE4E4;
+				--noise6-secondary-channel:  #007D7D;
+				--noise6-primary-channel:    #00C7C7;
+				--noise6-secondary-note:     #005F5F;
+				--noise6-primary-note:       #66E4E4;
 				--noise7-secondary-channel:  #B2006B;
 				--noise7-primary-channel:    #FF00A8;
 				--noise7-secondary-note:     #9B0059;
@@ -643,14 +643,14 @@ export class ColorConfig {
 				--noise5-primary-channel: #00c471;
 				--noise5-secondary-note: #00804a;
 				--noise5-primary-note: #00c471;
-				--noise6-secondary-channel: #009B9B;
-				--noise6-primary-channel:   #00C7C7;
-				--noise6-secondary-note:    #007D7D;
-				--noise6-primary-note:      #7FE4E4;
-				--noise7-secondary-channel:  #B2006B;
-				--noise7-primary-channel:    #FF00A8;
-				--noise7-secondary-note:     #9B0059;
-				--noise7-primary-note:       #FF7FCC;
+				--noise6-secondary-channel: #006B6B;
+				--noise6-primary-channel:   #009B9B;
+				--noise6-secondary-note:    #005C5C;
+				--noise6-primary-note:      #00B2B2;
+				--noise7-secondary-channel: #A05A00;
+				--noise7-primary-channel:   #FF7F00;
+				--noise7-secondary-note:    #8B4A00;
+				--noise7-primary-note:      #FFB230;
 			}
 		`,
 		"emerald": `
@@ -733,14 +733,14 @@ export class ColorConfig {
 				--noise5-primary-channel: #BB777D;
 				--noise5-secondary-note: #AA666C;
 				--noise5-primary-note: #E2B2B4;
-				--noise6-secondary-channel: #009B9B;
-				--noise6-primary-channel:   #00C7C7;
-				--noise6-secondary-note:    #007D7D;
-				--noise6-primary-note:      #7FE4E4;
-				--noise7-secondary-channel:  #B2006B;
-				--noise7-primary-channel:    #FF00A8;
-				--noise7-secondary-note:     #9B0059;
-				--noise7-primary-note:       #FF7FCC;
+				--noise6-secondary-channel: #004D4D;
+				--noise6-primary-channel:   #007D7D;
+				--noise6-secondary-note:    #003B3B;
+				--noise6-primary-note:      #009B9B;
+				--noise7-secondary-channel: #A4003C;
+				--noise7-primary-channel:   #FF006B;
+				--noise7-secondary-note:    #8B0032;
+				--noise7-primary-note:      #FF7A99;
 			}
 		`,
 		"amethyst": `
@@ -823,14 +823,14 @@ export class ColorConfig {
 				--noise5-primary-channel: #A2BB77;
 				--noise5-secondary-note: #91AA66;
 				--noise5-primary-note: #C5E2B2;
-				--noise6-secondary-channel: #009B9B;
-				--noise6-primary-channel:   #00C7C7;
-				--noise6-secondary-note:    #007D7D;
-				--noise6-primary-note:      #7FE4E4;
-				--noise7-secondary-channel:  #B2006B;
-				--noise7-primary-channel:    #FF00A8;
-				--noise7-secondary-note:     #9B0059;
-				--noise7-primary-note:       #FF7FCC;
+				--noise6-secondary-channel: #6B008B;
+				--noise6-primary-channel: #A300B3;
+				--noise6-secondary-note: #5C007A;
+				--noise6-primary-note: #C67CC4;
+				--noise7-secondary-channel: #60007D;
+				--noise7-primary-channel: #A300FF;
+				--noise7-secondary-note: #500064;
+				--noise7-primary-note: #C67FFF;
 			}
 		`,
 	};
