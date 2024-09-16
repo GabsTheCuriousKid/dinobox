@@ -308,13 +308,12 @@
 		}
 
 		localStorageLanguage();
+		updateLanguageContent();
 
-		if (checkIfLanguageChanged()) {
-		    updateLanguageContent();
-		}
-
-		document.addEventListener("languageChange", function() {
-    		updateLanguageContent();
+		window.addEventListener('storage', function(event) {
+    		if (event.key === "language" && event.newValue !== localStorage.getItem("language_SAVEDATA")) {
+        		updateLanguageContent();
+    		}
 		});
 		
 		function browserHasRequiredFeatures() {
