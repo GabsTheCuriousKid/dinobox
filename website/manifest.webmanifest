@@ -1,7 +1,7 @@
 {
-	"name": "BeepBox",
-	"short_name": "BeepBox",
-	"description": "BeepBox is a tool for sketching and sharing instrumental melodies.",
+	"name": "DinoBox",
+	"short_name": "DinoBox",
+	"description": "DinoBox is a modification of Beepbox in which is a tool for sketching and sharing instrumental melodies.",
 	"scope": "/",
 	"start_url": ".",
 	"display": "browser",

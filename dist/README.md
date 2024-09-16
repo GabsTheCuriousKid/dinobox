@@ -1,6 +1,6 @@
 # BeepBox
 
-BeepBox is a music synthesizer, along with an online editor for authoring songs that you can try out at [beepbox.co](https://www.beepbox.co)!
+[Dinobox](https://dinobox.vercel.app) is a modification of an music synthesizer, along with an online editor for authoring songs that you can try out at [beepbox.co](https://www.beepbox.co)!
 
 The editor stores all song data in the URL as text after the hash mark, and this song data can be easily copied and shared. You can use the code in this npm package to synthesize music out loud from this song data, just like in the editor!
 

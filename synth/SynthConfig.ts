@@ -234,7 +234,7 @@ export class Config {
 		{name: "what",               realName: "what?",                 flags: [true, true,  false, true,  false, true,  false, true,  false, true,  false, true]},
 		{name: "bright :)",          realName: "c lydian",              flags: [true, false,  true, false,  true, false,  true, true,  false, true,  false, true]},
 		{name: "bright :(",          realName: "g mixolydian",          flags: [true, false,  true, false,  true, true,  true, true,  false, true,  false, true]},
-		{name: "limited :(",         realName: "tritone",               flags: [true, false,  false, false,  false, false,  true, false,  false, false,  false, false]},
+		{name: "tense :(",           realName: "tritone",               flags: [true, false,  false, false,  false, false,  true, false,  false, false,  false, false]},
 		{name: "expert",             realName: "chromatic",             flags: [true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true]},
 	]);
 	public static readonly keys: DictionaryArray<Key> = toNameMap([

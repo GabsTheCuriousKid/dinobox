@@ -37,7 +37,7 @@ export class RecordingSetupPrompt implements Prompt {
 	public readonly container: HTMLDivElement = div({class: "prompt noSelection recordingSetupPrompt", style: "width: 333px; text-align: right; max-height: 90%;"},
 		h2("Note Recording Setup"),
 		div({style: "display: grid; overflow-y: auto; overflow-x: hidden; flex-shrink: 1;"},
-			p("BeepBox can record notes as you perform them. You can start recording by pressing Ctrl+Space (or " + EditorConfig.ctrlSymbol + "P)."),
+			p("DinoBox can record notes as you perform them. You can start recording by pressing Ctrl+Space (or " + EditorConfig.ctrlSymbol + "P)."),
 			label({style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;"},
 				"Add ● record button next to ▶ play button:",
 				this._showRecordButton,

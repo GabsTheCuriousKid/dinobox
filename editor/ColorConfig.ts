@@ -93,6 +93,14 @@ export class ColorConfig {
 				--noise5-primary-channel:   #A2BB77;
 				--noise5-secondary-note:    #91AA66;
 				--noise5-primary-note:      #C5E2B2;
+				--noise6-secondary-channel: #009B9B;
+				--noise6-primary-channel:   #00C7C7;
+				--noise6-secondary-note:    #007D7D;
+				--noise6-primary-note:      #7FE4E4;
+				--noise7-secondary-channel:  #B2006B;
+				--noise7-primary-channel:    #FF00A8;
+				--noise7-secondary-note:     #9B0059;
+				--noise7-primary-note:       #FF7FCC;
 			}
 		`,
 		"light classic": `
@@ -176,6 +184,14 @@ export class ColorConfig {
 				--noise5-primary-channel:   #87A74F;
 				--noise5-secondary-note:    #ABC183;
 				--noise5-primary-note:      #68784C;
+				--noise6-secondary-channel: #B2E8E8;
+				--noise6-primary-channel:   #00C7C7;
+				--noise6-secondary-note:    #8AE2E2;
+				--noise6-primary-note:      #7FE4E4;
+				--noise7-secondary-channel: #FFB2D8;
+				--noise7-primary-channel:   #FF00A8;
+				--noise7-secondary-note:    #E60093;
+				--noise7-primary-note:      #FF7FCC;
 			}
 			
 			.beepboxEditor button, .beepboxEditor select {
@@ -297,6 +313,18 @@ export class ColorConfig {
 			primaryChannel:   "var(--noise5-primary-channel)",
 			secondaryNote:    "var(--noise5-secondary-note)",
 			primaryNote:      "var(--noise5-primary-note)",
+		}, {
+			name: "noise6", // teal
+			secondaryChannel: "var(--noise6-secondary-channel)",
+			primaryChannel:   "var(--noise6-primary-channel)",
+			secondaryNote:    "var(--noise6-secondary-note)",
+			primaryNote:      "var(--noise6-primary-note)",
+		}, {
+			name: "noise7", // magenta
+			secondaryChannel: "var(--noise7-secondary-channel)",
+			primaryChannel:   "var(--noise7-primary-channel)",
+			secondaryNote:    "var(--noise7-secondary-note)",
+			primaryNote:      "var(--noise7-primary-note)",
 		},
 	]);
 	

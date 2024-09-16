@@ -13,7 +13,7 @@ valuable and have the means, any gratuity via
 [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QZJTX9GRYEV9N&currency_code=USD)
 would be appreciated!
 
-BeepBox is developed by [John Nesky](https://johnnesky.com/). This source code
+DinoBox is developed by [MrIncredibleMaker](https://scratch.mit.edu/users/MrIncredibleMakerZe). This source code
 is available under the [MIT license](LICENSE.md).
 
 ## Synthesizer library
@@ -74,3 +74,19 @@ I'd like to note that BeepBox also has an indirect, optional dependency on
 [jsdelivr](https://www.jsdelivr.com/) for exporting .mp3 files. If the user
 attempts to export an .mp3 file, BeepBox will direct the browser to download
 that dependency on demand.
+
+## How to deploy ur mod of DinoBox in [Vercel](vercel.app)
+
+override the build command and put in:
+
+```
+npm run clean && npm run build-synth && npm run build-player && npm run build-editor
+```
+
+override the output directory and put in:
+
+```
+website
+```
+
+it should work.
