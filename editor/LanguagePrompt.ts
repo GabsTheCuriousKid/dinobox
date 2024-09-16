@@ -45,7 +45,7 @@ export class LanguagePrompt implements Prompt {
 		if (this.lastLanguage != null) {
 			window.localStorage.setItem("language", this.lastLanguage);
 		} else {
-			window.localStorage.setItem("language", "dark classic");
+			window.localStorage.setItem("language", "english");
 		}
 		this._doc.undo();
 	}
