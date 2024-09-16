@@ -30,12 +30,7 @@ export class LanguagePrompt implements Prompt {
 		this._cancelButton,
 	);
 
-	private readonly lastLanguage: string | null = window.localStorage.getItem("language")
-
 	constructor(private _doc: SongDocument) {
-		if (this.lastLanguage != null) {
-			this._languageSelect.value = this.lastLanguage;
-		}
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
@@ -43,11 +38,6 @@ export class LanguagePrompt implements Prompt {
 	}
 
 	private _close = (): void => {
-		if (this.lastLanguage != null) {
-			window.localStorage.setItem("language", this.lastLanguage);
-		} else {
-			window.localStorage.setItem("language", "english");
-		}
 		this._doc.undo();
 	}
 
