@@ -205,7 +205,7 @@
 							You can also long-press in the pattern editor to select a time range within a pattern, which you can then drag to move multiple notes at once.<br/>
 						</p>
 					</div>
-					<p>
+					<p id="advanced">
 						ADVANCED: Drag vertically from an existing note to bend its pitch, or drag vertically from above or below the note to adjust its volume. Drag on the numbered pattern boxes to select multiple patterns to copy and paste parts of your song.
 					</p>
 					<p>
@@ -213,12 +213,12 @@
 						Try playing with the buttons and menus on the right side to find out what it can do!
 						You can also click on the label next to each option for a description of what it does.
 					</p>
-					<p>
+					<p id="twitter-archive">
 						Want to see what people have made with BeepBox? Songs that were shared on Twitter prior to 2023-05-22 can now be browsed in <a href="https://twitter-archive.beepbox.co/" target="_blank">this interactive archive</a>!
 					</p>
 				</section>
 				<section>
-					<h2>
+					<h2 id="about">
 						About
 					</h2>
 					<p id="developed">
@@ -300,6 +300,12 @@
         		    "All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!";
 				document.getElementById("instructions").innerHTML = 
         		    "Instructions";
+				document.getElementById("advanced").innerHTML = 
+        		    "ADVANCED: Drag vertically from an existing note to bend its pitch, or drag vertically from above or below the note to adjust its volume. Drag on the numbered pattern boxes to select multiple patterns to copy and paste parts of your song.";
+				document.getElementById("twitter-archive").innerHTML = 
+        		    "Want to see what people have made with BeepBox? Songs that were shared on Twitter prior to 2023-05-22 can now be browsed in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">this interactive archive</a>!";
+				document.getElementById("about").innerHTML = 
+        		    "About";
 				document.getElementById("developed").innerHTML = 
         		    "DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
 				document.getElementById("ownership").innerHTML = 
@@ -313,6 +319,12 @@
         		    "Alle deine musik daten ist in der URL oben in Ihrem Browser enthalten.\nWenn Sie Änderungen am Song vornehmen, der URL ändert sich um deine Änderungen zu reflektieren.\nWenn du zufrieden mit deinen musik bist, einfach nur der URL kopieren und einfügen um Ihr Lied zu speichern und zu teilen!";
 				document.getElementById("instructions").innerHTML = 
         		    "Anleitung";
+				document.getElementById("advanced").innerHTML = 
+        		    "ERWEITERT: Ziehen Sie vertikal von einer vorhandenen Note, um ihre Tonhöhe zu ändern, oder ziehen Sie vertikal von oberhalb oder unterhalb der Note, um ihre Lautstärke anzupassen. Ziehen Sie an den nummerierten Musterfeldern, um mehrere Muster auszuwählen und Teile Ihres Songs zu kopieren und einzufügen.";
+				document.getElementById("twitter-archive").innerHTML = 
+        		    "Willst du sehen was für Musik Leute mit Beepbox gemacht hat? Lieder dass veröffentlicht auf Twitter bevor 22.05.2023 kannst du in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">dieses interaktive Archiv</a> besuchen!";
+				document.getElementById("about").innerHTML = 
+        		    "Über DinoBox";
 				document.getElementById("developed").innerHTML = 
         		    "DinoBox wurde erstellt von <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
 				document.getElementById("ownership").innerHTML = 

@@ -52,11 +52,11 @@ function buildOptions(menu: HTMLSelectElement, items: ReadonlyArray<string | num
 function buildPresetOptions(isNoise: boolean): HTMLSelectElement {
 	const menu: HTMLSelectElement = select();
 	
-	menu.appendChild(optgroup({label: "Edit"},
-		option({value: "copyInstrument"}, "Copy Instrument (⇧C)"),
-		option({value: "pasteInstrument"}, "Paste Instrument (⇧V)"),
-		option({value: "randomPreset"}, "Random Preset (R)"),
-		option({value: "randomGenerated"}, "Random Generated (⇧R)"),
+	menu.appendChild(optgroup({label: window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : null},
+		option({value: "copyInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Instrument" : null) + " (⇧C)"),
+		option({value: "pasteInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Instrument" : null) + " (⇧V)"),
+		option({value: "randomPreset"}, (window.localStorage.getItem("language") === "german" ? "Zufällige Voreinstellung" : window.localStorage.getItem("language") === "english" ? "Random Preset" : null) + " (R)"),
+		option({value: "randomGenerated"}, (window.localStorage.getItem("language") === "german" ? "Züfallig generiert" : window.localStorage.getItem("language") === "english" ? "Random Generated" : null) + " (⇧R)"),
 	));
 	
 	// Show the "spectrum" custom type in both pitched and noise channels.
