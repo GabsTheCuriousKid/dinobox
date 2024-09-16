@@ -298,8 +298,7 @@
 		}
 
 		localStorageLanguage()
-	while (true) {
-		if (checkIfLanguageChanged() ) {
+		while (checkIfLanguageChanged() ) {
 			if (window.localStorage.getItem("language") == "english" ) {
 				document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
 				localStorageLanguage()
@@ -308,7 +307,6 @@
 				localStorageLanguage()
 			}
 		}
-	}	
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
