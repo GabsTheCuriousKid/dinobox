@@ -292,7 +292,7 @@ export class ColorConfig {
 			:root {
 				-webkit-text-stroke-width: 0.5px;
 				--page-margin: #966778;
-				--editor-background: black;
+				--editor-background: white;
 				--hover-preview: black;
 				--playhead: rgba(0,0,0,0.5);
 				--primary-text: black;
