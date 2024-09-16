@@ -156,7 +156,7 @@
 		<div class="column-container">
 			<main class="instructions-column">
 				<section>
-					<h2>
+					<h2 id="instructions">
 						Instructions
 					</h2>
 					<p>
@@ -224,7 +224,7 @@
 					<p id="developed">
 						DinoBox is developed by <a href="https://scratch.mit.edu/users/MrIncredibleMakerZe" target="_blank">MrIncredibleMaker</a>.
 					</p>
-					<p>
+					<p id="ownership">
 						DinoBox does not claim ownership over songs created with it, so original songs belong to their authors. 
 					</p>
 					<p>
@@ -248,6 +248,9 @@
 					<h3>
 						16th September 2024
 					</h3>
+					<p>
+						- Added Translate Settings (Development has started.)
+					</p>
 					<p>
 						- Added more Themes (credits to <a href="https://www.github.com/ChopTop84" target="_blank">@ChopTop84</a>)
 					</p>
@@ -276,7 +279,7 @@
 		let editor;
 		
 		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
-			document.getElementById("introduction").innerHTML = "DinoBox is an online tool for sketching and sharing instrumental music. Make sure that your volume is turned up, then press the play button!";
+			document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music. Make sure that your volume is turned up, then press the play button!";
 			document.getElementById("keyboard-instructions").style.display = "none";
 			document.getElementById("mobile-instructions").style.display = "";
 			document.getElementById("bar-editing").innerHTML = "Tap the boxes to move to a different part of the song, or tap on the currently selected box to swap which pattern is played during that part of the song.";
@@ -295,17 +298,25 @@
         		    "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
 				document.getElementById("songdata").innerHTML = 
         		    "All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!";
+				document.getElementById("instructions").innerHTML = 
+        		    "Instructions";
 				document.getElementById("developed").innerHTML = 
         		    "DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
+				document.getElementById("ownership").innerHTML = 
+        		    "DinoBox does not claim ownership over songs created with it, so original songs belong to their authors.";
     		} else if (language === "german") {
         		document.getElementById("introduction").innerHTML = 
         		    "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
 				document.getElementById("songdata").innerHTML = 
         		    "Alle deine musik daten ist in der URL oben in Ihrem Browser enthalten.\nWenn Sie Änderungen am Song vornehmen, der URL ändert sich um deine Änderungen zu reflektieren.\nWenn du zufrieden mit deinen musik bist, einfach nur der URL kopieren und einfügen um Ihr Lied zu speichern und zu teilen!";
+				document.getElementById("instructions").innerHTML = 
+        		    "Anleitung";
 				document.getElementById("developed").innerHTML = 
         		    "DinoBox wurde erstellt von <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
+				document.getElementById("ownership").innerHTML = 
+        		    "DinoBox erhebt keinen Eigentumsanspruch auf die mit ihr erstellten Lieder, also originalle lieder gehören ihren Autoren.";
     		}
-    			window.localStorage.setItem("language_SAVEDATA", language);
+    		window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
 		localStorageLanguage();
