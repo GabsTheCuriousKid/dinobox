@@ -67,6 +67,7 @@ export class ExportPrompt implements Prompt {
 
 	private readonly ExportOptions: string | null = window.localStorage.getItem("language") === "german" ? "Exportoptionen" : window.localStorage.getItem("language") === "english" ? "Export Options" : null
 	private readonly FileType_Language: string | null = window.localStorage.getItem("language") === "german" ? "Datei Typ:" : window.localStorage.getItem("language") === "english" ? "File Type:" : null
+	private readonly Patience_Language: string | null = window.localStorage.getItem("language") === "german" ? "(Sei geduldig, Exportieren kann eine weile dauern.)" : window.localStorage.getItem("language") === "english" ? "(Be patient, exporting may take some time...)" : null
 	
 	public readonly container: HTMLDivElement = div({class: "prompt noSelection", style: "width: 200px;"},
 		h2(this.ExportOptions),
@@ -88,7 +89,7 @@ export class ExportPrompt implements Prompt {
 		),
 		div({style: "text-align: left;"}, this.FileType_Language),
 		div({class: "selectContainer", style: "width: 100%;"}, this._formatSelect),
-		div({style: "text-align: left;"}, "(Be patient, exporting may take some time...)"),
+		div({style: "text-align: left;"}, this.Patience_Language),
 		div({style: "display: flex; flex-direction: row-reverse; justify-content: space-between;"},
 			this._exportButton,
 		),

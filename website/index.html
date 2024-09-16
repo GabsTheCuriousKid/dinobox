@@ -227,7 +227,7 @@
 					<p id="ownership">
 						DinoBox does not claim ownership over songs created with it, so original songs belong to their authors. 
 					</p>
-					<p>
+					<p id="responsibility">
 						Neither MrIncredibleMaker nor DinoBox assume responsibility for any copyrighted material played on DinoBox. No songs are ever received, recorded, or distributed by DinoBox's servers. All song data is contained in the URL after the hash (#) mark, and your song data will not leave your device unless you copy and share the URL. DinoBox does not collect, track, or share any user data. 
 					</p>
 					</p>
@@ -237,7 +237,7 @@
 					<p>
 						You can download and use <a href="https://github.com/GabsTheCuriousKid/dinobox" target="_blank">the source code</a> under the MIT license. In particular, you can use the synth code <a href="synth_example.html" target="_blank">as demonstrated here</a> to play DinoBox songs in your own JavaScript projects!
 					</p>
-					<p></p>
+					<p>
 						Or use Beepbox's <a href="https://github.com/johnnesky/beepbox" target="_blank">source code</a> under the MIT license
 					</p>
 				<section>
@@ -304,6 +304,8 @@
         		    "DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
 				document.getElementById("ownership").innerHTML = 
         		    "DinoBox does not claim ownership over songs created with it, so original songs belong to their authors.";
+				document.getElementById("responsibility").innerHTML = 
+					"Neither MrIncredibleMaker nor DinoBox assume responsibility for any copyrighted material played on DinoBox. No songs are ever received, recorded, or distributed by DinoBox's servers. All song data is contained in the URL after the hash (#) mark, and your song data will not leave your device unless you copy and share the URL. DinoBox does not collect, track, or share any user data."
     		} else if (language === "german") {
         		document.getElementById("introduction").innerHTML = 
         		    "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
@@ -315,6 +317,8 @@
         		    "DinoBox wurde erstellt von <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
 				document.getElementById("ownership").innerHTML = 
         		    "DinoBox erhebt keinen Eigentumsanspruch auf die mit ihr erstellten Lieder, also originalle lieder gehören ihren Autoren.";
+				document.getElementById("responsibility").innerHTML = 
+					"Weder MrIncredibleMaker noch DinoBox übernehmen Sie die Verantwortung für jegliches urheberrechtlich geschützte Material, das auf DinoBox abgespielt wird. Keine Lieder werden jemals von den Servern von DinoBox empfangen, aufgezeichnet oder verteilt. Alle Songdaten sind in der URL nach dem Hash-Zeichen (#) enthalten und Ihre Songdaten verlassen Ihr Gerät nicht, es sei denn, Sie kopieren und teilen die URL. DinoBox sammelt, verfolgt oder teilt keine Benutzerdaten."
     		}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}

@@ -12,7 +12,7 @@ export class TipPrompt implements Prompt {
 	public readonly container: HTMLDivElement;
 
 	private readonly Scale_Language: string | null = window.localStorage.getItem("language") === "german" ? "Skala" : window.localStorage.getItem("language") === "english" ? "Scale" : null
-	private readonly TempoDescription_Language: string | null = window.localStorage.getItem("language") === "german" ? "Dieses Einstellung kontrolliert die schnellichkeit von deinen Lied, gemessen in Beate-pro-Minute.  Ein „Beat“ ist die Dauer der kleinen grauen Rechtecke im Editor. (In der herkömmlichen Musiknotation entspricht eine „Viertelnote“ normalerweise einem „Beat“.)" : window.localStorage.getItem("language") === "english" ? "This setting controls the speed of your song, measured in beats-per-minute. A \"beat\" is the duration of the little gray rectangles in the pattern editor. (In conventional music notation, a \"quarter note\" is usually equivalent to \"beat\".)" : null
+	private readonly TempoDescription_Language: string | null = window.localStorage.getItem("language") === "german" ? "Dieses Einstellung kontrolliert die Geschwindigkeit von deinen Lied, gemessen in Beats-pro-Minute.  Ein „Beat“ ist die Dauer der kleinen grauen Rechtecke im Editor. (In der herkömmlichen Musiknotation entspricht eine „Viertelnote“ normalerweise einem „Beat“.)" : window.localStorage.getItem("language") === "english" ? "This setting controls the speed of your song, measured in beats-per-minute. A \"beat\" is the duration of the little gray rectangles in the pattern editor. (In conventional music notation, a \"quarter note\" is usually equivalent to \"beat\".)" : null
 	
 	constructor(private _doc: SongDocument, type: string) {
 		let message: HTMLDivElement;

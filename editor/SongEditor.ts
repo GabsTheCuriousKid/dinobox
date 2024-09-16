@@ -742,7 +742,11 @@ export class SongEditor {
 			this._refocusStage();
 		}
 	}
-	
+
+	private readonly ChooseLayout_language: string | null = window.localStorage.getItem("language") === "german" ? "Layout wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Layout..." : null
+	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose language..." : null
+	private readonly ChooseTheme_language: string | null = window.localStorage.getItem("language") === "german" ? "Theme wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Theme..." : null
+
 	public whenUpdated = (): void => {
 		const prefs: Preferences = this.doc.prefs;
 		this._muteEditor.container.style.display = prefs.enableChannelMuting ? "" : "none";
@@ -806,9 +810,9 @@ export class SongEditor {
 			(prefs.instrumentCopyPaste ? "✓ " : "　") + "Instrument Copy/Paste Buttons",
 			(prefs.enableChannelMuting ? "✓ " : "　") + "Enable Channel Muting",
 			(prefs.displayBrowserUrl ? "✓ " : "　") + "Display Song Data in URL",
-			"　Choose Layout...",
-			"　Choose Language...",
-			"　Choose Theme...",
+			"　" + this.ChooseLayout_language,
+			"　" + this.ChooseLanguage_language,
+			"　" + this.ChooseTheme_language,
 			"　Set Up Note Recording...",
 		];
 		for (let i: number = 0; i < optionCommands.length; i++) {
