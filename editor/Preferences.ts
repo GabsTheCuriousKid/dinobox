@@ -18,6 +18,7 @@ export class Preferences {
 	public instrumentCopyPaste: boolean;
 	public enableChannelMuting: boolean;
 	public colorTheme: string;
+	public language: string;
 	public layout: string;
 	public displayBrowserUrl: boolean;
 	public volume: number = 75;
@@ -57,6 +58,7 @@ export class Preferences {
 		this.metronomeWhileRecording = window.localStorage.getItem("metronomeWhileRecording") != "false";
 		this.keyboardLayout = window.localStorage.getItem("keyboardLayout") || "wickiHayden";
 		this.layout = window.localStorage.getItem("layout") || "small";
+		this.language = window.localStorage.getItem("language") || "english";
 		this.colorTheme = window.localStorage.getItem("colorTheme") || "dark classic";
 		this.visibleOctaves = ((<any>window.localStorage.getItem("visibleOctaves")) >>> 0) || Preferences.defaultVisibleOctaves;
 		
@@ -96,6 +98,7 @@ export class Preferences {
 		window.localStorage.setItem("metronomeWhileRecording", this.metronomeWhileRecording ? "true" : "false");
 		window.localStorage.setItem("keyboardLayout", this.keyboardLayout);
 		window.localStorage.setItem("layout", this.layout);
+		window.localStorage.setItem("language", this.language);
 		window.localStorage.setItem("colorTheme", this.colorTheme);
 		window.localStorage.setItem("volume", String(this.volume));
 		window.localStorage.setItem("visibleOctaves", String(this.visibleOctaves));
