@@ -128,7 +128,13 @@ class Slider {
 export class SongEditor {
 	public readonly doc: SongDocument = new SongDocument();
 	public prompt: Prompt | null = null;
-	
+
+	private readonly Undo_language: string | null = window.localStorage.getItem("language") === "german" ? "Rückgängig (Z)" : window.localStorage.getItem("language") === "english" ? "Undo (Z)" : null
+	private readonly Redo_language: string | null = window.localStorage.getItem("language") === "german" ? "Wiederholen (Y)" : window.localStorage.getItem("language") === "english" ? "Redo (Y)" : null
+	private readonly File_language: string | null = window.localStorage.getItem("language") === "german" ? "Datei" : window.localStorage.getItem("language") === "english" ? "File" : null
+	private readonly Edit_language: string | null = window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : null
+	private readonly Preferences_language: string | null = window.localStorage.getItem("language") === "german" ? "Einstellungen" : window.localStorage.getItem("language") === "english" ? "Preferences" : null
+
 	private readonly _keyboardLayout: KeyboardLayout = new KeyboardLayout(this.doc);
 	private readonly _patternEditorPrev: PatternEditor = new PatternEditor(this.doc, false, -1);
 	private readonly _patternEditor: PatternEditor = new PatternEditor(this.doc, true, 0);
@@ -144,11 +150,11 @@ export class SongEditor {
 	private readonly _stopButton: HTMLButtonElement = button({class: "stopButton", style: "display: none;", type: "button", title: "Stop Recording (Space)"}, "Stop Recording");
 	private readonly _prevBarButton: HTMLButtonElement = button({class: "prevBarButton", type: "button", title: "Previous Bar (left bracket)"});
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
-	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span("Undo (Z)"));
-	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span("Redo (Y)"));
+	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span(this.Undo_language));
+	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
 	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
-		option({selected: true, disabled: true, hidden: false}, "File"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
+		option({selected: true, disabled: true, hidden: false}, this.File_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "new"}, "+ New Blank Song"),
 		option({value: "import"}, "↑ Import Song... (" + EditorConfig.ctrlSymbol + "O)"),
 		option({value: "export"}, "↓ Export Song... (" + EditorConfig.ctrlSymbol + "S)"),
@@ -160,9 +166,9 @@ export class SongEditor {
 		option({value: "songRecovery"}, "⚠ Recover Recent Song..."),
 	);
 	private readonly _editMenu: HTMLSelectElement = select({style: "width: 100%;"},
-		option({selected: true, disabled: true, hidden: false}, "Edit"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
-		option({value: "undo"}, "Undo (Z)"),
-		option({value: "redo"}, "Redo (Y)"),
+		option({selected: true, disabled: true, hidden: false}, this.Edit_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
+		option({value: "undo"}, this.Undo_language),
+		option({value: "redo"}, this.Redo_language),
 		option({value: "copy"}, "Copy Pattern (C)"),
 		option({value: "pasteNotes"}, "Paste Pattern Notes (V)"),
 		option({value: "pasteNumbers"}, "Paste Pattern Numbers (" + EditorConfig.ctrlSymbol + "⇧V)"),
@@ -181,7 +187,7 @@ export class SongEditor {
 		option({value: "channelSettings"}, "Channel Settings... (Q)"),
 	);
 	private readonly _optionsMenu: HTMLSelectElement = select({style: "width: 100%;"},
-		option({selected: true, disabled: true, hidden: false}, "Preferences"), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
+		option({selected: true, disabled: true, hidden: false}, this.Preferences_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "autoPlay"}, "Auto Play on Load"),
 		option({value: "autoFollow"}, "Show And Play The Same Bar"),
 		option({value: "enableNotePreview"}, "Hear Preview of Added Notes"),
@@ -200,6 +206,8 @@ export class SongEditor {
 		option({value: "colorTheme"}, "Choose Theme..."),
 		option({value: "recordingSetup"}, "Set Up Note Recording..."),
 	);
+	
+
 	private readonly _scaleSelect: HTMLSelectElement = buildOptions(select(), Config.scales.map(scale=>scale.name));
 	private readonly _keySelect: HTMLSelectElement = buildOptions(select(), Config.keys.map(key=>key.name).reverse());
 	private readonly _tempoSlider: Slider = new Slider(input({style: "margin: 0; width: 4em; flex-grow: 1; vertical-align: middle;", type: "range", min: "0", max: "14", value: "7", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeTempo(this.doc, oldValue, Math.round(120.0 * Math.pow(2.0, (-4.0 + newValue) / 9.0))));
@@ -284,8 +292,9 @@ export class SongEditor {
 	
 	private readonly _feedbackAmplitudeSlider: Slider = new Slider(input({type: "range", min: "0", max: Config.operatorAmplitudeMax, value: "0", step: "1", title: "Feedback Amplitude"}), this.doc, (oldValue: number, newValue: number) => new ChangeFeedbackAmplitude(this.doc, oldValue, newValue));
 	private readonly _feedbackRow2: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("feedbackVolume")}, "Fdback Vol:"), this._feedbackAmplitudeSlider.input);
+	private readonly customizeInst_language: string | null = window.localStorage.getItem("language") === "german" ? "Instrument anpassen" : window.localStorage.getItem("language") === "english" ? "Customize Instrument" : null
 	private readonly _customizeInstrumentButton: HTMLButtonElement = button({type: "button", class: "customize-instrument"},
-		"Customize Instrument",
+		this.customizeInst_language,
 	);
 	private readonly _addEnvelopeButton: HTMLButtonElement = button({type: "button", class: "add-envelope"});
 	private readonly _customInstrumentSettingsGroup: HTMLDivElement = div({class: "editor-controls"},
@@ -386,13 +395,15 @@ export class SongEditor {
 			this._optionsMenu,
 		),
 	);
+
+	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : null
 	private readonly _songSettingsArea: HTMLDivElement = div({class: "song-settings-area"},
 		div({class: "editor-controls"},
 			div({style: `margin: 3px 0; text-align: center; color: ${ColorConfig.secondaryText};`},
 				"Song Settings",
 			),
 			div({class: "selectRow"},
-				span({class: "tip", onclick: ()=>this._openPrompt("scale")}, "Scale:"),
+				span({class: "tip", onclick: ()=>this._openPrompt("scale")}, this.Scale_language),
 				div({class: "selectContainer"}, this._scaleSelect),
 			),
 			div({class: "selectRow"},
@@ -743,9 +754,23 @@ export class SongEditor {
 		}
 	}
 
+	private readonly AutoPlay_language: string | null = window.localStorage.getItem("language") === "german" ? "Automatische Wiedergabe beim Laden" : window.localStorage.getItem("language") === "english" ? "Auto Play on Load" : null
+	private readonly AutoFollow_language: string | null = window.localStorage.getItem("language") === "german" ? "Zeigen und spielen Sie die gleiche Bar" : window.localStorage.getItem("language") === "english" ? "Show And Play The Same Bar" : null
+	private readonly NotePreview_language: string | null = window.localStorage.getItem("language") === "german" ? "Vorschau anhören von hinzugefügten Noten" : window.localStorage.getItem("language") === "english" ? "Hear Preview of Added Notes" : null
+	private readonly PianoKeys_language: string | null = window.localStorage.getItem("language") === "german" ? "Klaviertasten anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Piano Keys" : null
+	private readonly ShowFifth_language: string | null = window.localStorage.getItem("language") === "german" ? "Markieren Sie „Quinte“ der Tonart" : window.localStorage.getItem("language") === "english" ? "Highlight \"Fifth\" of Song Key" : null
+	private readonly OutsideScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Erlaube Noten hinzufügen die nicht im skala sind." : window.localStorage.getItem("language") === "english" ? "Allow Adding Notes Not in Scale" : null
+	private readonly DefaultScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuellen Skala als Standard verwenden" : window.localStorage.getItem("language") === "english" ? "Use Current Scale as Default" : null
+	private readonly ShowChannels_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten aus allen Channels zeigen" : window.localStorage.getItem("language") === "english" ? "Show Notes From All Channels" : null
+	private readonly ScrollBar_language: string | null = window.localStorage.getItem("language") === "german" ? "Oktav-Scrollleiste anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Octave Scroll Bar" : null
+	private readonly ShowSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Alle Instrumente individuell anpassen" : window.localStorage.getItem("language") === "english" ? "Customize All Instruments" : null
+	private readonly InstCopyPaste_language: string | null = window.localStorage.getItem("language") === "german" ? "Knöpfe zum Kopieren/Einfügen von Instrumenten" : window.localStorage.getItem("language") === "english" ? "Instrument Copy/Paste Buttons" : null
+	private readonly Muting_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal-Stummschaltung aktivieren" : window.localStorage.getItem("language") === "english" ? "Enable Channel Muting" : null
+	private readonly DisplayUrl_language: string | null = window.localStorage.getItem("language") === "german" ? "Speichere Lied Daten ins Url" : window.localStorage.getItem("language") === "english" ? "Display Song Data in URL" : null
 	private readonly ChooseLayout_language: string | null = window.localStorage.getItem("language") === "german" ? "Layout wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Layout..." : null
-	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose language..." : null
+	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Language..." : null
 	private readonly ChooseTheme_language: string | null = window.localStorage.getItem("language") === "german" ? "Theme wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Theme..." : null
+	private readonly NoteRecording_language: string | null = window.localStorage.getItem("language") === "german" ? "Musik-Notenaufzeichnung einrichten ..." : window.localStorage.getItem("language") === "english" ? "Set Up Note Recording..." : null
 
 	public whenUpdated = (): void => {
 		const prefs: Preferences = this.doc.prefs;
@@ -797,23 +822,23 @@ export class SongEditor {
 		this._patternEditor.render();
 		
 		const optionCommands: ReadonlyArray<string> = [
-			(prefs.autoPlay ? "✓ " : "　") + "Auto Play on Load",
-			(prefs.autoFollow ? "✓ " : "　") + "Show And Play The Same Bar",
-			(prefs.enableNotePreview ? "✓ " : "　") + "Hear Preview of Added Notes",
-			(prefs.showLetters ? "✓ " : "　") + "Show Piano Keys",
-			(prefs.showFifth ? "✓ " : "　") + 'Highlight "Fifth" of Song Key',
-			(prefs.notesOutsideScale ? "✓ " : "　") + "Allow Adding Notes Not in Scale",
-			(prefs.defaultScale == this.doc.song.scale ? "✓ " : "　") + "Use Current Scale as Default",
-			(prefs.showChannels ? "✓ " : "　") + "Show Notes From All Channels",
-			(prefs.showScrollBar ? "✓ " : "　") + "Show Octave Scroll Bar",
-			(prefs.alwaysShowSettings ? "✓ " : "　") + "Customize All Instruments",
-			(prefs.instrumentCopyPaste ? "✓ " : "　") + "Instrument Copy/Paste Buttons",
-			(prefs.enableChannelMuting ? "✓ " : "　") + "Enable Channel Muting",
-			(prefs.displayBrowserUrl ? "✓ " : "　") + "Display Song Data in URL",
+			(prefs.autoPlay ? "✓ " : "　") + this.AutoPlay_language,
+			(prefs.autoFollow ? "✓ " : "　") + this.AutoFollow_language,
+			(prefs.enableNotePreview ? "✓ " : "　") + this.NotePreview_language,
+			(prefs.showLetters ? "✓ " : "　") + this.PianoKeys_language,
+			(prefs.showFifth ? "✓ " : "　") + this.ShowFifth_language,
+			(prefs.notesOutsideScale ? "✓ " : "　") + this.OutsideScale_language,
+			(prefs.defaultScale == this.doc.song.scale ? "✓ " : "　") + this.DefaultScale_language,
+			(prefs.showChannels ? "✓ " : "　") + this.ShowChannels_language,
+			(prefs.showScrollBar ? "✓ " : "　") + this.ScrollBar_language,
+			(prefs.alwaysShowSettings ? "✓ " : "　") + this.ShowSettings_language,
+			(prefs.instrumentCopyPaste ? "✓ " : "　") + this.InstCopyPaste_language,
+			(prefs.enableChannelMuting ? "✓ " : "　") + this.Muting_language,
+			(prefs.displayBrowserUrl ? "✓ " : "　") + this.DisplayUrl_language,
 			"　" + this.ChooseLayout_language,
 			"　" + this.ChooseLanguage_language,
 			"　" + this.ChooseTheme_language,
-			"　Set Up Note Recording...",
+			"　" + this.NoteRecording_language,
 		];
 		for (let i: number = 0; i < optionCommands.length; i++) {
 			const option: HTMLOptionElement = <HTMLOptionElement> this._optionsMenu.children[i + 1];
