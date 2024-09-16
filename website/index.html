@@ -290,7 +290,7 @@
 		function checkIfLanguageChanged() {
 			let language = window.localStorage.getItem("language")
 			let language_SAVEDATA = window.localStorage.getItem("language_SAVEDATA")
-			if (language != language_SAVEDATA) {
+			if (language_SAVEDATA != language) {
 				return true;
 			} else {
 				return false;
