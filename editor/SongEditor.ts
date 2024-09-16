@@ -153,25 +153,40 @@ export class SongEditor {
 	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span(this.Undo_language));
 	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
 	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
+
+	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : null
+	private readonly Import_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied importieren" : window.localStorage.getItem("language") === "english" ? "Import Song" : null
+	private readonly Export_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied exportieren" : window.localStorage.getItem("language") === "english" ? "Export Song" : null
+	private readonly CopyURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Song URL" : null
+	private readonly ShareURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Teilen" : window.localStorage.getItem("language") === "english" ? "Share Song URL" : null
+	private readonly Shorten_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Verkürzern" : window.localStorage.getItem("language") === "english" ? "Share Song URL" : null
+	private readonly View_language: string | null = window.localStorage.getItem("language") === "german" ? "Im Songplayer anzeigen" : window.localStorage.getItem("language") === "english" ? "View in Song Player" : null
+	private readonly HTML_language: string | null = window.localStorage.getItem("language") === "german" ? "HTML-Einbettungscode kopieren" : window.localStorage.getItem("language") === "english" ? "Copy HTML Embed Code" : null
+	private readonly Recover_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuelles Lied wiederherstellen" : window.localStorage.getItem("language") === "english" ? "Recover Recent Song..." : null
+
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.File_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
-		option({value: "new"}, "+ New Blank Song"),
-		option({value: "import"}, "↑ Import Song... (" + EditorConfig.ctrlSymbol + "O)"),
-		option({value: "export"}, "↓ Export Song... (" + EditorConfig.ctrlSymbol + "S)"),
-		option({value: "copyUrl"}, "⎘ Copy Song URL"),
-		option({value: "shareUrl"}, "⤳ Share Song URL"),
-		option({value: "shortenUrl"}, "… Shorten Song URL"),
-		option({value: "viewPlayer"}, "▶ View in Song Player"),
-		option({value: "copyEmbed"}, "⎘ Copy HTML Embed Code"),
-		option({value: "songRecovery"}, "⚠ Recover Recent Song..."),
+		option({value: "new"}, "+ " + this.New_language),
+		option({value: "import"}, "↑ " + this.Import_language + "... (" + EditorConfig.ctrlSymbol + "O)"),
+		option({value: "export"}, "↓ " + this.Export_language + "... (" + EditorConfig.ctrlSymbol + "S)"),
+		option({value: "copyUrl"}, "⎘ " + this.CopyURL_language),
+		option({value: "shareUrl"}, "⤳ " + this.ShareURL_language),
+		option({value: "shortenUrl"}, "… " + this.Shorten_language),
+		option({value: "viewPlayer"}, "▶ " + this.View_language),
+		option({value: "copyEmbed"}, "⎘ " + this.HTML_language),
+		option({value: "songRecovery"}, "⚠ " + this.Recover_language),
 	);
+
+	private readonly Copy_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Pattern" : null
+	private readonly PasteNotes_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Noten einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Notes" : null
+	private readonly PasteNumbers_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Nummern einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Numbers" : null
 	private readonly _editMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.Edit_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "undo"}, this.Undo_language),
 		option({value: "redo"}, this.Redo_language),
-		option({value: "copy"}, "Copy Pattern (C)"),
-		option({value: "pasteNotes"}, "Paste Pattern Notes (V)"),
-		option({value: "pasteNumbers"}, "Paste Pattern Numbers (" + EditorConfig.ctrlSymbol + "⇧V)"),
+		option({value: "copy"}, this.Copy_language + " (C)"),
+		option({value: "pasteNotes"}, this.PasteNotes_language + " (V)"),
+		option({value: "pasteNumbers"}, this.PasteNumbers_language + " (" + EditorConfig.ctrlSymbol + "⇧V)"),
 		option({value: "insertBars"}, "Insert Bar (⏎)"),
 		option({value: "deleteBars"}, "Delete Selected Bars (⌫)"),
 		option({value: "insertChannel"}, "Insert Channel (" + EditorConfig.ctrlSymbol + "⏎)"),
@@ -207,7 +222,6 @@ export class SongEditor {
 		option({value: "recordingSetup"}, "Set Up Note Recording..."),
 	);
 	
-
 	private readonly _scaleSelect: HTMLSelectElement = buildOptions(select(), Config.scales.map(scale=>scale.name));
 	private readonly _keySelect: HTMLSelectElement = buildOptions(select(), Config.keys.map(key=>key.name).reverse());
 	private readonly _tempoSlider: Slider = new Slider(input({style: "margin: 0; width: 4em; flex-grow: 1; vertical-align: middle;", type: "range", min: "0", max: "14", value: "7", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeTempo(this.doc, oldValue, Math.round(120.0 * Math.pow(2.0, (-4.0 + newValue) / 9.0))));
@@ -339,15 +353,17 @@ export class SongEditor {
 		),
 		this._envelopeEditor.container,
 	);
+	private readonly Type_language: string | null = window.localStorage.getItem("language") === "german" ? "Typ:" : window.localStorage.getItem("language") === "english" ? "Type:" : null
+	private readonly InstSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Geräteeinstellungen" : window.localStorage.getItem("language") === "english" ? "Instrument Settings" : null
 	private readonly _instrumentSettingsGroup: HTMLDivElement = div({class: "editor-controls"},
 		div({style: `margin: 3px 0; text-align: center; color: ${ColorConfig.secondaryText};`},
-			"Instrument Settings"
+			this.InstSettings_language
 		),
 		this._instrumentsButtonRow,
 		this._instrumentCopyPasteRow,
 		this._instrumentVolumeSliderRow,
 		div({class: "selectRow"},
-			span({class: "tip", onclick: ()=>this._openPrompt("instrumentType")}, "Type:"),
+			span({class: "tip", onclick: ()=>this._openPrompt("instrumentType")}, this.Type_language),
 			div({class: "selectContainer"}, this._pitchedPresetSelect, this._drumPresetSelect),
 		),
 		this._customizeInstrumentButton,
@@ -396,11 +412,13 @@ export class SongEditor {
 		),
 	);
 
+	private readonly SongSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Song Einstellungen" : window.localStorage.getItem("language") === "english" ? "Song Settings" : null
 	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : null
+	private readonly Rhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Rhythmus:" : window.localStorage.getItem("language") === "english" ? "Rhythm:" : null
 	private readonly _songSettingsArea: HTMLDivElement = div({class: "song-settings-area"},
 		div({class: "editor-controls"},
 			div({style: `margin: 3px 0; text-align: center; color: ${ColorConfig.secondaryText};`},
-				"Song Settings",
+				this.SongSettings_language,
 			),
 			div({class: "selectRow"},
 				span({class: "tip", onclick: ()=>this._openPrompt("scale")}, this.Scale_language),
@@ -418,7 +436,7 @@ export class SongEditor {
 				),
 			),
 			div({class: "selectRow"},
-				span({class: "tip", onclick: ()=>this._openPrompt("rhythm")}, "Rhythm:"),
+				span({class: "tip", onclick: ()=>this._openPrompt("rhythm")}, this.Rhythm_language),
 				div({class: "selectContainer"}, this._rhythmSelect),
 			),
 		),
