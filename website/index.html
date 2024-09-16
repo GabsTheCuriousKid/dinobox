@@ -284,24 +284,26 @@
 		}
 
 		function localStorageLanguage() {
-			let language = localStorage.getItem("language")
+			let language = window.localStorage.getItem("language")
 			localStorage.setItem("language_SAVEDATA", language)
 		}
 		function checkIfLanguageChanged() {
-			let language = localStorage.getItem("language")
-			let language_SAVEDATA = localStorage.getItem("language_SAVEDATA")
+			let language = window.localStorage.getItem("language")
+			let language_SAVEDATA = window.localStorage.getItem("language_SAVEDATA")
 			if (language != language_SAVEDATA) {
-				return true
+				return true;
 			} else {
-				return false
+				return false;
 			}
 		}
+
 		localStorageLanguage()
+
 		while (checkIfLanguageChanged() ) {
-			if (localStorage.getItem("language") == "english" ) {
+			if (window.localStorage.getItem("language") == "english" ) {
 				document.getElementById("introduction").innerHTML = "DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.";
 				localStorageLanguage()
-			} else if (localStorage.getItem("language") == "german" ) {
+			} else if (window.localStorage.getItem("language") == "german" ) {
 				document.getElementById("introduction").innerHTML = "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, einen online Tool für Skizzieren und Teilen von Instrumentalmusik";
 				localStorageLanguage()
 			}
