@@ -308,6 +308,8 @@ export class Config {
 		{name: "square",       expression: 0.5,  samples: centerWave([1.0, -1.0])},
 		{name: "1/4 pulse",    expression: 0.5,  samples: centerWave([1.0, -1.0, -1.0, -1.0])},
 		{name: "1/8 pulse",    expression: 0.5,  samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0])},
+		{name: "1/12 pulse",   expression: 0.5,  samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0])},
+		{name: "1/16 pulse",   expression: 0.5,  samples: centerWave([1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0])},
 		{name: "sawtooth",     expression: 0.65, samples: centerWave([1.0/31.0, 3.0/31.0, 5.0/31.0, 7.0/31.0, 9.0/31.0, 11.0/31.0, 13.0/31.0, 15.0/31.0, 17.0/31.0, 19.0/31.0, 21.0/31.0, 23.0/31.0, 25.0/31.0, 27.0/31.0, 29.0/31.0, 31.0/31.0, -31.0/31.0, -29.0/31.0, -27.0/31.0, -25.0/31.0, -23.0/31.0, -21.0/31.0, -19.0/31.0, -17.0/31.0, -15.0/31.0, -13.0/31.0, -11.0/31.0, -9.0/31.0, -7.0/31.0, -5.0/31.0, -3.0/31.0, -1.0/31.0])},
 		{name: "double saw",   expression: 0.5,  samples: centerWave([0.0, -0.2, -0.4, -0.6, -0.8, -1.0, 1.0, -0.8, -0.6, -0.4, -0.2, 1.0, 0.8, 0.6, 0.4, 0.2])},
 		{name: "double pulse", expression: 0.4,  samples: centerWave([1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0])},
@@ -345,6 +347,7 @@ export class Config {
 		{name: "continue",      isSeamless: true,  continues: true,  slides: false, slideTicks: 3, includeAdjacentPatterns: true},
 		{name: "slide",         isSeamless: true,  continues: false, slides: true,  slideTicks: 3, includeAdjacentPatterns: true},
 		{name: "slide in pattern", isSeamless: true,  continues: false, slides: true,  slideTicks: 3, includeAdjacentPatterns: false},
+		{name: "all true",      isSeamless: true,  continues: true,  slides: true, slideTicks: 3, includeAdjacentPatterns: true},
 	]);
 	public static readonly vibratos: DictionaryArray<Vibrato> = toNameMap([
 		{name: "none",    amplitude: 0.0,  periodsSeconds: [0.14], delayTicks: 0},
@@ -372,7 +375,7 @@ export class Config {
 	private static readonly Distortion_language: string = window.localStorage.getItem("language") === "german" ? "Verzerrung" : window.localStorage.getItem("language") === "english" ? "Distortion" : window.localStorage.getItem("language") === "spanish" ? "Distorsión" : "null"
 	private static readonly BitCrush_language: string = window.localStorage.getItem("language") === "german" ? "Bit-Crusher" : window.localStorage.getItem("language") === "english" ? "Bit Crusher" : window.localStorage.getItem("language") === "spanish" ? "Trituradora de bits" : "null"
 
-	public static readonly effectNames: ReadonlyArray<string> = ["reverb", "chorus", this.Panning_language.toLocaleLowerCase(), this.Distortion_language.toLocaleLowerCase(), this.BitCrush_language.toLocaleLowerCase(), this.NoteFilter_language.toLocaleLowerCase(), "echo", this.PitchShift_language.toLocaleLowerCase(), this.Detune_language.toLocaleLowerCase(), "vibrato", this.Transition_language, "chord type"];
+	public static readonly effectNames: ReadonlyArray<string> = ["reverb", "chorus", this.Panning_language.toLocaleLowerCase(), this.Distortion_language.toLocaleLowerCase(), this.BitCrush_language.toLocaleLowerCase(), this.NoteFilter_language.toLocaleLowerCase(), "echo", this.PitchShift_language.toLocaleLowerCase(), this.Detune_language.toLocaleLowerCase(), "vibrato", this.Transition_language.toLocaleLowerCase(), "chord type"];
 	public static readonly effectOrder: ReadonlyArray<EffectType> = [EffectType.transition, EffectType.chord, EffectType.pitchShift, EffectType.detune, EffectType.vibrato, EffectType.noteFilter, EffectType.distortion, EffectType.bitcrusher, EffectType.panning, EffectType.chorus, EffectType.echo, EffectType.reverb];
 	public static readonly noteSizeMax: number = 3;
 	public static readonly volumeRange: number = 24;
@@ -452,6 +455,7 @@ export class Config {
 		{name: "decay 1",  type: EnvelopeType.decay,    speed: 10.0},
 		{name: "decay 2",  type: EnvelopeType.decay,    speed:  7.0},
 		{name: "decay 3",  type: EnvelopeType.decay,    speed:  4.0},
+		{name: "decay 4",  type: EnvelopeType.decay,    speed:  1.0},
 	]);
 	public static readonly feedbacks: DictionaryArray<Feedback> = toNameMap([
 		{name: "1⟲",          indices: [[1],  [],  [],  []]},
