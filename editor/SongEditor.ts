@@ -52,11 +52,11 @@ function buildOptions(menu: HTMLSelectElement, items: ReadonlyArray<string | num
 function buildPresetOptions(isNoise: boolean): HTMLSelectElement {
 	const menu: HTMLSelectElement = select();
 	
-	menu.appendChild(optgroup({label: window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : null},
-		option({value: "copyInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Instrument" : null) + " (⇧C)"),
-		option({value: "pasteInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Instrument" : null) + " (⇧V)"),
-		option({value: "randomPreset"}, (window.localStorage.getItem("language") === "german" ? "Zufällige Voreinstellung" : window.localStorage.getItem("language") === "english" ? "Random Preset" : null) + " (R)"),
-		option({value: "randomGenerated"}, (window.localStorage.getItem("language") === "german" ? "Züfallig generiert" : window.localStorage.getItem("language") === "english" ? "Random Generated" : null) + " (⇧R)"),
+	menu.appendChild(optgroup({label: window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : window.localStorage.getItem("language") === "spanish" ? "Editar" : null},
+		option({value: "copyInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Instrument" : window.localStorage.getItem("language") === "spanish" ? "Copiar instrumento" : null) + " (⇧C)"),
+		option({value: "pasteInstrument"}, (window.localStorage.getItem("language") === "german" ? "Instrument einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Instrument" : window.localStorage.getItem("language") === "spanish" ? "Pegar instrumento" : null) + " (⇧V)"),
+		option({value: "randomPreset"}, (window.localStorage.getItem("language") === "german" ? "Zufällige Voreinstellung" : window.localStorage.getItem("language") === "english" ? "Random Preset" : window.localStorage.getItem("language") === "spanish" ? "Preajuste aleatorio" : null) + " (R)"),
+		option({value: "randomGenerated"}, (window.localStorage.getItem("language") === "german" ? "Züfallig generiert" : window.localStorage.getItem("language") === "english" ? "Random Generated" : window.localStorage.getItem("language") === "spanish" ? "Generado aleatoriamente" : null) + " (⇧R)"),
 	));
 	
 	// Show the "spectrum" custom type in both pitched and noise channels.
@@ -129,11 +129,11 @@ export class SongEditor {
 	public readonly doc: SongDocument = new SongDocument();
 	public prompt: Prompt | null = null;
 
-	private readonly Undo_language: string | null = window.localStorage.getItem("language") === "german" ? "Rückgängig (Z)" : window.localStorage.getItem("language") === "english" ? "Undo (Z)" : null
-	private readonly Redo_language: string | null = window.localStorage.getItem("language") === "german" ? "Wiederholen (Y)" : window.localStorage.getItem("language") === "english" ? "Redo (Y)" : null
-	private readonly File_language: string | null = window.localStorage.getItem("language") === "german" ? "Datei" : window.localStorage.getItem("language") === "english" ? "File" : null
-	private readonly Edit_language: string | null = window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : null
-	private readonly Preferences_language: string | null = window.localStorage.getItem("language") === "german" ? "Einstellungen" : window.localStorage.getItem("language") === "english" ? "Preferences" : null
+	private readonly Undo_language: string | null = window.localStorage.getItem("language") === "german" ? "Rückgängig (Z)" : window.localStorage.getItem("language") === "english" ? "Undo (Z)" : window.localStorage.getItem("language") === "spanish" ? "Deshacer (Z)" : null
+	private readonly Redo_language: string | null = window.localStorage.getItem("language") === "german" ? "Wiederholen (Y)" : window.localStorage.getItem("language") === "english" ? "Redo (Y)" : window.localStorage.getItem("language") === "spanish" ? "Rehacer (Y)" : null
+	private readonly File_language: string | null = window.localStorage.getItem("language") === "german" ? "Datei" : window.localStorage.getItem("language") === "english" ? "File" : window.localStorage.getItem("language") === "spanish" ? "Archivar" : null
+	private readonly Edit_language: string | null = window.localStorage.getItem("language") === "german" ? "Bearbeiten" : window.localStorage.getItem("language") === "english" ? "Edit" : window.localStorage.getItem("language") === "spanish" ? "Editar" : null
+	private readonly Preferences_language: string | null = window.localStorage.getItem("language") === "german" ? "Einstellungen" : window.localStorage.getItem("language") === "english" ? "Preferences" : window.localStorage.getItem("language") === "spanish" ? "Preferencias" : null
 
 	private readonly _keyboardLayout: KeyboardLayout = new KeyboardLayout(this.doc);
 	private readonly _patternEditorPrev: PatternEditor = new PatternEditor(this.doc, false, -1);
@@ -154,15 +154,15 @@ export class SongEditor {
 	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
 	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "75", value: "50", step: "1"});
 
-	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : null
-	private readonly Import_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied importieren" : window.localStorage.getItem("language") === "english" ? "Import Song" : null
-	private readonly Export_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied exportieren" : window.localStorage.getItem("language") === "english" ? "Export Song" : null
-	private readonly CopyURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Song URL" : null
-	private readonly ShareURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Teilen" : window.localStorage.getItem("language") === "english" ? "Share Song URL" : null
-	private readonly Shorten_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Verkürzern" : window.localStorage.getItem("language") === "english" ? "Share Song URL" : null
-	private readonly View_language: string | null = window.localStorage.getItem("language") === "german" ? "Im Songplayer anzeigen" : window.localStorage.getItem("language") === "english" ? "View in Song Player" : null
-	private readonly HTML_language: string | null = window.localStorage.getItem("language") === "german" ? "HTML-Einbettungscode kopieren" : window.localStorage.getItem("language") === "english" ? "Copy HTML Embed Code" : null
-	private readonly Recover_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuelles Lied wiederherstellen" : window.localStorage.getItem("language") === "english" ? "Recover Recent Song..." : null
+	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : window.localStorage.getItem("language") === "spanish" ? "Nueva canción vacía" : null
+	private readonly Import_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied importieren" : window.localStorage.getItem("language") === "english" ? "Import Song" : window.localStorage.getItem("language") === "spanish" ? "Importar canción" : null
+	private readonly Export_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied exportieren" : window.localStorage.getItem("language") === "english" ? "Export Song" : window.localStorage.getItem("language") === "spanish" ? "Exportar canción" : null
+	private readonly CopyURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Song URL" : window.localStorage.getItem("language") === "spanish" ? "Copiar URL de la canción" : null
+	private readonly ShareURL_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Teilen" : window.localStorage.getItem("language") === "english" ? "Share Song URL" : window.localStorage.getItem("language") === "spanish" ? "Compartir URL de canción" : null
+	private readonly Shorten_language: string | null = window.localStorage.getItem("language") === "german" ? "Lied Url Verkürzern" : window.localStorage.getItem("language") === "english" ? "Shorten Song URL" : window.localStorage.getItem("language") === "spanish" ? "Acortar URL de canción" : null
+	private readonly View_language: string | null = window.localStorage.getItem("language") === "german" ? "Im Songplayer anzeigen" : window.localStorage.getItem("language") === "english" ? "View in Song Player" : window.localStorage.getItem("language") === "spanish" ? "Ver en el / la reproductor de canciones" : null
+	private readonly HTML_language: string | null = window.localStorage.getItem("language") === "german" ? "HTML-Einbettungscode kopieren" : window.localStorage.getItem("language") === "english" ? "Copy HTML Embed Code" : window.localStorage.getItem("language") === "spanish" ? "Copiar el código de inserción HTML" : null
+	private readonly Recover_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuelles Lied wiederherstellen" : window.localStorage.getItem("language") === "english" ? "Recover Recent Song..." : window.localStorage.getItem("language") === "spanish" ? "Recuperar canción reciente..." : null
 
 	private readonly _fileMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.File_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
@@ -177,9 +177,9 @@ export class SongEditor {
 		option({value: "songRecovery"}, "⚠ " + this.Recover_language),
 	);
 
-	private readonly Copy_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Pattern" : null
-	private readonly PasteNotes_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Noten einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Notes" : null
-	private readonly PasteNumbers_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Nummern einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Numbers" : null
+	private readonly Copy_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Pattern" : window.localStorage.getItem("language") === "spanish" ? "Patrón de copia" : null
+	private readonly PasteNotes_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Noten einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Notes" : window.localStorage.getItem("language") === "spanish" ? "Pegar notas de patrón" : null
+	private readonly PasteNumbers_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Nummern einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Numbers" : window.localStorage.getItem("language") === "spanish" ? "Pegar números de patrones" : null
 	private readonly _editMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.Edit_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "undo"}, this.Undo_language),
@@ -306,14 +306,14 @@ export class SongEditor {
 	
 	private readonly _feedbackAmplitudeSlider: Slider = new Slider(input({type: "range", min: "0", max: Config.operatorAmplitudeMax, value: "0", step: "1", title: "Feedback Amplitude"}), this.doc, (oldValue: number, newValue: number) => new ChangeFeedbackAmplitude(this.doc, oldValue, newValue));
 	private readonly _feedbackRow2: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("feedbackVolume")}, "Fdback Vol:"), this._feedbackAmplitudeSlider.input);
-	private readonly customizeInst_language: string | null = window.localStorage.getItem("language") === "german" ? "Instrument anpassen" : window.localStorage.getItem("language") === "english" ? "Customize Instrument" : null
+	private readonly customizeInst_language: string | null = window.localStorage.getItem("language") === "german" ? "Instrument anpassen" : window.localStorage.getItem("language") === "english" ? "Customize Instrument" : window.localStorage.getItem("language") === "spanish" ? "Personalizar instrumento" : null
 	private readonly _customizeInstrumentButton: HTMLButtonElement = button({type: "button", class: "customize-instrument"},
 		this.customizeInst_language,
 	);
 	private readonly _addEnvelopeButton: HTMLButtonElement = button({type: "button", class: "add-envelope"});
 
-	private readonly Effects_language: string | null = window.localStorage.getItem("language") === "german" ? "Effekte" : window.localStorage.getItem("language") === "english" ? "Effects" : null
-	private readonly Envelopes_language: string | null = window.localStorage.getItem("language") === "german" ? "Umschläge" : window.localStorage.getItem("language") === "english" ? "Envelopes" : null
+	private readonly Effects_language: string | null = window.localStorage.getItem("language") === "german" ? "Effekte" : window.localStorage.getItem("language") === "english" ? "Effects" : window.localStorage.getItem("language") === "spanish" ? "Efectos" : null
+	private readonly Envelopes_language: string | null = window.localStorage.getItem("language") === "german" ? "Umschläge" : window.localStorage.getItem("language") === "english" ? "Envelopes" : window.localStorage.getItem("language") === "spanish" ? "Sobres" : null
 
 	private readonly _customInstrumentSettingsGroup: HTMLDivElement = div({class: "editor-controls"},
 		this._eqFilterRow,
@@ -357,8 +357,8 @@ export class SongEditor {
 		),
 		this._envelopeEditor.container,
 	);
-	private readonly Type_language: string | null = window.localStorage.getItem("language") === "german" ? "Typ:" : window.localStorage.getItem("language") === "english" ? "Type:" : null
-	private readonly InstSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Geräteeinstellungen" : window.localStorage.getItem("language") === "english" ? "Instrument Settings" : null
+	private readonly Type_language: string | null = window.localStorage.getItem("language") === "german" ? "Typ:" : window.localStorage.getItem("language") === "english" ? "Type:" : window.localStorage.getItem("language") === "spanish" ? "Tipear:" : null
+	private readonly InstSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Geräteeinstellungen" : window.localStorage.getItem("language") === "english" ? "Instrument Settings" : window.localStorage.getItem("language") === "spanish" ? "Ajustes del instrumento" : null
 	private readonly _instrumentSettingsGroup: HTMLDivElement = div({class: "editor-controls"},
 		div({style: `margin: 3px 0; text-align: center; color: ${ColorConfig.secondaryText};`},
 			this.InstSettings_language
@@ -416,10 +416,10 @@ export class SongEditor {
 		),
 	);
 
-	private readonly SongSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Song Einstellungen" : window.localStorage.getItem("language") === "english" ? "Song Settings" : null
-	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : null
-	private readonly Key_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel:" : window.localStorage.getItem("language") === "english" ? "Key:" : null
-	private readonly Rhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Rhythmus:" : window.localStorage.getItem("language") === "english" ? "Rhythm:" : null
+	private readonly SongSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Song Einstellungen" : window.localStorage.getItem("language") === "english" ? "Song Settings" : window.localStorage.getItem("language") === "spanish" ? "Ajustes de canción" : null
+	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : window.localStorage.getItem("language") === "spanish" ? "Escala:" : null
+	private readonly Key_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel:" : window.localStorage.getItem("language") === "english" ? "Key:" : window.localStorage.getItem("language") === "spanish" ? "Llave:" : null
+	private readonly Rhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Rhythmus:" : window.localStorage.getItem("language") === "english" ? "Rhythm:" : window.localStorage.getItem("language") === "spanish" ? "Ritmo:" : null
 	private readonly _songSettingsArea: HTMLDivElement = div({class: "song-settings-area"},
 		div({class: "editor-controls"},
 			div({style: `margin: 3px 0; text-align: center; color: ${ColorConfig.secondaryText};`},
@@ -503,9 +503,9 @@ export class SongEditor {
 	private readonly _drumsetSpectrumEditors: SpectrumEditor[] = [];
 	private readonly _drumsetEnvelopeSelects: HTMLSelectElement[] = [];
 
-	private readonly ForceScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten an der Skala ausrichten" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Scale" : null
-	private readonly DetectKey_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel erkennen" : window.localStorage.getItem("language") === "english" ? "Detect Key" : null
-	private readonly ForceRhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten zum Rhythmus anpassen" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Rhythm" : null
+	private readonly ForceScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten an der Skala ausrichten" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Scale" : window.localStorage.getItem("language") === "spanish" ? "Ajustar notas a escala" : null
+	private readonly DetectKey_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel erkennen" : window.localStorage.getItem("language") === "english" ? "Detect Key" : window.localStorage.getItem("language") === "spanish" ? "Detectar clave" : null
+	private readonly ForceRhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten zum Rhythmus anpassen" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Rhythm" : window.localStorage.getItem("language") === "spanish" ? "Ajustar las notas al ritmo" : null
 
 	constructor(beepboxEditorContainer: HTMLElement) {
 		this.doc.notifier.watch(this.whenUpdated);
@@ -781,23 +781,23 @@ export class SongEditor {
 		}
 	}
 
-	private readonly AutoPlay_language: string | null = window.localStorage.getItem("language") === "german" ? "Automatische Wiedergabe beim Laden" : window.localStorage.getItem("language") === "english" ? "Auto Play on Load" : null
-	private readonly AutoFollow_language: string | null = window.localStorage.getItem("language") === "german" ? "Zeigen und spielen Sie die gleiche Bar" : window.localStorage.getItem("language") === "english" ? "Show And Play The Same Bar" : null
-	private readonly NotePreview_language: string | null = window.localStorage.getItem("language") === "german" ? "Vorschau anhören von hinzugefügten Noten" : window.localStorage.getItem("language") === "english" ? "Hear Preview of Added Notes" : null
-	private readonly PianoKeys_language: string | null = window.localStorage.getItem("language") === "german" ? "Klaviertasten anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Piano Keys" : null
-	private readonly ShowFifth_language: string | null = window.localStorage.getItem("language") === "german" ? "Markieren Sie „Quinte“ der Tonart" : window.localStorage.getItem("language") === "english" ? "Highlight \"Fifth\" of Song Key" : null
-	private readonly OutsideScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Erlaube Noten hinzufügen die nicht im skala sind." : window.localStorage.getItem("language") === "english" ? "Allow Adding Notes Not in Scale" : null
-	private readonly DefaultScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuellen Skala als Standard verwenden" : window.localStorage.getItem("language") === "english" ? "Use Current Scale as Default" : null
-	private readonly ShowChannels_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten aus allen Channels zeigen" : window.localStorage.getItem("language") === "english" ? "Show Notes From All Channels" : null
-	private readonly ScrollBar_language: string | null = window.localStorage.getItem("language") === "german" ? "Oktav-Scrollleiste anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Octave Scroll Bar" : null
-	private readonly ShowSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Alle Instrumente individuell anpassen" : window.localStorage.getItem("language") === "english" ? "Customize All Instruments" : null
-	private readonly InstCopyPaste_language: string | null = window.localStorage.getItem("language") === "german" ? "Knöpfe zum Kopieren/Einfügen von Instrumenten" : window.localStorage.getItem("language") === "english" ? "Instrument Copy/Paste Buttons" : null
-	private readonly Muting_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal-Stummschaltung aktivieren" : window.localStorage.getItem("language") === "english" ? "Enable Channel Muting" : null
-	private readonly DisplayUrl_language: string | null = window.localStorage.getItem("language") === "german" ? "Speichere Lied Daten ins Url" : window.localStorage.getItem("language") === "english" ? "Display Song Data in URL" : null
-	private readonly ChooseLayout_language: string | null = window.localStorage.getItem("language") === "german" ? "Layout wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Layout..." : null
-	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Language..." : null
-	private readonly ChooseTheme_language: string | null = window.localStorage.getItem("language") === "german" ? "Theme wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Theme..." : null
-	private readonly NoteRecording_language: string | null = window.localStorage.getItem("language") === "german" ? "Musik-Notenaufzeichnung einrichten ..." : window.localStorage.getItem("language") === "english" ? "Set Up Note Recording..." : null
+	private readonly AutoPlay_language: string | null = window.localStorage.getItem("language") === "german" ? "Automatische Wiedergabe beim Laden" : window.localStorage.getItem("language") === "english" ? "Auto Play on Load" : window.localStorage.getItem("language") === "spanish" ? "Reproducción automática al cargar" : null
+	private readonly AutoFollow_language: string | null = window.localStorage.getItem("language") === "german" ? "Zeigen und spielen Sie die gleiche Bar" : window.localStorage.getItem("language") === "english" ? "Show And Play The Same Bar" : window.localStorage.getItem("language") === "spanish" ? "Mostrar y reproducir la misma barra" : null
+	private readonly NotePreview_language: string | null = window.localStorage.getItem("language") === "german" ? "Vorschau anhören von hinzugefügten Noten" : window.localStorage.getItem("language") === "english" ? "Hear Preview of Added Notes" : window.localStorage.getItem("language") === "spanish" ? "Escuchar vista previa de notas agregadas" : null
+	private readonly PianoKeys_language: string | null = window.localStorage.getItem("language") === "german" ? "Klaviertasten anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Piano Keys" : window.localStorage.getItem("language") === "spanish" ? "Mostrar teclas del piano" : null
+	private readonly ShowFifth_language: string | null = window.localStorage.getItem("language") === "german" ? "Markieren Sie „Quinte“ der Tonart" : window.localStorage.getItem("language") === "english" ? "Highlight \"Fifth\" of Song Key" : window.localStorage.getItem("language") === "spanish" ? "Resalte la \"Quinta\" de la clave de la canción" : null
+	private readonly OutsideScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Erlaube Noten hinzufügen die nicht im skala sind." : window.localStorage.getItem("language") === "english" ? "Allow Adding Notes Not in Scale" : window.localStorage.getItem("language") === "spanish" ? "Permitir añadir notas que no estén a escala." : null
+	private readonly DefaultScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Aktuellen Skala als Standard verwenden" : window.localStorage.getItem("language") === "english" ? "Use Current Scale as Default" : window.localStorage.getItem("language") === "spanish" ? "Utilizar la escala actual por defecto" : null
+	private readonly ShowChannels_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten aus allen Channels zeigen" : window.localStorage.getItem("language") === "english" ? "Show Notes From All Channels" : window.localStorage.getItem("language") === "spanish" ? "Mostrar notas de todos los canales" : null
+	private readonly ScrollBar_language: string | null = window.localStorage.getItem("language") === "german" ? "Oktav-Scrollleiste anzeigen" : window.localStorage.getItem("language") === "english" ? "Show Octave Scroll Bar" : window.localStorage.getItem("language") === "spanish" ? "Muestra la barra de desplazamiento de octava" : null
+	private readonly ShowSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Alle Instrumente individuell anpassen" : window.localStorage.getItem("language") === "english" ? "Customize All Instruments" : window.localStorage.getItem("language") === "spanish" ? "Personaliza todos los instrumentos" : null
+	private readonly InstCopyPaste_language: string | null = window.localStorage.getItem("language") === "german" ? "Knöpfe zum Kopieren/Einfügen von Instrumenten" : window.localStorage.getItem("language") === "english" ? "Instrument Copy/Paste Buttons" : window.localStorage.getItem("language") === "spanish" ? "Botones Copiar/Pegar Instrumento" : null
+	private readonly Muting_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal-Stummschaltung aktivieren" : window.localStorage.getItem("language") === "english" ? "Enable Channel Muting" : window.localStorage.getItem("language") === "spanish" ? "Habilitar el silenciamiento de canales" : null
+	private readonly DisplayUrl_language: string | null = window.localStorage.getItem("language") === "german" ? "Speichere Lied Daten ins Url" : window.localStorage.getItem("language") === "english" ? "Display Song Data in URL" : window.localStorage.getItem("language") === "spanish" ? "Mostrar datos de la canción en URL" : null
+	private readonly ChooseLayout_language: string | null = window.localStorage.getItem("language") === "german" ? "Layout wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Layout..." : window.localStorage.getItem("language") === "spanish" ? "Elija Diseño..." : null
+	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Language..." : window.localStorage.getItem("language") === "spanish" ? "Elige idioma..." : null
+	private readonly ChooseTheme_language: string | null = window.localStorage.getItem("language") === "german" ? "Theme wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Theme..." : window.localStorage.getItem("language") === "spanish" ? "Elige Tema..." : null
+	private readonly NoteRecording_language: string | null = window.localStorage.getItem("language") === "german" ? "Musik-Notenaufzeichnung einrichten ..." : window.localStorage.getItem("language") === "english" ? "Set Up Note Recording..." : window.localStorage.getItem("language") === "spanish" ? "Configurar grabación de notas..." : null
 
 	public whenUpdated = (): void => {
 		const prefs: Preferences = this.doc.prefs;

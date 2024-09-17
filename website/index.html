@@ -246,6 +246,12 @@
 						Changelog
 					</h2>
 					<h3>
+						17th September 2024
+					</h3>
+					<p>
+						- Added Spanish to Translate Settings
+					</p>
+					<h3>
 						16th September 2024
 					</h3>
 					<p>
@@ -331,6 +337,25 @@
         		    "DinoBox erhebt keinen Eigentumsanspruch auf die mit ihr erstellten Lieder, also originalle lieder gehören ihren Autoren.";
 				document.getElementById("responsibility").innerHTML = 
 					"Weder MrIncredibleMaker noch DinoBox übernehmen Sie die Verantwortung für jegliches urheberrechtlich geschützte Material, das auf DinoBox abgespielt wird. Keine Lieder werden jemals von den Servern von DinoBox empfangen, aufgezeichnet oder verteilt. Alle Songdaten sind in der URL nach dem Hash-Zeichen (#) enthalten und Ihre Songdaten verlassen Ihr Gerät nicht, es sei denn, Sie kopieren und teilen die URL. DinoBox sammelt, verfolgt oder teilt keine Benutzerdaten."
+    		} else if (language === "spanish") {
+        		document.getElementById("introduction").innerHTML = 
+        		    "DinoBox es una modificación de <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, una herramienta en línea para crear y compartir música instrumental.";
+				document.getElementById("songdata").innerHTML = 
+        		    "Todos los datos de las canciones están contenidos en la URL en la parte superior de su navegador.\nCuando realiza cambios en la canción, la URL se actualiza para reflejar los cambios.\nCuando esté satisfecho con su canción, simplemente copie y pegue la URL para guardar y compartir su canción.";
+				document.getElementById("instructions").innerHTML = 
+        		    "Instrucciones";
+				document.getElementById("advanced").innerHTML = 
+        		    "AVANZADO: Arrastre verticalmente desde una nota existente para modificar su tono, o arrastre verticalmente desde arriba o debajo de la nota para ajustar su volumen. Arrastre sobre los cuadros de patrones numerados para seleccionar múltiples patrones para copiar y pegar partes de su canción.";
+				document.getElementById("twitter-archive").innerHTML = 
+        		    "¿Quieres ver lo que la gente ha hecho con BeepBox? ¡Las canciones que se compartieron en Twitter antes del 22 de mayo de 2023 ahora se pueden explorar en <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">este archivo interactivo</a>!";
+				document.getElementById("about").innerHTML = 
+        		    "Acerca de";
+				document.getElementById("developed").innerHTML = 
+        		    "DinoBox es desarrollado por <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
+				document.getElementById("ownership").innerHTML = 
+        		    "DinoBox no reclama propiedad sobre las canciones creadas con él, por lo que las canciones originales pertenecen a sus autores.";
+				document.getElementById("responsibility").innerHTML = 
+					"Ni MrIncredibleMaker ni DinoBox asumen ninguna responsabilidad por el material con derechos de autor reproducido en DinoBox. Los servidores de DinoBox nunca alojan, graban ni distribuyen canciones. Todos los datos de las canciones están contenidos en la URL después del signo numeral (#), y los datos de tus canciones no saldrán de tu dispositivo a menos que copies y compartas la URL. DinoBox no recopila, rastrea ni comparte ningún dato de los usuarios."
     		}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}

@@ -65,9 +65,9 @@ export class ExportPrompt implements Prompt {
 		0x51, // spiky -> sawtooth wave
 	];
 
-	private readonly ExportOptions: string | null = window.localStorage.getItem("language") === "german" ? "Exportoptionen" : window.localStorage.getItem("language") === "english" ? "Export Options" : null
-	private readonly FileType_Language: string | null = window.localStorage.getItem("language") === "german" ? "Datei Typ:" : window.localStorage.getItem("language") === "english" ? "File Type:" : null
-	private readonly Patience_Language: string | null = window.localStorage.getItem("language") === "german" ? "(Sei geduldig, Exportieren kann eine weile dauern...)" : window.localStorage.getItem("language") === "english" ? "(Be patient, exporting may take some time...)" : null
+	private readonly ExportOptions: string | null = window.localStorage.getItem("language") === "german" ? "Exportoptionen" : window.localStorage.getItem("language") === "english" ? "Export Options" : window.localStorage.getItem("language") === "spanish" ? "Opciones de exportación" : null
+	private readonly FileType_Language: string | null = window.localStorage.getItem("language") === "german" ? "Datei Typ:" : window.localStorage.getItem("language") === "english" ? "File Type:" : window.localStorage.getItem("language") === "spanish" ? "Tipo de archivo:" : null
+	private readonly Patience_Language: string | null = window.localStorage.getItem("language") === "german" ? "(Sei geduldig, Exportieren kann eine weile dauern...)" : window.localStorage.getItem("language") === "english" ? "(Be patient, exporting may take some time...)" : window.localStorage.getItem("language") === "spanish" ? "(Por favor tenga paciencia, la exportación puede tardar algún tiempo...)" : null
 	
 	public readonly container: HTMLDivElement = div({class: "prompt noSelection", style: "width: 200px;"},
 		h2(this.ExportOptions),
