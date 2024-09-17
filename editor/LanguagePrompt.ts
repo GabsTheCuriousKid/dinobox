@@ -9,7 +9,7 @@ const { button, div, h2, p, select, option } = HTML;
 
 export class LanguagePrompt implements Prompt {
 	private readonly _languageSelect: HTMLSelectElement = select({ style: "width: 100%;" },
-		option({ value: "english" }, "English"),
+		option({ value: "english" }, "English (Default)"),
 		option({ value: "german" }, "Deutsch"),
 		option({ value: "spanish" }, "Español"),
 	);
@@ -73,6 +73,7 @@ export class LanguagePrompt implements Prompt {
 		window.localStorage.setItem("language", this._languageSelect.value);
 		this._doc.prompt = null;
 		this._doc.undo();
+		window.location.reload();
 	}
 
 	private _previewLanguage = (): void => {

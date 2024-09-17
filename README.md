@@ -75,7 +75,7 @@ I'd like to note that BeepBox also has an indirect, optional dependency on
 attempts to export an .mp3 file, BeepBox will direct the browser to download
 that dependency on demand.
 
-## How to deploy ur mod of DinoBox in [Vercel](vercel.app)
+## How to deploy ur mod of DinoBox in [Vercel](https://www.vercel.app)
 
 override the build command and put in:
 
