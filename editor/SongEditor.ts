@@ -231,7 +231,7 @@ export class SongEditor {
 		option({value: "enableChannelMuting"}, "Enable Channel Muting"),
 		option({value: "displayBrowserUrl"}, "Display Song Data in URL"),
 		option({value: "layout"}, "Choose Layout..."),
-		option({value: "language"}, "Choose Language..."),
+		// option({value: "language"}, "Choose Language..."),
 		option({value: "colorTheme"}, "Choose Theme..."),
 		option({value: "recordingSetup"}, "Set Up Note Recording..."),
 	);
@@ -840,7 +840,7 @@ export class SongEditor {
 	private readonly Muting_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal-Stummschaltung aktivieren" : window.localStorage.getItem("language") === "english" ? "Enable Channel Muting" : window.localStorage.getItem("language") === "spanish" ? "Habilitar el silenciamiento de canales" : null
 	private readonly DisplayUrl_language: string | null = window.localStorage.getItem("language") === "german" ? "Speichere Lied Daten ins Url" : window.localStorage.getItem("language") === "english" ? "Display Song Data in URL" : window.localStorage.getItem("language") === "spanish" ? "Mostrar datos de la canción en URL" : null
 	private readonly ChooseLayout_language: string | null = window.localStorage.getItem("language") === "german" ? "Layout wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Layout..." : window.localStorage.getItem("language") === "spanish" ? "Elija Diseño..." : null
-	private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Language..." : window.localStorage.getItem("language") === "spanish" ? "Elige idioma..." : null
+	//private readonly ChooseLanguage_language: string | null = window.localStorage.getItem("language") === "german" ? "Sprache wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Language..." : window.localStorage.getItem("language") === "spanish" ? "Elige idioma..." : null
 	private readonly ChooseTheme_language: string | null = window.localStorage.getItem("language") === "german" ? "Theme wählen..." : window.localStorage.getItem("language") === "english" ? "Choose Theme..." : window.localStorage.getItem("language") === "spanish" ? "Elige Tema..." : null
 	private readonly NoteRecording_language: string | null = window.localStorage.getItem("language") === "german" ? "Musik-Notenaufzeichnung einrichten ..." : window.localStorage.getItem("language") === "english" ? "Set Up Note Recording..." : window.localStorage.getItem("language") === "spanish" ? "Configurar grabación de notas..." : null
 
@@ -908,7 +908,7 @@ export class SongEditor {
 			(prefs.enableChannelMuting ? "✓ " : "　") + this.Muting_language,
 			(prefs.displayBrowserUrl ? "✓ " : "　") + this.DisplayUrl_language,
 			"　" + this.ChooseLayout_language,
-			"　" + this.ChooseLanguage_language,
+			//"　" + this.ChooseLanguage_language,
 			"　" + this.ChooseTheme_language,
 			"　" + this.NoteRecording_language,
 		];
