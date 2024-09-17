@@ -4,6 +4,8 @@ import { HTML } from "imperative-html/dist/esm/elements-strict.js";
 import { Prompt } from "./Prompt.js";
 import { SongDocument } from "./SongDocument.js";
 
+import { googleTranslateElementInit() } from '../website/index.html';
+
 //namespace beepbox {
 const { button, div, h2, p, /*select, option,*/ script, } = HTML;
 
@@ -14,6 +16,8 @@ export class LanguagePrompt implements Prompt {
 		option({ value: "spanish" }, "Español"),
 	);*/
 	
+	
+
 	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : window.localStorage.getItem("language") === "spanish" ? "Establecer idioma" : null
 	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "Unter Entwicklung. Das „ok“ Knopf aktualisiert die Seite um die Sprache zu ändern." : window.localStorage.getItem("language") === "english" ? "Under Development. The \"Okay\" button refreshes the page to change the language." : window.localStorage.getItem("language") === "spanish" ? "En desarrollo. El botón \"Ok\" actualiza la página para cambiar el idioma." : null
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : null
@@ -21,13 +25,15 @@ export class LanguagePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
+	private readonly _translate: HTMLDivElement = div({id: "google_translate_element"})
+
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2(this.SetLanguage),
 		
 		/*div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._languageSelect),
 		),*/
-		div({id: "google_translate_element"}),
+		this._translate,
 		p({style: "text-align: left; margin: 0.5em 0;"},
 			this.InDevelopment
 		),
@@ -36,9 +42,7 @@ export class LanguagePrompt implements Prompt {
 		),
 		this._cancelButton,
 		script({type: "text/javascript"},
-			function googleTranslateElementInit() {
-				new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'zh-CN,cs,da,nl,en,et,fr,de,es'}, 'google_translate_element');
-			}
+			googleTranslateElementInit()
 		),
 		script({type: "text/javascript", src: "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"}),
 	);
