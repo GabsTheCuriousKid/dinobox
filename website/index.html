@@ -308,6 +308,7 @@
 		function translateString(stringInput, languageInput) {
 			let translate_this_string = stringInput
 			let translate_using_this_language = languageInput
+			console.log("fetching: https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language)
 			fetch("https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language).then(response => {
     		if (!response.ok) {
       			throw new Error('Network response was not ok');
