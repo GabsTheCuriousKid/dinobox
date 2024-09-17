@@ -15,8 +15,8 @@ export class LanguagePrompt implements Prompt {
 	);
 	
 	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : window.localStorage.getItem("language") === "spanish" ? "Establecer idioma" : null
-	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "in Entwicklung. Aktualisiere die Seite um die Sprache zu ändern." : window.localStorage.getItem("language") === "english" ? "in Development. Refresh the page to change the language." : window.localStorage.getItem("language") === "spanish" ? "En desarrollo. Actualice la página para cambiar el idioma." : null
-	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : null
+	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "Unter Entwicklung. Das „ok“ Knopf aktualisiert die Seite um die Sprache zu ändern." : window.localStorage.getItem("language") === "english" ? "Under Development. The \"Okay\" button refreshes the page to change the language." : window.localStorage.getItem("language") === "spanish" ? "En desarrollo. El botón \"Ok\" actualiza la página para cambiar el idioma." : null
+	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : null
 
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);

@@ -289,7 +289,7 @@
 			document.getElementById("keyboard-instructions").style.display = "none";
 			document.getElementById("mobile-instructions").style.display = "";
 			document.getElementById("bar-editing").innerHTML = "Tap the boxes to move to a different part of the song, or tap on the currently selected box to swap which pattern is played during that part of the song.";
-			document.getElementById("offline-instructions").innerHTML = 'You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>';
+			// document.getElementById("offline-instructions").innerHTML = 'You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>';
 		}
 
 		function localStorageLanguage() {
@@ -318,6 +318,13 @@
         		    "DinoBox does not claim ownership over songs created with it, so original songs belong to their authors.";
 				document.getElementById("responsibility").innerHTML = 
 					"Neither MrIncredibleMaker nor DinoBox assume responsibility for any copyrighted material played on DinoBox. No songs are ever received, recorded, or distributed by DinoBox's servers. All song data is contained in the URL after the hash (#) mark, and your song data will not leave your device unless you copy and share the URL. DinoBox does not collect, track, or share any user data."
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
+					document.getElementById("offline-instructions").innerHTML = 
+						'You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>';
+				} else {
+					document.getElementById("offline-instructions").innerHTML = 
+						"You can download <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">an offline version of DinoBox</a> to use when you don't have access to the internet. The features are otherwise the same."
+				}
     		} else if (language === "german") {
         		document.getElementById("introduction").innerHTML = 
         		    "DinoBox ist eine Modifikation von <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, ein Online-Tool für Skizzieren und Teilen von Instrumentalmusik.";
@@ -328,7 +335,7 @@
 				document.getElementById("advanced").innerHTML = 
         		    "ERWEITERT: Ziehen Sie vertikal von einer vorhandenen Note, um ihre Tonhöhe zu ändern, oder ziehen Sie vertikal von oberhalb oder unterhalb der Note, um ihre Lautstärke anzupassen. Ziehen Sie an den nummerierten Musterfeldern, um mehrere Muster auszuwählen und Teile Ihres Songs zu kopieren und einzufügen.";
 				document.getElementById("twitter-archive").innerHTML = 
-        		    "Willst du sehen was für Musik Leute mit Beepbox gemacht hat? Lieder dass veröffentlicht auf Twitter bevor 22.05.2023 ist, kannst du in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">dieses interaktive Archiv</a> besuchen!";
+        		    "Willst du sehen was für Musik Leute mit Beepbox gemacht hat? Lieder dass veröffentlicht auf Twitter bevor 22.05.2023 war, kannst du in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">dieses interaktive Archiv</a> besuchen!";
 				document.getElementById("about").innerHTML = 
         		    "Über DinoBox";
 				document.getElementById("developed").innerHTML = 
@@ -337,6 +344,13 @@
         		    "DinoBox erhebt keinen Eigentumsanspruch auf die mit ihr erstellten Lieder, also originalle lieder gehören ihren Autoren.";
 				document.getElementById("responsibility").innerHTML = 
 					"Weder MrIncredibleMaker noch DinoBox übernehmen Sie die Verantwortung für jegliches urheberrechtlich geschützte Material, das auf DinoBox abgespielt wird. Keine Lieder werden jemals von den Servern von DinoBox empfangen, aufgezeichnet oder verteilt. Alle Songdaten sind in der URL nach dem Hash-Zeichen (#) enthalten und Ihre Songdaten verlassen Ihr Gerät nicht, es sei denn, Sie kopieren und teilen die URL. DinoBox sammelt, verfolgt oder teilt keine Benutzerdaten."
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
+					document.getElementById("offline-instructions").innerHTML = 
+						'Sie können DinoBox verwenden, wenn Ihr Gerät offline ist, indem Sie eine Verknüpfung zu DinoBox auf Ihrem Startbildschirm platzieren. <ul><li>Chrome: Suchen Sie im ⋮-Menü nach der Option „Zum Startbildschirm hinzufügen“.</li><li>Firefox: Suchen Sie im ⋮-Menü nach der Option „Seitenverknüpfung hinzufügen“.</li><li>Safari: Suchen Sie im Lesezeichenmenü nach der Option „Zum Startbildschirm hinzufügen“.</li></ul>';
+				} else {
+					document.getElementById("offline-instructions").innerHTML = 
+						"Sie können <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">eine Offline-Version von DinoBox</a> herunterladen, wenn Sie keinen Internetzugang haben. Die Funktionen sind ansonsten dieselben."
+				}
     		} else if (language === "spanish") {
         		document.getElementById("introduction").innerHTML = 
         		    "DinoBox es una modificación de <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, una herramienta en línea para crear y compartir música instrumental.";
@@ -356,6 +370,13 @@
         		    "DinoBox no reclama propiedad sobre las canciones creadas con él, por lo que las canciones originales pertenecen a sus autores.";
 				document.getElementById("responsibility").innerHTML = 
 					"Ni MrIncredibleMaker ni DinoBox asumen ninguna responsabilidad por el material con derechos de autor reproducido en DinoBox. Los servidores de DinoBox nunca alojan, graban ni distribuyen canciones. Todos los datos de las canciones están contenidos en la URL después del signo numeral (#), y los datos de tus canciones no saldrán de tu dispositivo a menos que copies y compartas la URL. DinoBox no recopila, rastrea ni comparte ningún dato de los usuarios."
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
+					document.getElementById("offline-instructions").innerHTML = 
+						'Puede utilizar DinoBox cuando su dispositivo esté sin conexión colocando un acceso directo de DinoBox en su pantalla de inicio. <ul><li>Chrome: Busque la opción “Agregar a la pantalla de inicio” en el menú ⋮.</li><li>Firefox: Busque la opción “Agregar acceso directo a la página” en el menú ⋮.</li><li>Safari: Busque la opción “Agregar a la pantalla de inicio” en el menú de marcadores.</li></ul>';
+				} else {
+					document.getElementById("offline-instructions").innerHTML = 
+						"Puedes descargar <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">una versión sin conexión de DinoBox</a> para usarla cuando no tengas acceso a Internet. Por lo demás, las características son las mismas."
+				}
     		}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}

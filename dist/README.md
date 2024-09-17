@@ -1,4 +1,4 @@
-# BeepBox
+# DinoBox
 
 [Dinobox](https://dinobox.vercel.app) is a modification of an music synthesizer, along with an online editor for authoring songs that you can try out at [beepbox.co](https://www.beepbox.co)!
 

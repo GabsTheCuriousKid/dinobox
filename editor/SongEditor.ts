@@ -177,29 +177,42 @@ export class SongEditor {
 		option({value: "songRecovery"}, "⚠ " + this.Recover_language),
 	);
 
-	private readonly Copy_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Pattern" : window.localStorage.getItem("language") === "spanish" ? "Patrón de copia" : null
+	private readonly CopyPattern_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster kopieren" : window.localStorage.getItem("language") === "english" ? "Copy Pattern" : window.localStorage.getItem("language") === "spanish" ? "Patrón de copia" : null
 	private readonly PasteNotes_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Noten einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Notes" : window.localStorage.getItem("language") === "spanish" ? "Pegar notas de patrón" : null
 	private readonly PasteNumbers_language: string | null = window.localStorage.getItem("language") === "german" ? "Muster Nummern einfügen" : window.localStorage.getItem("language") === "english" ? "Paste Pattern Numbers" : window.localStorage.getItem("language") === "spanish" ? "Pegar números de patrones" : null
+	private readonly InsertBar_language: string | null = window.localStorage.getItem("language") === "german" ? "Bar einfügen" : window.localStorage.getItem("language") === "english" ? "Insert Bar" : window.localStorage.getItem("language") === "spanish" ? "insertar barra" : null
+	private readonly DeleteBars_language: string | null = window.localStorage.getItem("language") === "german" ? "Ausgewählte Bars löschen" : window.localStorage.getItem("language") === "english" ? "Delete Selected Bars" : window.localStorage.getItem("language") === "spanish" ? "Eliminar barras seleccionadas" : null
+	private readonly InsertChannel_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal einfügen" : window.localStorage.getItem("language") === "english" ? "Insert Channel" : window.localStorage.getItem("language") === "spanish" ? "Insertar canal" : null
+	private readonly DeleteChannel_language: string | null = window.localStorage.getItem("language") === "german" ? "Ausgewählte Kanäle löschen" : window.localStorage.getItem("language") === "english" ? "Delete Selected Channels" : window.localStorage.getItem("language") === "spanish" ? "Eliminar canales seleccionados" : null
+	private readonly SelectAll_language: string | null = window.localStorage.getItem("language") === "german" ? "Alles auswählen" : window.localStorage.getItem("language") === "english" ? "Select All" : window.localStorage.getItem("language") === "spanish" ? "Seleccionar todo" : null
+	private readonly SelectChannel_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanal auswählen" : window.localStorage.getItem("language") === "english" ? "Select Channel" : window.localStorage.getItem("language") === "spanish" ? "Seleccione Canal" : null
+	private readonly DuplicatePattern_language: string | null = window.localStorage.getItem("language") === "german" ? "Wiederverwendete Muster duplizieren" : window.localStorage.getItem("language") === "english" ? "Duplicate Reused Patterns" : window.localStorage.getItem("language") === "spanish" ? "Duplicar patrones reutilizados" : null
+	private readonly TransposeUp_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten nach oben verschieben" : window.localStorage.getItem("language") === "english" ? "Move Notes Up" : window.localStorage.getItem("language") === "spanish" ? "Mover notas hacia arriba" : null
+	private readonly TransposeDown_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten nach unten verschieben" : window.localStorage.getItem("language") === "english" ? "Move Notes Down" : window.localStorage.getItem("language") === "spanish" ? "Mover notas hacia abajo" : null
+	private readonly moveNotesSideways_language: string | null = window.localStorage.getItem("language") === "german" ? "Alle Noten seitwärts verschieben" : window.localStorage.getItem("language") === "english" ? "Move All Notes Sideways" : window.localStorage.getItem("language") === "spanish" ? "Mover todas las notas hacia los lados" : null
+	private readonly BeatsPerBar_language: string | null = window.localStorage.getItem("language") === "german" ? "Beats pro Bar ändern" : window.localStorage.getItem("language") === "english" ? "Change Beats Per Bar" : window.localStorage.getItem("language") === "spanish" ? "Cambiar los latidos por compás" : null
+	private readonly BarCount_language: string | null = window.localStorage.getItem("language") === "german" ? "Songlänge ändern" : window.localStorage.getItem("language") === "english" ? "Change Song Length" : window.localStorage.getItem("language") === "spanish" ? "Cambiar la duración de la canción" : null
+	private readonly ChannelSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Kanaleinstellungen" : window.localStorage.getItem("language") === "english" ? "Channel Settings" : window.localStorage.getItem("language") === "spanish" ? "Configuración del canal" : null
 	private readonly _editMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.Edit_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 		option({value: "undo"}, this.Undo_language),
 		option({value: "redo"}, this.Redo_language),
-		option({value: "copy"}, this.Copy_language + " (C)"),
+		option({value: "copy"}, this.CopyPattern_language + " (C)"),
 		option({value: "pasteNotes"}, this.PasteNotes_language + " (V)"),
 		option({value: "pasteNumbers"}, this.PasteNumbers_language + " (" + EditorConfig.ctrlSymbol + "⇧V)"),
-		option({value: "insertBars"}, "Insert Bar (⏎)"),
-		option({value: "deleteBars"}, "Delete Selected Bars (⌫)"),
-		option({value: "insertChannel"}, "Insert Channel (" + EditorConfig.ctrlSymbol + "⏎)"),
-		option({value: "deleteChannel"}, "Delete Selected Channels (" + EditorConfig.ctrlSymbol + "⌫)"),
-		option({value: "selectAll"}, "Select All (A)"),
-		option({value: "selectChannel"}, "Select Channel (⇧A)"),
-		option({value: "duplicatePatterns"}, "Duplicate Reused Patterns (D)"),
-		option({value: "transposeUp"}, "Move Notes Up (+ or ⇧+)"),
-		option({value: "transposeDown"}, "Move Notes Down (- or ⇧-)"),
-		option({value: "moveNotesSideways"}, "Move All Notes Sideways..."),
-		option({value: "beatsPerBar"}, "Change Beats Per Bar..."),
-		option({value: "barCount"}, "Change Song Length..."),
-		option({value: "channelSettings"}, "Channel Settings... (Q)"),
+		option({value: "insertBars"}, this.InsertBar_language + " (⏎)"),
+		option({value: "deleteBars"}, this.DeleteBars_language + " (⌫)"),
+		option({value: "insertChannel"}, this.InsertChannel_language + " (" + EditorConfig.ctrlSymbol + "⏎)"),
+		option({value: "deleteChannel"}, this.DeleteChannel_language + " (" + EditorConfig.ctrlSymbol + "⌫)"),
+		option({value: "selectAll"}, this.SelectAll_language + " (A)"),
+		option({value: "selectChannel"}, this.SelectChannel_language + " (⇧A)"),
+		option({value: "duplicatePatterns"}, this.DuplicatePattern_language + " (D)"),
+		option({value: "transposeUp"}, this.TransposeUp_language + " (+ or ⇧+)"),
+		option({value: "transposeDown"}, this.TransposeDown_language + " (- or ⇧-)"),
+		option({value: "moveNotesSideways"}, this.moveNotesSideways_language + "..."),
+		option({value: "beatsPerBar"}, this.BeatsPerBar_language + "..."),
+		option({value: "barCount"}, this.BarCount_language + "..."),
+		option({value: "channelSettings"}, this.ChannelSettings_language + "... (Q)"),
 	);
 	private readonly _optionsMenu: HTMLSelectElement = select({style: "width: 100%;"},
 		option({selected: true, disabled: true, hidden: false}, this.Preferences_language), // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
@@ -244,63 +257,93 @@ export class SongEditor {
 	private readonly _instrumentRemoveButton: HTMLButtonElement = button({type: "button", class: "remove-instrument"});
 	private readonly _instrumentsButtonBar: HTMLDivElement = div({class: "instrument-bar"}, this._instrumentRemoveButton, this._instrumentAddButton);
 	private readonly _instrumentsButtonRow: HTMLDivElement = div({class: "selectRow", style: "display: none;"}, span({class: "tip", onclick: ()=>this._openPrompt("instrumentIndex")}, "Instrument:"), this._instrumentsButtonBar);
-	private readonly _instrumentCopyButton: HTMLButtonElement = button({type: "button", class: "copy-instrument", title: "Copy Instrument (⇧C)"}, "Copy");
-	private readonly _instrumentPasteButton: HTMLButtonElement = button({type: "button", class: "paste-instrument", title: "Paste Instrument (⇧V)"}, "Paste");
+
+	private readonly Copy_language: string | null = window.localStorage.getItem("language") === "german" ? "kopieren" : window.localStorage.getItem("language") === "english" ? "Copy" : window.localStorage.getItem("language") === "spanish" ? "copiar" : null
+	private readonly Paste_language: string | null = window.localStorage.getItem("language") === "german" ? "einfügen" : window.localStorage.getItem("language") === "english" ? "Paste" : window.localStorage.getItem("language") === "spanish" ? "pegar" : null
+
+	private readonly _instrumentCopyButton: HTMLButtonElement = button({type: "button", class: "copy-instrument", title: "Copy Instrument (⇧C)"}, this.Copy_language);
+	private readonly _instrumentPasteButton: HTMLButtonElement = button({type: "button", class: "paste-instrument", title: "Paste Instrument (⇧V)"}, this.Paste_language);
 	private readonly _instrumentCopyPasteRow: HTMLDivElement = div({class: "instrumentCopyPasteRow", style: "display: none;"}, this._instrumentCopyButton, this._instrumentPasteButton);
+
+	private readonly InstrumentVolume_language: string | null = window.localStorage.getItem("language") === "german" ? "Lautstärke:" : window.localStorage.getItem("language") === "english" ? "Volume:" : window.localStorage.getItem("language") === "spanish" ? "Volumen:" : null
+
+	private readonly Panning_language: string | null = window.localStorage.getItem("language") === "german" ? "Panning:" : window.localStorage.getItem("language") === "english" ? "Panning:" : window.localStorage.getItem("language") === "spanish" ? "Panorámica:" : null
+	private readonly ChipWave_language: string | null = window.localStorage.getItem("language") === "german" ? "Welle:" : window.localStorage.getItem("language") === "english" ? "Wave:" : window.localStorage.getItem("language") === "spanish" ? "Ola:" : null
+	private readonly ChipNoise_language: string | null = window.localStorage.getItem("language") === "german" ? "Geräusch:" : window.localStorage.getItem("language") === "english" ? "Noise:" : window.localStorage.getItem("language") === "spanish" ? "Ruido:" : null
+	private readonly Transition_language: string | null = window.localStorage.getItem("language") === "german" ? "Übergang:" : window.localStorage.getItem("language") === "english" ? "Transition:" : window.localStorage.getItem("language") === "spanish" ? "Transición:" : null
+	private readonly NoteFilter_language: string | null = window.localStorage.getItem("language") === "german" ? "Filter von Note:" : window.localStorage.getItem("language") === "english" ? "Note Filter:" : window.localStorage.getItem("language") === "spanish" ? "Filtro de Nota:" : null
+
+	private readonly SuperSawDynamism_language: string | null = window.localStorage.getItem("language") === "german" ? "Dynamik:" : window.localStorage.getItem("language") === "english" ? "Dynamism:" : window.localStorage.getItem("language") === "spanish" ? "Dinamismo:" : null
+	private readonly SuperSawSpread_language: string | null = window.localStorage.getItem("language") === "german" ? "Verbreitung:" : window.localStorage.getItem("language") === "english" ? "Spread:" : window.localStorage.getItem("language") === "spanish" ? "Propagar:" : null
+
+	private readonly PulseWidth_language: string | null = window.localStorage.getItem("language") === "german" ? "Impulsbreite:" : window.localStorage.getItem("language") === "english" ? "Pulse Width:" : window.localStorage.getItem("language") === "spanish" ? "Ancho de pulso:" : null
+	private readonly PitchShift_language: string | null = window.localStorage.getItem("language") === "german" ? "Tonhöhenverschiebung:" : window.localStorage.getItem("language") === "english" ? "Pitch Shift:" : window.localStorage.getItem("language") === "spanish" ? "Cambio de tono:" : null
+	private readonly Detune_language: string | null = window.localStorage.getItem("language") === "german" ? "Verstimmen:" : window.localStorage.getItem("language") === "english" ? "Detune:" : window.localStorage.getItem("language") === "spanish" ? "desafinar:" : null
+	private readonly Distortion_language: string | null = window.localStorage.getItem("language") === "german" ? "Verzerrung:" : window.localStorage.getItem("language") === "english" ? "Distortion:" : window.localStorage.getItem("language") === "spanish" ? "Distorsión:" : null
+	private readonly BitCrush_language: string | null = window.localStorage.getItem("language") === "german" ? "Bit-Crush:" : window.localStorage.getItem("language") === "english" ? "Bit Crush:" : window.localStorage.getItem("language") === "spanish" ? "Aplastamiento de bits:" : null
+	private readonly Sustain_language: string | null = window.localStorage.getItem("language") === "german" ? "„Sustain“:" : window.localStorage.getItem("language") === "english" ? "Sustain:" : window.localStorage.getItem("language") === "spanish" ? "Sustentar:" : null
+
+	private readonly Unison_language: string | null = window.localStorage.getItem("language") === "german" ? "Unisono:" : window.localStorage.getItem("language") === "english" ? "Unison:" : window.localStorage.getItem("language") === "spanish" ? "Unísono:" : null
+	private readonly Chords_language: string | null = window.localStorage.getItem("language") === "german" ? "Akkorde:" : window.localStorage.getItem("language") === "english" ? "Chords:" : window.localStorage.getItem("language") === "spanish" ? "Acordes:" : null
+	// private readonly Vibrato_language: string | null = window.localStorage.getItem("language") === "german" ? "Vibrato:" : window.localStorage.getItem("language") === "english" ? "Vibrato:" : window.localStorage.getItem("language") === "spanish" ? "Vibrato:" : null
+	// private readonly Feedback_language: string | null = window.localStorage.getItem("language") === "german" ? "Feedback:" : window.localStorage.getItem("language") === "english" ? "Feedback:" : window.localStorage.getItem("language") === "spanish" ? "Feedback:" : null
+	private readonly Spectrum_language: string | null = window.localStorage.getItem("language") === "german" ? "Spektrum:" : window.localStorage.getItem("language") === "english" ? "Spectrum:" : window.localStorage.getItem("language") === "spanish" ? "Espectro:" : null
+	private readonly Harmonics_language: string | null = window.localStorage.getItem("language") === "german" ? "Harmonische:" : window.localStorage.getItem("language") === "english" ? "Harmonics:" : window.localStorage.getItem("language") === "spanish" ? "Armónicos:" : null
+
 	private readonly _instrumentVolumeSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: -(Config.volumeRange - 1), max: "0", value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeVolume(this.doc, oldValue, -newValue));
-	private readonly _instrumentVolumeSliderRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("instrumentVolume")}, "Volume:"), this._instrumentVolumeSlider.input);
+	private readonly _instrumentVolumeSliderRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("instrumentVolume")}, this.InstrumentVolume_language), this._instrumentVolumeSlider.input);
 	private readonly _panSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.panMax, value: Config.panCenter, step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangePan(this.doc, oldValue, newValue));
-	private readonly _panSliderRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pan")}, "Panning:"), this._panSlider.input);
+	private readonly _panSliderRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pan")}, this.Panning_language), this._panSlider.input);
 	private readonly _chipWaveSelect: HTMLSelectElement = buildOptions(select(), Config.chipWaves.map(wave=>wave.name));
 	private readonly _chipNoiseSelect: HTMLSelectElement = buildOptions(select(), Config.chipNoises.map(wave=>wave.name));
-	private readonly _chipWaveSelectRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chipWave")}, "Wave:"), div({class: "selectContainer"}, this._chipWaveSelect));
-	private readonly _chipNoiseSelectRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chipNoise")}, "Noise:"), div({class: "selectContainer"}, this._chipNoiseSelect));
+	private readonly _chipWaveSelectRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chipWave")}, this.ChipWave_language), div({class: "selectContainer"}, this._chipWaveSelect));
+	private readonly _chipNoiseSelectRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chipNoise")}, this.ChipNoise_language), div({class: "selectContainer"}, this._chipNoiseSelect));
 	private readonly _fadeInOutEditor: FadeInOutEditor = new FadeInOutEditor(this.doc);
 	private readonly _fadeInOutRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("fadeInOut")}, "Fade In/Out:"), this._fadeInOutEditor.container);
 	private readonly _transitionSelect: HTMLSelectElement = buildOptions(select(), Config.transitions.map(transition=>transition.name));
-	private readonly _transitionRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("transition")}, "Transition:"), div({class: "selectContainer"}, this._transitionSelect));
+	private readonly _transitionRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("transition")}, this.Transition_language), div({class: "selectContainer"}, this._transitionSelect));
 	private readonly _effectsSelect: HTMLSelectElement = select(option({selected: true, disabled: true, hidden: false})); // todo: "hidden" should be true but looks wrong on mac chrome, adds checkmark next to first visible option even though it's not selected. :(
 	private readonly _eqFilterEditor: FilterEditor = new FilterEditor(this.doc);
 	private readonly _eqFilterRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("eqFilter")}, "EQ Filter:"), this._eqFilterEditor.container);
 	private readonly _noteFilterEditor: FilterEditor = new FilterEditor(this.doc, true);
-	private readonly _noteFilterRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("noteFilter")}, "Note Filter:"), this._noteFilterEditor.container);
+	private readonly _noteFilterRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("noteFilter")}, this.NoteFilter_language), this._noteFilterEditor.container);
 	private readonly _supersawDynamismSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.supersawDynamismMax, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeSupersawDynamism(this.doc, oldValue, newValue));
-	private readonly _supersawDynamismRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("supersawDynamism")}, "Dynamism:"), this._supersawDynamismSlider.input);
+	private readonly _supersawDynamismRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("supersawDynamism")}, this.SuperSawDynamism_language), this._supersawDynamismSlider.input);
 	private readonly _supersawSpreadSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.supersawSpreadMax, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeSupersawSpread(this.doc, oldValue, newValue));
-	private readonly _supersawSpreadRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("supersawSpread")}, "Spread:"), this._supersawSpreadSlider.input);
+	private readonly _supersawSpreadRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("supersawSpread")}, this.SuperSawSpread_language), this._supersawSpreadSlider.input);
 	private readonly _supersawShapeSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.supersawShapeMax, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeSupersawShape(this.doc, oldValue, newValue));
 	private readonly _supersawShapeRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("supersawShape")}, "Saw↔Pulse:"), this._supersawShapeSlider.input);
 	private readonly _pulseWidthSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.pulseWidthRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangePulseWidth(this.doc, oldValue, newValue));
-	private readonly _pulseWidthRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pulseWidth")}, "Pulse Width:"), this._pulseWidthSlider.input);
+	private readonly _pulseWidthRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pulseWidth")}, this.PulseWidth_language), this._pulseWidthSlider.input);
 	private readonly _pitchShiftSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.pitchShiftRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangePitchShift(this.doc, oldValue, newValue));
 	private readonly _pitchShiftTonicMarkers: HTMLDivElement[] = [div({class: "pitchShiftMarker", style: {color: ColorConfig.tonic}}), div({class: "pitchShiftMarker", style: {color: ColorConfig.tonic, left: "50%"}}), div({class: "pitchShiftMarker", style: {color: ColorConfig.tonic, left: "100%"}})];
 	private readonly _pitchShiftFifthMarkers: HTMLDivElement[] = [div({class: "pitchShiftMarker", style: {color: ColorConfig.fifthNote, left: (100*7/24)+"%"}}), div({class: "pitchShiftMarker", style: {color: ColorConfig.fifthNote, left: (100*19/24)+"%"}})];
 	private readonly _pitchShiftMarkerContainer: HTMLDivElement = div({style: "display: flex; position: relative;"}, this._pitchShiftSlider.input, div({class: "pitchShiftMarkerContainer"}, this._pitchShiftTonicMarkers, this._pitchShiftFifthMarkers));
-	private readonly _pitchShiftRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pitchShift")}, "Pitch Shift:"), this._pitchShiftMarkerContainer);
+	private readonly _pitchShiftRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("pitchShift")}, this.PitchShift_language), this._pitchShiftMarkerContainer);
 	private readonly _detuneSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.detuneMax, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeDetune(this.doc, oldValue, newValue));
-	private readonly _detuneRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("detune")}, "Detune:"), this._detuneSlider.input);
+	private readonly _detuneRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("detune")}, this.Detune_language), this._detuneSlider.input);
 	private readonly _distortionSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.distortionRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeDistortion(this.doc, oldValue, newValue));
-	private readonly _distortionRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("distortion")}, "Distortion:"), this._distortionSlider.input);
+	private readonly _distortionRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("distortion")}, this.Distortion_language), this._distortionSlider.input);
 	private readonly _bitcrusherQuantizationSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.bitcrusherQuantizationRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeBitcrusherQuantization(this.doc, oldValue, newValue));
-	private readonly _bitcrusherQuantizationRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("bitcrusherQuantization")}, "Bit Crush:"), this._bitcrusherQuantizationSlider.input);
+	private readonly _bitcrusherQuantizationRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("bitcrusherQuantization")}, this.BitCrush_language), this._bitcrusherQuantizationSlider.input);
 	private readonly _bitcrusherFreqSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.bitcrusherFreqRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeBitcrusherFreq(this.doc, oldValue, newValue));
 	private readonly _bitcrusherFreqRow: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("bitcrusherFreq")}, "Freq Crush:"), this._bitcrusherFreqSlider.input);
 	private readonly _stringSustainSlider: Slider = new Slider(input({style: "margin: 0;", type: "range", min: "0", max: Config.stringSustainRange - 1, value: "0", step: "1"}), this.doc, (oldValue: number, newValue: number) => new ChangeStringSustain(this.doc, oldValue, newValue));
-	private readonly _stringSustainLabel: HTMLSpanElement = span({class: "tip", onclick: ()=>this._openPrompt("stringSustain")}, "Sustain:");
+	private readonly _stringSustainLabel: HTMLSpanElement = span({class: "tip", onclick: ()=>this._openPrompt("stringSustain")}, this.Sustain_language);
 	private readonly _stringSustainRow: HTMLDivElement = div({class: "selectRow"}, this._stringSustainLabel, this._stringSustainSlider.input);
 	private readonly _unisonSelect: HTMLSelectElement = buildOptions(select(), Config.unisons.map(unison=>unison.name));
-	private readonly _unisonSelectRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("unison")}, "Unison:"), div({class: "selectContainer"}, this._unisonSelect));
+	private readonly _unisonSelectRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("unison")}, this.Unison_language), div({class: "selectContainer"}, this._unisonSelect));
 	private readonly _chordSelect: HTMLSelectElement = buildOptions(select(), Config.chords.map(chord=>chord.name));
-	private readonly _chordSelectRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chords")}, "Chords:"), div({class: "selectContainer"}, this._chordSelect));
+	private readonly _chordSelectRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("chords")}, this.Chords_language), div({class: "selectContainer"}, this._chordSelect));
 	private readonly _vibratoSelect: HTMLSelectElement = buildOptions(select(), Config.vibratos.map(vibrato=>vibrato.name));
 	private readonly _vibratoSelectRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("vibrato")}, "Vibrato:"), div({class: "selectContainer"}, this._vibratoSelect));
 	private readonly _phaseModGroup: HTMLElement = div({class: "editor-controls"});
 	private readonly _feedbackTypeSelect: HTMLSelectElement = buildOptions(select(), Config.feedbacks.map(feedback=>feedback.name));
 	private readonly _feedbackRow1: HTMLDivElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("feedbackType")}, "Feedback:"), div({class: "selectContainer"}, this._feedbackTypeSelect));
 	private readonly _spectrumEditor: SpectrumEditor = new SpectrumEditor(this.doc, null);
-	private readonly _spectrumRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("spectrum")}, "Spectrum:"), this._spectrumEditor.container);
+	private readonly _spectrumRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("spectrum")}, this.Spectrum_language), this._spectrumEditor.container);
 	private readonly _harmonicsEditor: HarmonicsEditor = new HarmonicsEditor(this.doc);
-	private readonly _harmonicsRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("harmonics")}, "Harmonics:"), this._harmonicsEditor.container);
+	private readonly _harmonicsRow: HTMLElement = div({class: "selectRow"}, span({class: "tip", onclick: ()=>this._openPrompt("harmonics")}, this.Harmonics_language), this._harmonicsEditor.container);
 	private readonly _envelopeEditor: EnvelopeEditor = new EnvelopeEditor(this.doc);
 	private readonly _drumsetGroup: HTMLElement = div({class: "editor-controls"});
 	
@@ -418,7 +461,7 @@ export class SongEditor {
 
 	private readonly SongSettings_language: string | null = window.localStorage.getItem("language") === "german" ? "Song Einstellungen" : window.localStorage.getItem("language") === "english" ? "Song Settings" : window.localStorage.getItem("language") === "spanish" ? "Ajustes de canción" : null
 	private readonly Scale_language: string | null = window.localStorage.getItem("language") === "german" ? "Skala:" : window.localStorage.getItem("language") === "english" ? "Scale:" : window.localStorage.getItem("language") === "spanish" ? "Escala:" : null
-	private readonly Key_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel:" : window.localStorage.getItem("language") === "english" ? "Key:" : window.localStorage.getItem("language") === "spanish" ? "Llave:" : null
+	private readonly Key_language: string | null = window.localStorage.getItem("language") === "german" ? "Tonart:" : window.localStorage.getItem("language") === "english" ? "Key:" : window.localStorage.getItem("language") === "spanish" ? "Llave:" : null
 	private readonly Rhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Rhythmus:" : window.localStorage.getItem("language") === "english" ? "Rhythm:" : window.localStorage.getItem("language") === "spanish" ? "Ritmo:" : null
 	private readonly _songSettingsArea: HTMLDivElement = div({class: "song-settings-area"},
 		div({class: "editor-controls"},
@@ -504,7 +547,7 @@ export class SongEditor {
 	private readonly _drumsetEnvelopeSelects: HTMLSelectElement[] = [];
 
 	private readonly ForceScale_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten an der Skala ausrichten" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Scale" : window.localStorage.getItem("language") === "spanish" ? "Ajustar notas a escala" : null
-	private readonly DetectKey_language: string | null = window.localStorage.getItem("language") === "german" ? "Schlüssel erkennen" : window.localStorage.getItem("language") === "english" ? "Detect Key" : window.localStorage.getItem("language") === "spanish" ? "Detectar clave" : null
+	private readonly DetectKey_language: string | null = window.localStorage.getItem("language") === "german" ? "Tonart erkennen" : window.localStorage.getItem("language") === "english" ? "Detect Key" : window.localStorage.getItem("language") === "spanish" ? "Detectar clave" : null
 	private readonly ForceRhythm_language: string | null = window.localStorage.getItem("language") === "german" ? "Noten zum Rhythmus anpassen" : window.localStorage.getItem("language") === "english" ? "Snap Notes To Rhythm" : window.localStorage.getItem("language") === "spanish" ? "Ajustar las notas al ritmo" : null
 
 	constructor(beepboxEditorContainer: HTMLElement) {
