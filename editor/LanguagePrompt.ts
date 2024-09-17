@@ -12,6 +12,7 @@ export class LanguagePrompt implements Prompt {
 		option({ value: "english" }, "English (Default)"),
 		option({ value: "german" }, "Deutsch"),
 		option({ value: "spanish" }, "Español"),
+		option({ value: "russian" }, "Русский"),
 	);
 	
 	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : window.localStorage.getItem("language") === "spanish" ? "Establecer idioma" : null

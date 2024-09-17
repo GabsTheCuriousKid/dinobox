@@ -184,7 +184,7 @@
 						<p>
 							When BeepBox has focus (click on its interface above), you can use these keyboard shortcuts: <br/>
 						</p>
-						<ul>
+						<ul id="key-instructions">
 							<li><b>Spacebar</b>: play or pause the song</li>
 							<li><b>Shift Spacebar</b>: play from mouse location</li>
 							<li><b>Z</b>: undo, <b>Y or Shift Z</b>: redo</li>
@@ -251,17 +251,20 @@
 						17th September 2024
 					</h3>
 					<p>
-						- Replaced the Translate Settings with Google Translate
+						- Added Russian to Translate Settings (Beta)
 					</p>
-					<p><del>
-						- Added Spanish to Translate Settings (unadded)
-					</del></p>
+					<p>
+						- <del>Replaced the Translate Settings with Google Translate</del> (it doesn't work offline)
+					</p>
+					<p>
+						- Added Spanish to Translate Settings (readded)
+					</p>
 					<h3>
 						16th September 2024
 					</h3>
-					<p><del>
+					<p>
 						- Added Translate Settings (Development has started.)
-					</del></p>
+					</p>
 					<p>
 						- Added more Themes (credits to <a href="https://www.github.com/ChopTop84" target="_blank">@ChopTop84</a>)
 					</p>
@@ -302,6 +305,30 @@
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
+		function translateString(stringInput, languageInput) {
+			fetch("https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(stringInput) + "&language=" + languageInput).then(response => {
+    		if (!response.ok) {
+      			throw new Error('Network response was not ok');
+    		}
+    			return response.text();
+  			})
+  			.then(html => {
+    			const parser = new DOMParser();
+    			const doc = parser.parseFromString(html, 'text/html');
+    
+    			const outputElement = doc.getElementById('output');
+    
+    			if (outputElement) {
+      				console.log(outputElement.innerText);
+    			} else {
+      				console.log('ID "output" not found.');
+    			}
+  			})
+  			.catch(error => {
+    			console.error('Fetch Error: ', error);
+  			});
+		}
+
 		function updateLanguageContent() {
     		const language = window.localStorage.getItem("language");
     		if (language === "english") {
@@ -311,6 +338,8 @@
         		    "All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!";
 				document.getElementById("instructions").innerHTML = 
         		    "Instructions";
+				document.getElementById("keyboard-instructions").getElementById("key-instructions").innerHTML = 
+					"<li><b>Spacebar</b>: play or pause the song</li>\n<li><b>Shift Spacebar</b>: play from mouse location</li>\n<li><b>Z</b>: undo, <b>Y or Shift Z</b>: redo</li>\n<li><b>C/V</b>: copy/paste selected pattern(s)</li>\n<li><b>0-9</b>: assign pattern number to selection</li>\n<li><b>Arrows</b>: move selection</li>\n<li><b>Ctrl + Arrows</b>: rearrange channels</li>\n<li><b>[ ]</b>: move playhead backward or forward</li>\n<li><b>F/H</b>: move to First or Highlighted pattern </li>\n<li><b>Shift & Drag</b>: select part of a pattern</li>\n<li>Check DinoBox's edit menu for more!</li>";
 				document.getElementById("advanced").innerHTML = 
         		    "ADVANCED: Drag vertically from an existing note to bend its pitch, or drag vertically from above or below the note to adjust its volume. Drag on the numbered pattern boxes to select multiple patterns to copy and paste parts of your song.";
 				document.getElementById("twitter-archive").innerHTML = 
@@ -337,6 +366,8 @@
         		    "Alle deine musik daten ist in der URL oben in Ihrem Browser enthalten.\nWenn Sie Änderungen am Song vornehmen, der URL ändert sich um deine Änderungen zu reflektieren.\nWenn du zufrieden mit deinen musik bist, einfach nur der URL kopieren und einfügen um Ihr Lied zu speichern und zu teilen!";
 				document.getElementById("instructions").innerHTML = 
         		    "Anleitung";
+				document.getElementById("keyboard-instructions").getElementById("key-instructions").innerHTML = 
+					"<li><b>Leertaste</b>: Lied abspielen oder pausieren</li>\n<li><b>Umschalttaste Leertaste</b>: ab Mausposition abspielen</li>\n<li><b>Z</b>: rückgängig machen, <b>Y oder Umschalttaste Z</b>: wiederherstellen</li>\n<li><b>C/V</b>: ausgewählte Muster kopieren/einfügen</li>\n<li><b>0-9</b>: Musternummer der Auswahl zuweisen</li>\n<li><b>Pfeile</b>: Auswahl verschieben</li>\n<li><b>Strg + Pfeile</b>: Kanäle neu anordnen</li>\n<li><b>[ ]</b>: Abspielkopf vorwärts oder rückwärts bewegen</li>\n<li><b>F/H</b>: zum ersten oder hervorgehobenen Muster bewegen </li>\n<li><b>Umschalt & Ziehen</b>: Teil eines Musters auswählen</li>\n<li>Überprüfen Sie das Bearbeitungsmenü von DinoBox für mehr!</li>";
 				document.getElementById("advanced").innerHTML = 
         		    "ERWEITERT: Ziehen Sie vertikal von einer vorhandenen Note, um ihre Tonhöhe zu ändern, oder ziehen Sie vertikal von oberhalb oder unterhalb der Note, um ihre Lautstärke anzupassen. Ziehen Sie an den nummerierten Musterfeldern, um mehrere Muster auszuwählen und Teile Ihres Songs zu kopieren und einzufügen.";
 				document.getElementById("twitter-archive").innerHTML = 
@@ -363,6 +394,8 @@
         		    "Todos los datos de las canciones están contenidos en la URL en la parte superior de su navegador.\nCuando realiza cambios en la canción, la URL se actualiza para reflejar los cambios.\nCuando esté satisfecho con su canción, simplemente copie y pegue la URL para guardar y compartir su canción.";
 				document.getElementById("instructions").innerHTML = 
         		    "Instrucciones";
+				document.getElementById("keyboard-instructions").getElementById("key-instructions").innerHTML = 
+					"<li><b>Barra espaciadora</b>: reproducir o pausar la canción</li>\n<li><b>Barra espaciadora Shift</b>: reproducir desde la ubicación del mouse</li>\n<li><b>Z</b>: deshacer, <b>Y o Shift Z</b>: rehacer</li>\n<li><b>C/V</b>: copiar/pegar patrón(es) seleccionado(s)</li>\n<li><b>0-9</b>: asignar número de patrón a la selección</li>\n<li><b>Flechas</b>: mover selección</li>\n<li><b>Ctrl + Flechas</b>: reorganizar canales</li>\n<li><b>[ ]</b>: mover el cursor de reproducción hacia atrás o hacia adelante</li>\n<li><b>F/H</b>: mover al primer patrón o al resaltado </li>\n<li><b>Shift y arrastrar</b>: seleccionar parte de un patrón</li>\n<li>Comprobar ¡Menú de edición de DinoBox para más información!</li>";
 				document.getElementById("advanced").innerHTML = 
         		    "AVANZADO: Arrastre verticalmente desde una nota existente para modificar su tono, o arrastre verticalmente desde arriba o debajo de la nota para ajustar su volumen. Arrastre sobre los cuadros de patrones numerados para seleccionar múltiples patrones para copiar y pegar partes de su canción.";
 				document.getElementById("twitter-archive").innerHTML = 
@@ -382,7 +415,35 @@
 					document.getElementById("offline-instructions").innerHTML = 
 						"Puedes descargar <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">una versión sin conexión de DinoBox</a> para usarla cuando no tengas acceso a Internet. Por lo demás, las características son las mismas."
 				}
-    		}
+    		} else if (language === "russian") {
+        		//document.getElementById("introduction").innerHTML = 
+        		    translateString("DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.", "ru"); // ru = russian
+				//document.getElementById("songdata").innerHTML = 
+        		    translateString("All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!", "ru");
+				//document.getElementById("instructions").innerHTML = 
+        		    translateString("Instructions", "ru");
+				//document.getElementById("keyboard-instructions").getElementById("key-instructions").innerHTML = 
+					translateString("<li><b>Spacebar</b>: play or pause the song</li>\n<li><b>Shift Spacebar</b>: play from mouse location</li>\n<li><b>Z</b>: undo, <b>Y or Shift Z</b>: redo</li>\n<li><b>C/V</b>: copy/paste selected pattern(s)</li>\n<li><b>0-9</b>: assign pattern number to selection</li>\n<li><b>Arrows</b>: move selection</li>\n<li><b>Ctrl + Arrows</b>: rearrange channels</li>\n<li><b>[ ]</b>: move playhead backward or forward</li>\n<li><b>F/H</b>: move to First or Highlighted pattern </li>\n<li><b>Shift & Drag</b>: select part of a pattern</li>\n<li>Check DinoBox's edit menu for more!</li>", "ru");
+				//document.getElementById("advanced").innerHTML = 
+        		    translateString("ADVANCED: Drag vertically from an existing note to bend its pitch, or drag vertically from above or below the note to adjust its volume. Drag on the numbered pattern boxes to select multiple patterns to copy and paste parts of your song.", "ru");
+				//document.getElementById("twitter-archive").innerHTML = 
+        		    translateString("Want to see what people have made with BeepBox? Songs that were shared on Twitter prior to 2023-05-22 can now be browsed in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">this interactive archive</a>!", "ru");
+				//document.getElementById("about").innerHTML = 
+        		    translateString("About", "ru");
+				//document.getElementById("developed").innerHTML = 
+        		    translateString("DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.", "ru");
+				//document.getElementById("ownership").innerHTML = 
+        		    translateString("DinoBox does not claim ownership over songs created with it, so original songs belong to their authors.", "ru");
+				//document.getElementById("responsibility").innerHTML = 
+					translateString("Neither MrIncredibleMaker nor DinoBox assume responsibility for any copyrighted material played on DinoBox. No songs are ever received, recorded, or distributed by DinoBox's servers. All song data is contained in the URL after the hash (#) mark, and your song data will not leave your device unless you copy and share the URL. DinoBox does not collect, track, or share any user data.", "ru")
+				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
+					//document.getElementById("offline-instructions").innerHTML = 
+						translateString('You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>', "ru");
+				} else {
+					//document.getElementById("offline-instructions").innerHTML = 
+						translateString("You can download <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">an offline version of DinoBox</a> to use when you don't have access to the internet. The features are otherwise the same.", "ru")
+				}
+			}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
@@ -401,6 +462,12 @@
 		        updateLanguageContent();
 		    }
 		}, 100);
+
+		function changestringtolanguage(stringInput, language) {
+			let languageInput = language;
+			let stringInput = stringInput;
+			
+		}
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
