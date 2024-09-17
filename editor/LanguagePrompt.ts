@@ -5,14 +5,14 @@ import { Prompt } from "./Prompt.js";
 import { SongDocument } from "./SongDocument.js";
 
 //namespace beepbox {
-const { button, div, h2, p, select, option } = HTML;
+const { button, div, h2, p, /*select, option,*/ script, } = HTML;
 
 export class LanguagePrompt implements Prompt {
-	private readonly _languageSelect: HTMLSelectElement = select({ style: "width: 100%;" },
+	/*private readonly _languageSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ value: "english" }, "English (Default)"),
 		option({ value: "german" }, "Deutsch"),
 		option({ value: "spanish" }, "Español"),
-	);
+	);*/
 	
 	private readonly SetLanguage: string | null = window.localStorage.getItem("language") === "german" ? "Setze den Sprache" : window.localStorage.getItem("language") === "english" ? "Set Language" : window.localStorage.getItem("language") === "spanish" ? "Establecer idioma" : null
 	private readonly InDevelopment: string | null = window.localStorage.getItem("language") === "german" ? "Unter Entwicklung. Das „ok“ Knopf aktualisiert die Seite um die Sprache zu ändern." : window.localStorage.getItem("language") === "english" ? "Under Development. The \"Okay\" button refreshes the page to change the language." : window.localStorage.getItem("language") === "spanish" ? "En desarrollo. El botón \"Ok\" actualiza la página para cambiar el idioma." : null
@@ -24,9 +24,10 @@ export class LanguagePrompt implements Prompt {
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2(this.SetLanguage),
 		
-		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+		/*div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._languageSelect),
-		),
+		),*/
+		div({id: "google_translate_element"}),
 		p({style: "text-align: left; margin: 0.5em 0;"},
 			this.InDevelopment
 		),
@@ -34,18 +35,24 @@ export class LanguagePrompt implements Prompt {
 			this._okayButton,
 		),
 		this._cancelButton,
+		script({type: "text/javascript"},
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'zh-CN,cs,da,nl,en,et,fr,de,es'}, 'google_translate_element');
+			}
+		),
+		script({type: "text/javascript", src: "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"}),
 	);
 
 	private readonly lastLanguage: string | null = window.localStorage.getItem("language")
 
 	constructor(private _doc: SongDocument) {
-		if (this.lastLanguage != null) {
+		/*if (this.lastLanguage != null) {
 			this._languageSelect.value = this.lastLanguage;
-		}
+		}*/
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
-		this._languageSelect.addEventListener("change", this._previewLanguage);
+		//this._languageSelect.addEventListener("change", this._previewLanguage);
 	}
 
 	private _close = (): void => {
@@ -70,14 +77,14 @@ export class LanguagePrompt implements Prompt {
 	}
 
 	private _saveChanges = (): void => {
-		window.localStorage.setItem("language", this._languageSelect.value);
+		/*window.localStorage.setItem("language", this._languageSelect.value);*/
 		this._doc.prompt = null;
 		this._doc.undo();
 		window.location.reload();
 	}
 
-	private _previewLanguage = (): void => {
+	/*private _previewLanguage = (): void => {
 		this._doc.notifier.changed();
-	}
+	}*/
 }
 //}
