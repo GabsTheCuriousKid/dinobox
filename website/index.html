@@ -248,6 +248,12 @@
 						Changelog
 					</h2>
 					<h3>
+						18th September 2024
+					</h3>
+					<p>
+						- Development begun in russian (Beta)
+					</p>
+					<h3>
 						17th September 2024
 					</h3>
 					<p>
@@ -303,41 +309,6 @@
 		function localStorageLanguage() {
     		const language = window.localStorage.getItem("language");
     		window.localStorage.setItem("language_SAVEDATA", language);
-		}
-
-		function translateString(stringInput, languageInput) {
-    		let translate_this_string = stringInput;
-    		let translate_using_this_language = languageInput;
-
-    		console.log("fetching: https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language);
-    
-    		fetch("https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language)
-        		.then(response => {
-            		if (!response.ok) {
-                		throw new Error('Network response was not ok');
-            		}
-            		return response.text();
-        		})
-        		.then(html => {
-        	    	const parser = new DOMParser();
-        	    	const doc = parser.parseFromString(html, 'text/html');
-
-        	    	const outputElement = doc.getElementById('output');
-
-        	    	if (outputElement) {
-        	        	console.log("Text before translation:", outputElement.innerText);
-
-        	        	setTimeout(() => {
-        	            	const translatedText = outputElement.innerText;
-        	            	console.log("Translated Text:", translatedText);
-        	        	}, 2000);
-        	    	} else {
-        	        	console.log('ID "output" not found.');
-        	    	}
-        		})
-        		.catch(error => {
-        	    	console.error('Fetch Error: ', error);
-        		});
 		}
 
 		function updateLanguageContent() {
@@ -428,33 +399,33 @@
 				}
     		} else if (language === "russian") {
         		document.getElementById("introduction").innerHTML = 
-        		    translateString("DinoBox is a modification of <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, an online tool for sketching and sharing instrumental music.", "ru"); // ru = russian
+        		    "DinoBox — это модификация <a href=\"https://beepbox.co\" target=\"_blank\">Beepbox</a>, онлайн-инструмента для создания набросков и обмена инструментальной музыкой.";
 				document.getElementById("songdata").innerHTML = 
-        		    translateString("All song data is contained in the URL at the top of your browser.\nWhen you make changes to the song, the URL is updated to reflect your changes.\nWhen you are satisfied with your song, just copy and paste the URL to save and share your song!", "ru");
+        		    "Все данные о песне содержатся в URL-адресе в верхней части вашего браузера.\nКогда вы вносите изменения в песню, URL-адрес обновляется, отражая ваши изменения.\nКогда вы будете удовлетворены своей песней, просто скопируйте и вставьте URL-адрес, чтобы сохранить и поделиться своей песней!";
 				document.getElementById("instructions").innerHTML = 
-        		    translateString("Instructions", "ru");
+        		    "Инструкции";
 				document.getElementById("key-instructions").innerHTML = 
-					translateString("<li><b>Spacebar</b>: play or pause the song</li>\n<li><b>Shift Spacebar</b>: play from mouse location</li>\n<li><b>Z</b>: undo, <b>Y or Shift Z</b>: redo</li>\n<li><b>C/V</b>: copy/paste selected pattern(s)</li>\n<li><b>0-9</b>: assign pattern number to selection</li>\n<li><b>Arrows</b>: move selection</li>\n<li><b>Ctrl + Arrows</b>: rearrange channels</li>\n<li><b>[ ]</b>: move playhead backward or forward</li>\n<li><b>F/H</b>: move to First or Highlighted pattern </li>\n<li><b>Shift & Drag</b>: select part of a pattern</li>\n<li>Check DinoBox's edit menu for more!</li>", "ru");
+					"<li><b>Пробел</b>: воспроизведение или пауза песни</li>\n<li><b>Shift Пробел</b>: воспроизведение с позиции мыши</li>\n<li><b>Z</b>: отмена, <b>Y или Shift Z</b>: повтор</li>\n<li><b>C/V</b>: копирование/вставка выбранных шаблонов</li>\n<li><b>0-9</b>: назначение номера шаблона выделению</li>\n<li><b>Стрелки</b>: перемещение выделения</li>\n<li><b>Ctrl + стрелки</b>: изменение порядка каналов</li>\n<li><b>[ ]</b>: перемещение точки воспроизведения назад или вперед</li>\n<li><b>F/H</b>: переход к первому или выделенному шаблону</li>\n<li><b>Shift и перетаскивание</b>: выбор части шаблона</li>\n<li>Отметить Меню редактирования DinoBox для большего!</li>";
 				document.getElementById("advanced").innerHTML = 
-        		    translateString("ADVANCED: Drag vertically from an existing note to bend its pitch, or drag vertically from above or below the note to adjust its volume. Drag on the numbered pattern boxes to select multiple patterns to copy and paste parts of your song.", "ru");
+        		    "РАСШИРЕННЫЙ: Перетащите вертикально от существующей ноты, чтобы изменить ее высоту, или перетащите вертикально сверху или снизу ноты, чтобы настроить ее громкость. Перетащите пронумерованные поля шаблонов, чтобы выбрать несколько шаблонов для копирования и вставки частей вашей песни.";
 				document.getElementById("twitter-archive").innerHTML = 
-        		    translateString("Want to see what people have made with BeepBox? Songs that were shared on Twitter prior to 2023-05-22 can now be browsed in <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">this interactive archive</a>!", "ru");
+        		    "Хотите посмотреть, что люди сделали с помощью BeepBox? Песни, которыми делились в Твиттере до 22 мая 2023 г., теперь можно просмотреть в <a href=\"https://twitter-archive.beepbox.co/\" target=\"_blank\">этом интерактивном архиве< /а>!";
 				document.getElementById("about").innerHTML = 
-        		    translateString("About", "ru");
+        		    "О";
 				document.getElementById("developed").innerHTML = 
-        		    translateString("DinoBox is developed by <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.", "ru");
+        		    "DinoBox разработан <a href=\"https://scratch.mit.edu/users/MrIncredibleMakerZe\" target=\"_blank\">MrIncredibleMaker</a>.";
 				document.getElementById("ownership").innerHTML = 
-        		    translateString("DinoBox does not claim ownership over songs created with it, so original songs belong to their authors.", "ru");
+        		    "DinoBox не претендует на права собственности на песни, созданные с его помощью, поэтому оригинальные песни принадлежат их авторам.";
 				document.getElementById("responsibility").innerHTML = 
-					translateString("Neither MrIncredibleMaker nor DinoBox assume responsibility for any copyrighted material played on DinoBox. No songs are ever received, recorded, or distributed by DinoBox's servers. All song data is contained in the URL after the hash (#) mark, and your song data will not leave your device unless you copy and share the URL. DinoBox does not collect, track, or share any user data.", "ru")
+					"Ни MrIncredibleMaker, ни DinoBox не несут ответственности за любой защищенный авторским правом материал, воспроизводимый на DinoBox. Никакие песни никогда не принимаются, не записываются и не распространяются серверами DinoBox. Все данные песен содержатся в URL после знака решетки (#), и ваши данные песен не покинут ваше устройство, если вы не скопируете и не поделитесь URL. DinoBox не собирает, не отслеживает и не передает никакие пользовательские данные."
 				if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) ) {
 					document.getElementById("offline-instructions").innerHTML = 
-						translateString('You can use DinoBox when your device is offline if you put a shortcut to DinoBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>', "ru");
+						'Вы можете использовать DinoBox, когда ваше устройство находится в автономном режиме, если поместите ярлык DinoBox на главный экран. <ul><li>Chrome: найдите опцию «Добавить на главный экран» в меню ⋮.</li><li>Firefox: найдите опцию «Добавить ярлык страницы» в меню ⋮.</li><li>Safari: найдите опцию «Добавить на главный экран» в меню закладок.</li></ul>';
 				} else {
 					document.getElementById("offline-instructions").innerHTML = 
-						translateString("You can download <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">an offline version of DinoBox</a> to use when you don't have access to the internet. The features are otherwise the same.", "ru")
+						"Вы можете загрузить <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">офлайн-версию DinoBox</a>, чтобы использовать ее, когда у вас нет доступа к Интернету. В остальном функции те же самые."
 				}
-			}
+    		}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}
 
