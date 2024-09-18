@@ -306,30 +306,38 @@
 		}
 
 		function translateString(stringInput, languageInput) {
-			let translate_this_string = stringInput;
-			let translate_using_this_language = languageInput;
-			console.log("fetching: https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language)
-			fetch("https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language).then(response => {
-    		if (!response.ok) {
-      			throw new Error('Network response was not ok');
-    		}
-    			return response.text();
-  			})
-  			.then(html => {
-    			const parser = new DOMParser();
-    			const doc = parser.parseFromString(html, 'text/html');
+    		let translate_this_string = stringInput;
+    		let translate_using_this_language = languageInput;
+
+    		console.log("fetching: https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language);
     
-    			const outputElement = doc.getElementById('output');
-    
-    			if (outputElement) {
-      				console.log(outputElement.innerText);
-    			} else {
-      				console.log('ID "output" not found.');
-    			}
-  			})
-  			.catch(error => {
-    			console.error('Fetch Error: ', error);
-  			});
+    		fetch("https://gabsthecuriouskid.github.io/translatetest/?text=" + encodeURIComponent(translate_this_string) + "&language=" + translate_using_this_language)
+        		.then(response => {
+            		if (!response.ok) {
+                		throw new Error('Network response was not ok');
+            		}
+            		return response.text();
+        		})
+        		.then(html => {
+        	    	const parser = new DOMParser();
+        	    	const doc = parser.parseFromString(html, 'text/html');
+
+        	    	const outputElement = doc.getElementById('output');
+
+        	    	if (outputElement) {
+        	        	console.log("Text before translation:", outputElement.innerText);
+
+        	        	setTimeout(() => {
+        	            	const translatedText = outputElement.innerText;
+        	            	console.log("Translated Text:", translatedText);
+        	        	}, 2000);
+        	    	} else {
+        	        	console.log('ID "output" not found.');
+        	    	}
+        		})
+        		.catch(error => {
+        	    	console.error('Fetch Error: ', error);
+        		});
 		}
 
 		function updateLanguageContent() {
