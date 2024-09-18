@@ -20,7 +20,7 @@ export class ThemePrompt implements Prompt {
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
 	);
-	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : null
+	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : null
 
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
