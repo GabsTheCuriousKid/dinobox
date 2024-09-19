@@ -2546,6 +2546,15 @@ export class ChangeTempo extends Change {
 	}
 }
 
+export class ChangeMainVolume extends Change {
+	constructor(doc: SongDocument, oldValue: number, newValue: number) {
+		super();
+		doc.prefs.volume = Math.max(0, Math.min(100, Math.round(newValue)));
+		doc.notifier.changed();
+		if (oldValue != newValue) this._didSomething();
+	}
+}
+
 export class ChangeEchoDelay extends ChangeInstrumentSlider {
 	constructor(doc: SongDocument, oldValue: number, newValue: number) {
 		super(doc);
