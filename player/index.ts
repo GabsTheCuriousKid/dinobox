@@ -151,11 +151,10 @@ const colorTheme: string | null = getLocalStorage("colorTheme");
 
 ColorConfig.setTheme(colorTheme === null ? "dark classic" : colorTheme);
 
-if (getLocalStorage("language") === null) {
-	setLocalStorage("language", "english")
-}
-//setLocalStorage("language", "english")
-// const language: string | null = getLocalStorage("language");
+
+const language: string | null = getLocalStorage("language");
+
+setLocalStorage("language", language === null ? "english" : language)
 
 let prevHash: string | null = null;
 let id: string = ((Math.random() * 0xffffffff) >>> 0).toString(16);
