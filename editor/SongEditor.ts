@@ -152,7 +152,7 @@ export class SongEditor {
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
 	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span(this.Undo_language));
 	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
-	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"}, this.doc, () => this.doc.setVolume(Number(this._volumeSlider.value)));
+	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"}, this.doc, () => this.doc.setVolume(Number(this._volumeSlider)));
 	private readonly _volumeStepper: HTMLInputElement = input({style: "width: 3em;", type: "number", step: "1"}); /* margin-left: 0.4em; vertical-align: middle;*/
 
 	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : window.localStorage.getItem("language") === "spanish" ? "Nueva canción vacía" : window.localStorage.getItem("language") === "russian" ? "Новая пустая песня" : null
