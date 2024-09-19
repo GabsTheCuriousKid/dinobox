@@ -152,7 +152,7 @@ export class SongEditor {
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
 	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span(this.Undo_language));
 	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
-	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"});
+	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"}, this.doc, () => this.doc.setVolume(Number(this._volumeSlider.value)));
 	private readonly _volumeStepper: HTMLInputElement = input({style: "width: 3em;", type: "number", step: "1"}); /* margin-left: 0.4em; vertical-align: middle;*/
 
 	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : window.localStorage.getItem("language") === "spanish" ? "Nueva canción vacía" : window.localStorage.getItem("language") === "russian" ? "Новая пустая песня" : null
@@ -626,7 +626,7 @@ export class SongEditor {
 		this._editMenu.addEventListener("change", this._editMenuHandler);
 		this._optionsMenu.addEventListener("change", this._optionsMenuHandler);
 		this._tempoStepper.addEventListener("change", this._whenSetTempo);
-		this._volumeSlider.addEventListener("input", this._setVolumeSlider);
+		this._volumeStepper.addEventListener("input", this._setVolumeStepper);
 		this._scaleSelect.addEventListener("change", this._whenSetScale);
 		this._keySelect.addEventListener("change", this._whenSetKey);
 		this._rhythmSelect.addEventListener("change", this._whenSetRhythm);
@@ -677,6 +677,7 @@ export class SongEditor {
 		this._eqFilterEditor.container.addEventListener("mousedown", this._refocusStage);
 		this._noteFilterEditor.container.addEventListener("mousedown", this._refocusStage);
 		this._harmonicsEditor.container.addEventListener("mousedown", this._refocusStage);
+		this._volumeStepper.addEventListener("keydown", this._tempoStepperCaptureNumberKeys, false);
 		this._tempoStepper.addEventListener("keydown", this._tempoStepperCaptureNumberKeys, false);
 		this._addEnvelopeButton.addEventListener("click", this._addNewEnvelope);
 		this._patternArea.addEventListener("contextmenu", this._disableCtrlContextMenu);
@@ -1812,8 +1813,8 @@ export class SongEditor {
 		}
 	}
 	
-	private _setVolumeSlider = (): void => {
-		this.doc.setVolume(Number(this._volumeSlider.value));
+	private _setVolumeStepper = (): void => {
+		this.doc.setVolume(Number(this._volumeStepper.value));
 	}
 	
 	private _copyInstrument = (): void => {
