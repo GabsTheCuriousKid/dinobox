@@ -820,7 +820,7 @@ export class SongEditor {
 	}
 	
 	private _onFocusIn = (event: Event): void => {
-		if (this.doc.synth.recording && event.target != this.mainLayer && event.target != this._stopButton && event.target != this._volumeSlider) {
+		if (this.doc.synth.recording && event.target != this.mainLayer && event.target != this._stopButton) {
 			// Don't allow using tab to focus on the song settings while recording,
 			// since interacting with them while recording would mess up the recording.
 			this._refocusStage();
