@@ -942,7 +942,7 @@ export class SongEditor {
 		setSelectedValue(this._keySelect, Config.keys.length - 1 - this.doc.song.key);
 		this._tempoSlider.updateValue(Math.max(0, Math.min(28, Math.round(4.0 + 9.0 * Math.log2(this.doc.song.tempo / 120.0)))));
 		this._tempoStepper.value = this.doc.song.tempo.toString();
-		this._volumeSlider.updateValue(this.doc.song.tempo);
+		this._volumeSlider.updateValue(this.doc.prefs.volume);
 		this._volumeStepper.value = this.doc.prefs.volume.toString()
 		setSelectedValue(this._rhythmSelect, this.doc.song.rhythm);
 		
@@ -1246,7 +1246,7 @@ export class SongEditor {
 		this._instrumentVolumeSlider.updateValue(-instrument.volume);
 		this._addEnvelopeButton.disabled = (instrument.envelopeCount >= Config.maxEnvelopeCount);
 		
-		this._volumeSlider.value = String(prefs.volume);
+		//this._volumeSlider.value = String(prefs.volume);
 		
 		
 		// If an interface element was selected, but becomes invisible (e.g. an instrument
