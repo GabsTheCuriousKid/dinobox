@@ -152,7 +152,7 @@ export class SongEditor {
 	private readonly _nextBarButton: HTMLButtonElement = button({class: "nextBarButton", type: "button", title: "Next Bar (right bracket)"});
 	private readonly _undoButton: HTMLButtonElement = button({class: "undoButton", type: "button", title: "Undo"}, span(this.Undo_language));
 	private readonly _redoButton: HTMLButtonElement = button({class: "redoButton", type: "button", title: "Redo"}, span(this.Redo_language));
-	private readonly _volumeSlider: HTMLInputElement = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"}, this.doc, () => this.doc.setVolume(Number(this._volumeSlider)));
+	private readonly _volumeSlider: Slider = input({title: "main volume", style: "width: 5em; flex-grow: 1; margin: 0;", type: "range", min: "0", max: "100", value: "50", step: "1"}, this.doc, () => this.doc.setVolume(Number(this._volumeSlider)));
 	private readonly _volumeStepper: HTMLInputElement = input({style: "width: 3em;", type: "number", step: "1"}); /* margin-left: 0.4em; vertical-align: middle;*/
 
 	private readonly New_language: string | null = window.localStorage.getItem("language") === "german" ? "Neues Blanke Lied" : window.localStorage.getItem("language") === "english" ? "New Blank Song" : window.localStorage.getItem("language") === "spanish" ? "Nueva canción vacía" : window.localStorage.getItem("language") === "russian" ? "Новая пустая песня" : null
@@ -512,7 +512,7 @@ export class SongEditor {
 			),
 			div({class: "playback-volume-controls"},
 				span({class: "volume-speaker"}),
-				this._volumeSlider,
+				this._volumeSlider.input,
 				this._volumeStepper,
 			),
 			div({class: "other-controls"},
@@ -942,6 +942,8 @@ export class SongEditor {
 		setSelectedValue(this._keySelect, Config.keys.length - 1 - this.doc.song.key);
 		this._tempoSlider.updateValue(Math.max(0, Math.min(28, Math.round(4.0 + 9.0 * Math.log2(this.doc.song.tempo / 120.0)))));
 		this._tempoStepper.value = this.doc.song.tempo.toString();
+		this._volumeSlider.updateValue(this.doc.song.tempo);
+		this._volumeStepper.value = this.doc.prefs.volume.toString()
 		setSelectedValue(this._rhythmSelect, this.doc.song.rhythm);
 		
 		if (this.doc.song.getChannelIsNoise(this.doc.channel)) {
