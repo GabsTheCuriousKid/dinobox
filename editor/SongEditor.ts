@@ -1816,7 +1816,7 @@ export class SongEditor {
 	}
 	
 	private _setVolumeStepper = (): void => {
-		//this.doc.setVolume(Number(this._volumeStepper.value));
+		this.doc.setVolume(Number(this._volumeStepper.value));
 		this.doc.record(new ChangeMainVolume(this.doc, -1, parseInt(this._volumeStepper.value) | 0));
 	}
 	
