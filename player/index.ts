@@ -151,7 +151,10 @@ const colorTheme: string | null = getLocalStorage("colorTheme");
 
 ColorConfig.setTheme(colorTheme === null ? "dark classic" : colorTheme);
 
-// setLocalStorage("language", "english")
+if (getLocalStorage("language") === null) {
+	setLocalStorage("language", "English")
+}
+//setLocalStorage("language", "english")
 // const language: string | null = getLocalStorage("language");
 
 let prevHash: string | null = null;

@@ -272,7 +272,7 @@ export class Config {
 	public static readonly instrumentCountMin: number = 1;
 	public static readonly layeredInstrumentCountMax: number = 4;
 	public static readonly patternInstrumentCountMax: number = 10;
-	public static readonly partsPerBeat: number = 24;
+	public static readonly partsPerBeat: number = 48;
 	public static readonly ticksPerPart: number = 2;
 	public static readonly rhythms: DictionaryArray<Rhythm> = toNameMap([
 		{name: "÷1",            stepsPerBeat: 1, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: null},
