@@ -431,6 +431,9 @@
 					document.getElementById("offline-instructions").innerHTML = 
 						"Вы можете загрузить <a download=\"beepbox_offline.html\" href=\"beepbox_offline.html\">офлайн-версию DinoBox</a>, чтобы использовать ее, когда у вас нет доступа к Интернету. В остальном функции те же самые."
 				}
+    		} else if (language === null) {
+        		window.localStorage.setItem("language", "english");
+				window.location.reload()
     		}
     		window.localStorage.setItem("language_SAVEDATA", language);
 		}
