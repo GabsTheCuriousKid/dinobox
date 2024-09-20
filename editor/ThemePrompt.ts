@@ -14,6 +14,7 @@ export class ThemePrompt implements Prompt {
 		option({ value: "dark competition" }, "BeepBox Competitive"),
 		option({ value: "light classic" }, "BeepBox Light"),
 		option({ value: "light competition" }, "BeepBox Light Competitive"),
+		option({ value: "dark dinobox" }, "DinoBox Dark"),
 		option({ value: "marine" }, "Marine"),
 		option({ value: "flame" }, "Flame"),
 		option({ value: "amber" }, "Amber"),
