@@ -420,9 +420,8 @@ export class SongDocument {
 	}
 	
 	public setReverb(val: number): void {
-		this.prefs.volume = val;
-		this.prefs.save();
-		this.synth.volume = this._calcVolume();
+		this.song.reverb = val;
+		//this.song.reverb = this._calcVolume();
 	}
 
 	public getCurrentPattern(barOffset: number = 0): Pattern | null {

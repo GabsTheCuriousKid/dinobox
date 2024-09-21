@@ -954,8 +954,8 @@ export class SongEditor {
 		this._tempoStepper.value = this.doc.song.tempo.toString();
 		this._volumeSlider.updateValue(this.doc.prefs.volume);
 		this._volumeStepper.value = this.doc.prefs.volume.toString()
-		this._mainReverbSlider.updateValue(this.doc.prefs.mainreverb);
-		this._mainReverbStepper.value = this.doc.prefs.mainreverb.toString()
+		this._mainReverbSlider.updateValue(this.doc.song.reverb);
+		this._mainReverbStepper.value = this.doc.song.reverb.toString()
 		setSelectedValue(this._rhythmSelect, this.doc.song.rhythm);
 		
 		if (this.doc.song.getChannelIsNoise(this.doc.channel)) {
