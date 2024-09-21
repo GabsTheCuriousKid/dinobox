@@ -304,6 +304,12 @@ export class TipPrompt implements Prompt {
 					p("Envelope curves move in the range from 0 to 1 (or vice versa), where 0 means as quiet as possible and 1 is the same as the corresponding position selected in the instrument settings above. If multiple envelopes are targetting the same setting, they are multiplied before applying to the setting."),
 				);
 			} break;
+			case "WIP": {
+				message = div(
+					h2("Work in Progress"),
+					p("This Option doesn't have a tip yet."),
+				);
+			} break;
 			default: throw new Error("Unhandled TipPrompt type: " + type);
 		}
 		

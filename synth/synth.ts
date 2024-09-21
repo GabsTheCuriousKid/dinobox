@@ -1788,6 +1788,7 @@ export class Song {
 	public scale: number;
 	public key: number;
 	public tempo: number;
+	public reverb: number;
 	public beatsPerBar: number;
 	public barCount: number;
 	public patternsPerChannel: number;
@@ -1838,6 +1839,7 @@ export class Song {
 		this.loopStart = 0;
 		this.loopLength = 4;
 		this.tempo = 150;
+		this.reverb = 0;
 		this.beatsPerBar = 8;
 		this.barCount = 16;
 		this.patternsPerChannel = 8;
@@ -1893,6 +1895,7 @@ export class Song {
 		buffer.push(SongTagCode.loopStart, base64IntToCharCode[this.loopStart >> 6], base64IntToCharCode[this.loopStart & 0x3f]);
 		buffer.push(SongTagCode.loopEnd, base64IntToCharCode[(this.loopLength - 1) >> 6], base64IntToCharCode[(this.loopLength - 1) & 0x3f]);
 		buffer.push(SongTagCode.tempo, base64IntToCharCode[this.tempo >> 6], base64IntToCharCode[this.tempo & 63]);
+		buffer.push(SongTagCode.reverb, base64IntToCharCode[this.reverb]);
 		buffer.push(SongTagCode.beatCount, base64IntToCharCode[this.beatsPerBar - 1]);
 		buffer.push(SongTagCode.barCount, base64IntToCharCode[(this.barCount - 1) >> 6], base64IntToCharCode[(this.barCount - 1) & 0x3f]);
 		buffer.push(SongTagCode.patternCount, base64IntToCharCode[(this.patternsPerChannel - 1) >> 6], base64IntToCharCode[(this.patternsPerChannel - 1) & 0x3f]);
@@ -2326,6 +2329,9 @@ export class Song {
 					legacyGlobalReverb = base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
 					legacyGlobalReverb = clamp(0, 4, legacyGlobalReverb);
 				} else {
+					const instrument: Instrument = this.channels[instrumentChannelIterator].instruments[instrumentIndexIterator];
+					instrument.reverb = base64CharCodeToInt[compressed.charCodeAt(charIndex++)];
+					instrument.reverb = clamp(0, Config.reverbRange, instrument.reverb);
 					// Do nothing? This song tag code is deprecated for now.
 				}
 			} break;
