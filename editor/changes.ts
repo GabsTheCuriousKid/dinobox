@@ -2555,14 +2555,14 @@ export class ChangeMainVolume extends Change {
 	}
 }
 
-export class ChangeMainReverb extends Change {
+/*export class ChangeMainReverb extends Change {
 	constructor(doc: SongDocument, oldValue: number, newValue: number) {
 		super();
 		doc.setReverb(Math.max(0, Math.min(100, Math.round(newValue))));
 		doc.notifier.changed();
 		if (oldValue != newValue) this._didSomething();
 	}
-}
+}*/
 
 export class ChangeEchoDelay extends ChangeInstrumentSlider {
 	constructor(doc: SongDocument, oldValue: number, newValue: number) {
