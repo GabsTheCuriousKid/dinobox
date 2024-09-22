@@ -441,9 +441,15 @@
 		window.addEventListener('storage', function(event) {
 		    if (event.key === "chosenFont" && event.newValue !== localStorage.getItem("chosenFont_SAVEDATA")) {
 		        updateFontContent();
-				window.location.reload()
 		    }
 		});
+
+		setInterval(() => {
+	    	const font = window.localStorage.getItem("chosenFont");
+		    if (font !== window.localStorage.getItem("chosenFont_SAVEDATA")) {
+		        updateFontContent();
+		    }
+		}, 100);
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
