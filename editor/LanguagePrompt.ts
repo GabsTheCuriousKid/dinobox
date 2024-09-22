@@ -31,6 +31,9 @@ export class LanguagePrompt implements Prompt {
 		p({style: "text-align: left; margin: 0.5em 0;"},
 			this.InDevelopment
 		),
+		p({style: "text-align: left; margin: 0.5em 0;"},
+			"Translations may not be accurate."
+		),
 		div({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" },
 			this._okayButton,
 		),

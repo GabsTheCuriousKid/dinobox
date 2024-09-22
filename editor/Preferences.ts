@@ -19,6 +19,7 @@ export class Preferences {
 	public enableChannelMuting: boolean;
 	public colorTheme: string;
 	public language: string;
+	public chosenFont: string;
 	public layout: string;
 	public displayBrowserUrl: boolean;
 	public volume: number = 75;
@@ -59,6 +60,7 @@ export class Preferences {
 		this.keyboardLayout = window.localStorage.getItem("keyboardLayout") || "wickiHayden";
 		this.layout = window.localStorage.getItem("layout") || "small";
 		this.language = window.localStorage.getItem("language") || "english";
+		this.chosenFont = window.localStorage.getItem("chosenFont") || "roboto";
 		this.colorTheme = window.localStorage.getItem("colorTheme") || "dark classic";
 		this.visibleOctaves = ((<any>window.localStorage.getItem("visibleOctaves")) >>> 0) || Preferences.defaultVisibleOctaves;
 		
@@ -99,6 +101,7 @@ export class Preferences {
 		window.localStorage.setItem("keyboardLayout", this.keyboardLayout);
 		window.localStorage.setItem("layout", this.layout);
 		window.localStorage.setItem("language", this.language);
+		window.localStorage.setItem("chosenFont", this.chosenFont);
 		window.localStorage.setItem("colorTheme", this.colorTheme);
 		window.localStorage.setItem("volume", String(this.volume));
 		window.localStorage.setItem("visibleOctaves", String(this.visibleOctaves));

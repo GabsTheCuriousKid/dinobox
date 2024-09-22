@@ -21,8 +21,14 @@ export class ThemePrompt implements Prompt {
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
 	);
+	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
+		option({ value: "roboto" }, "Roboto (Default)"),
+		option({ value: "gillsans" }, "Gill Sans"),
+	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
-	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : null
+	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
+
+	private readonly SetFont: string | null = window.localStorage.getItem("language") === "german" ? "Schriftart festlegen" : window.localStorage.getItem("language") === "english" ? "Set Font" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "задать шрифт" : null
 
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
@@ -32,6 +38,10 @@ export class ThemePrompt implements Prompt {
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
+		h2(this.SetFont),
+		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
+		),
 		div({ style: "display: flex; flex-direction: row-reverse; justify-content: space-between;" },
 			this._okayButton,
 		),
@@ -39,14 +49,20 @@ export class ThemePrompt implements Prompt {
 	);
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
+	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
+
 	constructor(private _doc: SongDocument) {
 		if (this.lastTheme != null) {
 			this._themeSelect.value = this.lastTheme;
+		}
+		if (this.lastFont != null) {
+			this._fontSelect.value = this.lastFont;
 		}
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
 		this._themeSelect.addEventListener("change", this._previewTheme);
+		this._fontSelect.addEventListener("change", this._preview);
 	}
 
 	private _close = (): void => {
@@ -72,6 +88,7 @@ export class ThemePrompt implements Prompt {
 
 	private _saveChanges = (): void => {
 		window.localStorage.setItem("colorTheme", this._themeSelect.value);
+		window.localStorage.setItem("chosenFont", this._fontSelect.value);
 		this._doc.prompt = null;
 		this._doc.prefs.colorTheme = this._themeSelect.value;
 		this._doc.undo();
@@ -79,6 +96,10 @@ export class ThemePrompt implements Prompt {
 
 	private _previewTheme = (): void => {
 		ColorConfig.setTheme(this._themeSelect.value);
+		this._doc.notifier.changed();
+	}
+
+	private _preview = (): void => {
 		this._doc.notifier.changed();
 	}
 }

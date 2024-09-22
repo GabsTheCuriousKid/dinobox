@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>DinoBox</title>
+	<title>DinoBox - Mod of BeepBox</title>
 	<meta name="application-name" content="BeepBox" />
 	<meta name="apple-mobile-web-app-title" content="BeepBox">
 	<meta name="description" content="DinoBox is an online tool for sketching and sharing instrumental music." />
@@ -24,7 +24,7 @@
 			background: var(--page-margin, black);
 			overflow-x: hidden;
 			font-size: large;
-			font-family: 'Roboto', sans-serif;
+			font-family: var(--chosen-font, 'Roboto', sans-serif);
 			line-height: 1.3;
 			color: var(--primary-text, white);
 		}
@@ -409,6 +409,41 @@
 	    	const language = window.localStorage.getItem("language");
 		    if (language !== window.localStorage.getItem("language_SAVEDATA")) {
 		        updateLanguageContent();
+		    }
+		}, 100);
+
+		function localStorageFont() {
+    		const font = window.localStorage.getItem("chosenFont");
+    		window.localStorage.setItem("chosenFont_SAVEDATA", font);
+		}
+
+		function updateFontContent() {
+    		const font = window.localStorage.getItem("chosenFont");
+			const root = document.documentElement;
+    		if (font === "roboto") {
+				root.style.setProperty("--chosen-font", "\'Roboto\', sans-serif");
+    		} else if (font === "gillsans") {
+        		root.style.setProperty("--chosen-font", "\'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif")
+    		} else if (font === null) {
+        		window.localStorage.setItem("chosenFont", "roboto");
+				window.location.reload()
+    		}
+    		window.localStorage.setItem("chosenFont_SAVEDATA", font);
+		}
+
+		localStorageFont();
+		updateFontContent();
+
+		window.addEventListener('storage', function(event) {
+		    if (event.key === "chosenFont" && event.newValue !== localStorage.getItem("chosenFont_SAVEDATA")) {
+		        updateFontContent();
+		    }
+		});
+
+		setInterval(() => {
+	    	const font = window.localStorage.getItem("chosenFont");
+		    if (font !== window.localStorage.getItem("chosenFont_SAVEDATA")) {
+		        updateFontContent();
 		    }
 		}, 100);
 		

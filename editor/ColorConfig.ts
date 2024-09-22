@@ -300,8 +300,8 @@ export class ColorConfig {
 				--inverted-text: white;
 				--text-selection: rgba(200,170,255,0.99);
 				--box-selection-fill: rgba(0,0,0,0.1);
-				--loop-accent: #98f;
-				--link-accent: #74f;
+				--loop-accent: #ed88ff;
+				--link-accent: #cb42f8;
 				--ui-widget-background: #ececec;
 				--ui-widget-focus: #eee;
 				--pitch-background: #ececec;
@@ -399,7 +399,7 @@ export class ColorConfig {
 				--ui-widget-background: #444;
 				--ui-widget-focus: #777;
 				--pitch-background: #444;
-				--tonic: #5D8844;
+				--tonic: #888144;
 				--fifth-note: #447b88;
 				--white-piano-key: #bbb;
 				--black-piano-key: #444;
