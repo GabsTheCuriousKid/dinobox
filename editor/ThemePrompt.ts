@@ -23,10 +23,10 @@ export class ThemePrompt implements Prompt {
 		option({ value: "amethyst" }, "Amethyst"),
 	);
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
-		option({ value: "roboto" }, "Roboto (Default)"),
-		!this.isMobile ? option({ value: "gillsans" }, "Gill Sans") : null,
-		!this.isMobile ? option({ value: "segoeui" }, "Segoe UI") : null,
-		option({ value: "couriernew" }, "Courier New"),
+		option({ style: "font-family: \'Roboto\', sans-serif;", value: "roboto" }, "Roboto (Default)"),
+		!this.isMobile ? option({ style: "font-family: \'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif;", value: "gillsans" }, "Gill Sans") : null,
+		!this.isMobile ? option({ style: "font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;", value: "segoeui" }, "Segoe UI") : null,
+		option({ style: "font-family: \'Courier New\', Courier, monospace;", value: "couriernew" }, "Courier New"),
 	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "Установить тему" : null
