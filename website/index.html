@@ -427,7 +427,8 @@
         		root.style.setProperty("--chosen-font", "\'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif")
     		} else if (font === null) {
         		window.localStorage.setItem("chosenFont", "roboto");
-				window.location.reload()
+				//window.location.reload()
+				updateFontContent()
     		}
     		window.localStorage.setItem("chosenFont_SAVEDATA", font);
 		}
@@ -440,13 +441,6 @@
 		        updateFontContent();
 		    }
 		});
-
-		setInterval(() => {
-	    	const font = window.localStorage.getItem("chosenFont");
-		    if (font !== window.localStorage.getItem("chosenFont_SAVEDATA")) {
-		        updateFontContent();
-		    }
-		}, 100);
 		
 		function browserHasRequiredFeatures() {
 			"use strict";
