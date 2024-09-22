@@ -24,6 +24,7 @@ export class ThemePrompt implements Prompt {
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ value: "roboto" }, "Roboto (Default)"),
 		option({ value: "gillsans" }, "Gill Sans"),
+		option({ value: "segoeui" }, "Segoe UI"),
 	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "Установить тему" : null

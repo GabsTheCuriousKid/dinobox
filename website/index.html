@@ -425,9 +425,11 @@
 				root.style.setProperty("--chosen-font", "\'Roboto\', sans-serif");
     		} else if (font === "gillsans") {
         		root.style.setProperty("--chosen-font", "\'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif")
-    		} else if (font === null) {
+    		} else if (font === "segoeui") {
+				root.style.setProperty("--chosen-font", "\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif")
+			} else if (font === null) {
         		window.localStorage.setItem("chosenFont", "roboto");
-				//window.location.reload()
+				window.location.reload()
 				updateFontContent()
     		}
     		window.localStorage.setItem("chosenFont_SAVEDATA", font);
@@ -439,6 +441,7 @@
 		window.addEventListener('storage', function(event) {
 		    if (event.key === "chosenFont" && event.newValue !== localStorage.getItem("chosenFont_SAVEDATA")) {
 		        updateFontContent();
+				window.location.reload()
 		    }
 		});
 		
