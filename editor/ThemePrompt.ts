@@ -9,6 +9,7 @@ import { ColorConfig } from "./ColorConfig.js";
 const { button, div, h2, select, option } = HTML;
 
 export class ThemePrompt implements Prompt {
+	private readonly isMobile: boolean = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) )
 	private readonly _themeSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ value: "dark classic" }, "BeepBox Dark"),
 		option({ value: "dark competition" }, "BeepBox Competitive"),
@@ -23,8 +24,8 @@ export class ThemePrompt implements Prompt {
 	);
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ value: "roboto" }, "Roboto (Default)"),
-		option({ value: "gillsans" }, "Gill Sans"),
-		option({ value: "segoeui" }, "Segoe UI"),
+		!this.isMobile ? option({ value: "gillsans" }, "Gill Sans") : null,
+		!this.isMobile ? option({ value: "segoeui" }, "Segoe UI") : null,
 	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "Установить тему" : null
