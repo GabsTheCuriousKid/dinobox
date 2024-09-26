@@ -318,6 +318,18 @@ var beepbox = function(a0) {
     a1['partsPerBeat'] = 0x30,
     a1['ticksPerPart'] = 0x2,
     a1[jI(0x307)] = a8([{
+        'name': '÷1',
+        'stepsPerBeat': 0x1,
+        'ticksPerArpeggio': 0x4,
+        'arpeggioPatterns': [[0x0], [0x0, 0x0, 0x1, 0x1], [0x0, 0x1, 0x2, 0x1]],
+        'roundUpThresholds': null
+    }, {
+        'name': '÷2',
+        'stepsPerBeat': 0x2,
+        'ticksPerArpeggio': 0x4,
+        'arpeggioPatterns': [[0x0], [0x0, 0x0, 0x1, 0x1], [0x0, 0x1, 0x2, 0x1]],
+        'roundUpThresholds': null
+    }, {
         'name': '÷3\x20(triplets)',
         'stepsPerBeat': 0x3,
         'ticksPerArpeggio': 0x4,
@@ -1161,7 +1173,7 @@ var beepbox = function(a0) {
         }
     }
     aq[jI(0x4ae)] = '1.0.1',
-    aq[jI(0x44b)] = jI(0x86e),
+    aq[jI(0x44b)] = 'DinoBox',
     aq['releaseNotesURL'] = 'https://github.com/johnnesky/beepbox/releases/tag/v' + aq[jI(0x4ae)],
     aq['isOnMac'] = /^Mac/i[jI(0x78d)](navigator['platform']) || /Mac OS X/i[jI(0x78d)](navigator['userAgent']) || /^(iPhone|iPad|iPod)/i[jI(0x78d)](navigator['platform']) || /(iPhone|iPad|iPod)/i[jI(0x78d)](navigator[jI(0x26d)]),
     aq[jI(0x3b9)] = aq[jI(0x4fe)] ? '⌘' : jI(0x77d),
