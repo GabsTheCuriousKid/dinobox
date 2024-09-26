@@ -95,6 +95,7 @@ export class ThemePrompt implements Prompt {
 		this._doc.prompt = null;
 		this._doc.prefs.colorTheme = this._themeSelect.value;
 		this._doc.undo();
+		window.location.reload();
 	}
 
 	private _previewTheme = (): void => {
