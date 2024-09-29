@@ -106,7 +106,7 @@ export class ThemePrompt implements Prompt {
 					p("Inverted Text:"),
 					this._customTheme_InvertedText,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+				div({},
 					this._resetTextButton,
 				),
 			),
@@ -240,6 +240,7 @@ export class ThemePrompt implements Prompt {
 			window.localStorage.setItem("custom_PrimaryText", "white");
 			window.localStorage.setItem("custom_SecondaryText", "#999");
 			window.localStorage.setItem("custom_InvertedText", "black");
+			window.location.reload()
 			this._previewTheme();
 		}
 	}
@@ -266,6 +267,7 @@ export class ThemePrompt implements Prompt {
 			window.localStorage.setItem("custom_EditorBackground", "black");
 			window.localStorage.setItem("custom_HoverPreview", "white");
 			window.localStorage.setItem("custom_PlayHead", "white");
+			window.location.reload()
 			this._previewTheme();
 		}
 	}
@@ -287,6 +289,7 @@ export class ThemePrompt implements Prompt {
 			window.localStorage.setItem("custom_PrimaryText", "white");
 			window.localStorage.setItem("custom_SecondaryText", "#999");
 			window.localStorage.setItem("custom_InvertedText", "black");
+			window.location.reload()
 			this._previewTheme();
 		}
 	}
