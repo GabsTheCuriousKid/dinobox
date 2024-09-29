@@ -47,14 +47,20 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999';
 	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || 'black';
 
+	private readonly _resetColorsButton: HTMLButtonElement = button({ style: "width:45%;" }, "Reset Colors");
+
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
 	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
 	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" });
 	private readonly _customTheme_PlayHead: HTMLInputElement = input({ class: "custom playHead", type: "color", style: "width:45%;" });
 
+	private readonly _resetMainButton: HTMLButtonElement = button({ style: "width:45%;" }, "Reset Main Colors");
+
 	private readonly _customTheme_PrimaryText: HTMLInputElement = input({ class: "custom primaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_SecondaryText: HTMLInputElement = input({ class: "custom secondaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_InvertedText: HTMLInputElement = input({ class: "custom invertedText", type: "color", style: "width:45%;" });
+
+	private readonly _resetTextButton: HTMLButtonElement = button({ style: "width:45%;" }, "Reset Text Colors");
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
@@ -80,6 +86,9 @@ export class ThemePrompt implements Prompt {
 					p("Play Head:"),
 					this._customTheme_PlayHead,
 				),
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+					this._resetMainButton,
+				),
 			),
 		),
 		button({ class: "collapsible", style: "margin-bottom: 5px;" }, "Customize Text Colors"),
@@ -97,8 +106,12 @@ export class ThemePrompt implements Prompt {
 					p("Inverted Text:"),
 					this._customTheme_InvertedText,
 				),
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+					this._resetTextButton,
+				),
 			),
 		),
+		this._resetColorsButton,
 	);
 
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
@@ -135,6 +148,9 @@ export class ThemePrompt implements Prompt {
 		
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
+		this._resetMainButton.addEventListener("click", this._resetMainColors);
+		this._resetTextButton.addEventListener("click", this._resetTextColors);
+		this._resetColorsButton.addEventListener("click", this._resetColors);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
 		this._themeSelect.addEventListener("change", this._previewTheme);
 		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
@@ -215,6 +231,19 @@ export class ThemePrompt implements Prompt {
 		this._doc.notifier.changed();
 	}
 
+	private _resetColors = (): void => {
+		if (confirm("Are you sure?") === true) {
+			window.localStorage.setItem("custom_PageMargin", "black");
+			window.localStorage.setItem("custom_EditorBackground", "black");
+			window.localStorage.setItem("custom_HoverPreview", "white");
+			window.localStorage.setItem("custom_PlayHead", "white");
+			window.localStorage.setItem("custom_PrimaryText", "white");
+			window.localStorage.setItem("custom_SecondaryText", "#999");
+			window.localStorage.setItem("custom_InvertedText", "black");
+			this._previewTheme();
+		}
+	}
+
 	private _changePageMargin = (): void => {
 		window.localStorage.setItem("custom_PageMargin", this._customTheme_PageMargin.value);
 		this._previewTheme();
@@ -231,6 +260,15 @@ export class ThemePrompt implements Prompt {
 		window.localStorage.setItem("custom_PlayHead", this._customTheme_PlayHead.value);
 		this._previewTheme();
 	}
+	private _resetMainColors = (): void => {
+		if (confirm("Are you sure?") === true) {
+			window.localStorage.setItem("custom_PageMargin", "black");
+			window.localStorage.setItem("custom_EditorBackground", "black");
+			window.localStorage.setItem("custom_HoverPreview", "white");
+			window.localStorage.setItem("custom_PlayHead", "white");
+			this._previewTheme();
+		}
+	}
 
 	private _changePrimaryText = (): void => {
 		window.localStorage.setItem("custom_PrimaryText", this._customTheme_PrimaryText.value);
@@ -243,6 +281,14 @@ export class ThemePrompt implements Prompt {
 	private _changeInvertedText = (): void => {
 		window.localStorage.setItem("custom_InvertedText", this._customTheme_InvertedText.value);
 		this._previewTheme();
+	}
+	private _resetTextColors = (): void => {
+		if (confirm("Are you sure?") === true) {
+			window.localStorage.setItem("custom_PrimaryText", "white");
+			window.localStorage.setItem("custom_SecondaryText", "#999");
+			window.localStorage.setItem("custom_InvertedText", "black");
+			this._previewTheme();
+		}
 	}
 }
 //}
