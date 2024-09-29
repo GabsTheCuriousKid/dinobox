@@ -38,8 +38,8 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
-	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "string" });
-	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "string" });
+	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "string", style: "width:45%;" });
+	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "string", style: "width:45%;" });
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
@@ -51,9 +51,9 @@ export class ThemePrompt implements Prompt {
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
 		div({ id: "customThemeSection" }),
-		p("Work in progress"),
-		this._customTheme_PageMargin,
-		this._customTheme_EditorBackground,
+		this._themeSelect.value === 'custom_theme' ? p("Work in progress") : null,
+		this._themeSelect.value === 'custom_theme' ? this._customTheme_PageMargin : null,
+		this._themeSelect.value === 'custom_theme' ? this._customTheme_EditorBackground : null,
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
