@@ -28,7 +28,7 @@ export class ThemePrompt implements Prompt {
 		!this.isMobile ? option({ style: "font-family: \'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif;", value: "gillsans" }, "Gill Sans") : null,
 		!this.isMobile ? option({ style: "font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;", value: "segoeui" }, "Segoe UI") : null,
 		option({ style: "font-family: \'Courier New\', Courier, monospace;", value: "couriernew" }, "Courier New"),
-		option({ style: "font-family: Impact, Haettenschweiler, \'Arial Narrow Bold\', sans-serif;", value: "impact" }, "Impact"),
+		!this.isMobile ? option({ style: "font-family: Impact, Haettenschweiler, \'Arial Narrow Bold\', sans-serif;", value: "impact" }, "Impact") : null,
 	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "Установить тему" : null
@@ -41,27 +41,63 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastPageMargin: string = window.localStorage.getItem("custom_PageMargin") || 'black';
 	private readonly customTheme_LastEditorBackground: string = window.localStorage.getItem("custom_EditorBackground") || 'black';
 	private readonly customTheme_LastHoverPreview: string = window.localStorage.getItem("custom_HoverPreview") || 'white';
+	private readonly customTheme_LastPlayHead: string = window.localStorage.getItem("custom_PlayHead") || 'white';
+
+	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PageMargin") || 'white';
+	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_EditorBackground") || '#999';
+	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_HoverPreview") || 'black';
 
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
 	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
 	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" });
+	private readonly _customTheme_PlayHead: HTMLInputElement = input({ class: "custom playHead", type: "color", style: "width:45%;" });
+
+	private readonly _customTheme_PrimaryText: HTMLInputElement = input({ class: "custom primaryText", type: "color", style: "width:45%;" });
+	private readonly _customTheme_SecondaryText: HTMLInputElement = input({ class: "custom secondaryText", type: "color", style: "width:45%;" });
+	private readonly _customTheme_InvertedText: HTMLInputElement = input({ class: "custom invertedText", type: "color", style: "width:45%;" });
+
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
 	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
 
-	private readonly _customThemeSection: HTMLDivElement = div({ id: "customThemeSection", style: "display: none;" }, 
-		p("Work in progress"),
-		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
-			p("Page Margin:"),
-			this._customTheme_PageMargin,
+	private readonly _customThemeSection: HTMLDivElement = div({ class: "Main", style: "display: none;" },
+		button({ class: "collapsible" }, "Customize Main Colors"),
+		div({ class: "collapseContent", style: "display: none;" },
+			div({ class: "Main" },
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Page Margin:"),
+					this._customTheme_PageMargin,
+				),
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Editor Background:"),
+					this._customTheme_EditorBackground,
+				),
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Hover Preview:"),
+					this._customTheme_HoverPreview,
+				),
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Play Head:"),
+					this._customTheme_PlayHead,
+				),
+			),
 		),
-		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
-			p("Editor Background:"),
-			this._customTheme_EditorBackground,
-		),
-		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
-			p("Hover Preview:"),
-			this._customTheme_HoverPreview,
+		button({ class: "collapsible" }, "Customize Text Colors"),
+		div({ class: "collapseContent", style: "display: none;" },
+			div({ class: "Text" },
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Primary Text:"),
+					this._customTheme_PrimaryText,
+				),
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Secondary Text:"),
+					this._customTheme_SecondaryText,
+				),
+				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+					p("Inverted Text:"),
+					this._customTheme_InvertedText,
+				),
+			),
 		),
 	);
 
@@ -92,6 +128,10 @@ export class ThemePrompt implements Prompt {
 		this._customTheme_PageMargin.value = this.customTheme_LastPageMargin;
 		this._customTheme_EditorBackground.value = this.customTheme_LastEditorBackground;
 		this._customTheme_HoverPreview.value = this.customTheme_LastHoverPreview;
+		this._customTheme_PlayHead.value = this.customTheme_LastPlayHead;
+		this._customTheme_PrimaryText.value = this.customTheme_LastPrimaryText;
+		this._customTheme_SecondaryText.value = this.customTheme_LastSecondaryText;
+		this._customTheme_InvertedText.value = this.customTheme_LastInvertedText;
 		
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
@@ -100,9 +140,31 @@ export class ThemePrompt implements Prompt {
 		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
 		this._customTheme_EditorBackground.addEventListener("change", this._changeEditorBackground);
 		this._customTheme_HoverPreview.addEventListener("change", this._changeHoverPreview);
+		this._customTheme_PlayHead.addEventListener("change", this._changePlayHead);
+		this._customTheme_PrimaryText.addEventListener("change", this._changePrimaryText);
+		this._customTheme_SecondaryText.addEventListener("change", this._changeSecondaryText);
+		this._customTheme_InvertedText.addEventListener("change", this._changeInvertedText);
 		this._fontSelect.addEventListener("change", this._preview);
+		this._themeSelect.addEventListener("change", this._handleThemeChange);
+
+		this._initCollapsibleSections();
 
 		this._handleThemeChange();
+	}
+
+	private _initCollapsibleSections(): void {
+		const collapsibles = this.container.querySelectorAll(".collapsible");
+		collapsibles.forEach((collapsible) => {
+			collapsible.addEventListener("click", function () {
+				this.classList.toggle("active");
+				const content = this.nextElementSibling;
+				if (content.style.display === "block") {
+					content.style.display = "none";
+				} else {
+					content.style.display = "block";
+				}
+			});
+		});
 	}
 
 	private _handleThemeChange = (): void => {
@@ -162,6 +224,23 @@ export class ThemePrompt implements Prompt {
 	}
 	private _changeHoverPreview = (): void => {
 		window.localStorage.setItem("custom_HoverPreview", this._customTheme_HoverPreview.value);
+		this._previewTheme();
+	}
+	private _changePlayHead = (): void => {
+		window.localStorage.setItem("custom_PlayHead", this._customTheme_PlayHead.value);
+		this._previewTheme();
+	}
+
+	private _changePrimaryText = (): void => {
+		window.localStorage.setItem("custom_PrimaryText", this._customTheme_PrimaryText.value);
+		this._previewTheme();
+	}
+	private _changeSecondaryText = (): void => {
+		window.localStorage.setItem("custom_SecondaryText", this._customTheme_SecondaryText.value);
+		this._previewTheme();
+	}
+	private _changeInvertedText = (): void => {
+		window.localStorage.setItem("custom_InvertedText", this._customTheme_InvertedText.value);
 		this._previewTheme();
 	}
 }

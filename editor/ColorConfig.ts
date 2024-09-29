@@ -15,6 +15,10 @@ export class ColorConfig {
 	static readonly custom_pagemargin = window.localStorage.getItem("custom_PageMargin") || 'black'
 	static readonly custom_editorbackground = window.localStorage.getItem("custom_EditorBackground") || 'black'
 	static readonly custom_hoverpreview = window.localStorage.getItem("custom_HoverPreview") || 'white'
+	static readonly custom_playhead = window.localStorage.getItem("custom_PlayHead") || 'white'
+	static readonly custom_primarytext = window.localStorage.getItem("custom_PrimaryText") || 'white'
+	static readonly custom_secondarytext = window.localStorage.getItem("custom_SecondaryText") || '#999'
+	static readonly custom_invertedtext = window.localStorage.getItem("custom_InvertedText") || 'black'
 	public static readonly themes: {[name: string]: string} = {
 		"dark classic": `
 			:root {
@@ -931,10 +935,10 @@ export class ColorConfig {
 				--page-margin: ${this.custom_pagemargin};
 				--editor-background: ${this.custom_editorbackground};
 				--hover-preview: ${this.custom_hoverpreview};
-				--playhead: white;
-				--primary-text: white;
-				--secondary-text: #999;
-				--inverted-text: black;
+				--playhead: ${this.custom_playhead};
+				--primary-text: ${this.custom_primarytext};
+				--secondary-text: ${this.custom_secondarytext};
+				--inverted-text: ${this.custom_invertedtext};
 				--text-selection: rgba(119,68,255,0.99);
 				--box-selection-fill: rgba(255,255,255,0.2);
 				--loop-accent: #74f;
