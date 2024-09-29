@@ -24,7 +24,7 @@
 			background: var(--page-margin, black);
 			overflow-x: hidden;
 			font-size: large;
-			font-family: 'Roboto', sans-serif;
+			font-family: var(--chosen-font, 'Roboto', sans-serif);
 			line-height: 1.3;
 			color: var(--primary-text, white);
 		}
@@ -141,10 +141,25 @@
 				Changelog
 			</h2>
 			<h3>
+				29th September 2024
+			</h3>
+			<p>
+				- Added Custom Theme (Work In Progress)
+			</p>
+			<h3>
+				29th September 2024 (Originally on 27th September 2024)
+			</h3>
+			<p>
+				- Added Impact Font
+			</p>
+			<p>
+				- Make Choose Font... Option affect Changelog
+			</p>
+			<h3>
 				26th September 2024
 			</h3>
-			<p><!-- att.2-->
-				- Attempting to Add Competition Mode (development has begun.)
+			<p><!-- att.3-->
+				- <del>Added Competition Mode</del> (development has begun.)
 			</p>
 			<h3>
 				22th September 2024
@@ -224,4 +239,47 @@
 		</section>
 	</div>
 </body>
+	<script type="text/javascript">
+		function localStorageFont() {
+    		const font = window.localStorage.getItem("chosenFont");
+    		window.localStorage.setItem("chosenFont_SAVEDATA", font);
+		}
+
+		function updateFontContent() {
+			const font = window.localStorage.getItem("chosenFont");
+			const root = document.documentElement;
+			if (font === "roboto") {
+				root.style.setProperty("--chosen-font", "\'Roboto\', sans-serif");
+    		} else if (font === "gillsans") {
+        		root.style.setProperty("--chosen-font", "\'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif")
+    		} else if (font === "segoeui") {
+				root.style.setProperty("--chosen-font", "\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif")
+			} else if (font === "couriernew") {
+				root.style.setProperty("--chosen-font", "\'Courier New\', Courier, monospace")
+			} else if (font === "impact") {
+				root.style.setProperty("--chosen-font", "Impact, Haettenschweiler, \'Arial Narrow Bold\', sans-serif")
+			} else if (font === null) {
+        		window.localStorage.setItem("chosenFont", "roboto");
+				window.location.reload()
+				updateFontContent()
+    		}
+    		window.localStorage.setItem("chosenFont_SAVEDATA", font);
+		}
+
+		localStorageFont();
+		updateFontContent();
+
+		window.addEventListener('storage', function(event) {
+		    if (event.key === "chosenFont" && event.newValue !== localStorage.getItem("chosenFont_SAVEDATA")) {
+		        updateFontContent();
+		    }
+		});
+
+		setInterval(() => {
+	    	const font = window.localStorage.getItem("chosenFont");
+		    if (font !== window.localStorage.getItem("chosenFont_SAVEDATA")) {
+		        updateFontContent();
+		    }
+		}, 100);
+	</script>
 </html>

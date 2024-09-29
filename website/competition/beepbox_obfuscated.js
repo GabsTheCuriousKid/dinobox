@@ -1173,7 +1173,7 @@ var beepbox = function(a0) {
         }
     }
     aq[jI(0x4ae)] = '1.0.1',
-    aq[jI(0x44b)] = 'DinoBox',
+    aq[jI(0x44b)] = 'DinoBox\x20Competition',
     aq['releaseNotesURL'] = 'https://github.com/johnnesky/beepbox/releases/tag/v' + aq[jI(0x4ae)],
     aq['isOnMac'] = /^Mac/i[jI(0x78d)](navigator['platform']) || /Mac OS X/i[jI(0x78d)](navigator['userAgent']) || /^(iPhone|iPad|iPod)/i[jI(0x78d)](navigator['platform']) || /(iPhone|iPad|iPod)/i[jI(0x78d)](navigator[jI(0x26d)]),
     aq[jI(0x3b9)] = aq[jI(0x4fe)] ? '⌘' : jI(0x77d),
@@ -6617,6 +6617,11 @@ var beepbox = function(a0) {
                 }]
             }
         }])
+    }, {
+        'name': 'Harmonics\x20Test',
+        'presets': a8([
+
+        ])
     }]);
     var ar = a0 && a0['t'] || function(fC) {
         const jO = jI;

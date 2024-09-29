@@ -6,7 +6,7 @@ import { SongDocument } from "./SongDocument.js";
 import { ColorConfig } from "./ColorConfig.js";
 
 //namespace beepbox {
-const { button, div, h2, select, option } = HTML;
+const { button, div, h2, p, select, option, input } = HTML;
 
 export class ThemePrompt implements Prompt {
 	private readonly isMobile: boolean = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent) )
@@ -21,12 +21,14 @@ export class ThemePrompt implements Prompt {
 		option({ value: "amber" }, "Amber"),
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
+		option({ value: "custom_theme" }, "Custom"),
 	);
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ style: "font-family: \'Roboto\', sans-serif;", value: "roboto" }, "Roboto (Default)"),
 		!this.isMobile ? option({ style: "font-family: \'Gill Sans\', \'Gill Sans MT\', Calibri, \'Trebuchet MS\', sans-serif;", value: "gillsans" }, "Gill Sans") : null,
 		!this.isMobile ? option({ style: "font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;", value: "segoeui" }, "Segoe UI") : null,
 		option({ style: "font-family: \'Courier New\', Courier, monospace;", value: "couriernew" }, "Courier New"),
+		option({ style: "font-family: Impact, Haettenschweiler, \'Arial Narrow Bold\', sans-serif;", value: "impact" }, "Impact"),
 	);
 	private readonly Okay: string | null = window.localStorage.getItem("language") === "german" ? "Ok" : window.localStorage.getItem("language") === "english" ? "Okay" : window.localStorage.getItem("language") === "spanish" ? "Ok" : window.localStorage.getItem("language") === "russian" ? "ОК" : null
 	private readonly SetTheme: string | null = window.localStorage.getItem("language") === "german" ? "Such einen Theme aus" : window.localStorage.getItem("language") === "english" ? "Set Theme" : window.localStorage.getItem("language") === "spanish" ? "Establecer tema" : window.localStorage.getItem("language") === "russian" ? "Установить тему" : null
@@ -36,11 +38,18 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
+	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color" });
+
+	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
+
+	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
+
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2(this.SetTheme),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
+		this.lastTheme == 'custom_theme' ? this._customTheme_PageMargin : null,
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
@@ -50,9 +59,6 @@ export class ThemePrompt implements Prompt {
 		),
 		this._cancelButton,
 	);
-	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
-
-	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
 
 	constructor(private _doc: SongDocument) {
 		if (this.lastTheme != null) {
@@ -65,6 +71,7 @@ export class ThemePrompt implements Prompt {
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
 		this._themeSelect.addEventListener("change", this._previewTheme);
+		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
 		this._fontSelect.addEventListener("change", this._preview);
 	}
 
@@ -105,6 +112,11 @@ export class ThemePrompt implements Prompt {
 
 	private _preview = (): void => {
 		this._doc.notifier.changed();
+	}
+
+	private _changePageMargin = (): void => {
+		window.localStorage.setItem("custom_PageMargin", this._customTheme_PageMargin.value);
+		this._previewTheme();
 	}
 }
 //}

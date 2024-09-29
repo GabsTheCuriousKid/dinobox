@@ -90,3 +90,7 @@ website
 ```
 
 it should work.
+
+### Changelog
+
+The Changelog is in the page [Changelog](https://dinobox.vercel.app/changelog)
