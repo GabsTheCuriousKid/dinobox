@@ -39,6 +39,7 @@ export class ThemePrompt implements Prompt {
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color" });
+	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color" });
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
@@ -49,7 +50,9 @@ export class ThemePrompt implements Prompt {
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
+		this.lastTheme == 'custom_theme' ? p("Work in progress") : null,
 		this.lastTheme == 'custom_theme' ? this._customTheme_PageMargin : null,
+		this.lastTheme == 'custom_theme' ? this._customTheme_EditorBackground : null,
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
@@ -72,6 +75,7 @@ export class ThemePrompt implements Prompt {
 		this.container.addEventListener("keydown", this._whenKeyPressed);
 		this._themeSelect.addEventListener("change", this._previewTheme);
 		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
+		this._customTheme_EditorBackground.addEventListener("change", this._changeEditorBackground);
 		this._fontSelect.addEventListener("change", this._preview);
 	}
 
@@ -116,6 +120,11 @@ export class ThemePrompt implements Prompt {
 
 	private _changePageMargin = (): void => {
 		window.localStorage.setItem("custom_PageMargin", this._customTheme_PageMargin.value);
+		this._previewTheme();
+	}
+
+	private _changeEditorBackground = (): void => {
+		window.localStorage.setItem("custom_EditorBackground", this._customTheme_EditorBackground.value);
 		this._previewTheme();
 	}
 }
