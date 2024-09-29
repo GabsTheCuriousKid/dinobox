@@ -42,9 +42,9 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastEditorBackground: string | null = window.localStorage.getItem("custom_EditorBackground") || 'black';
 	private readonly customTheme_LastHoverPreview: string | null = window.localStorage.getItem("custom_HoverPreview") || 'white';
 
-	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" }, this.customTheme_LastPageMargin);
-	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" }, this.customTheme_LastEditorBackground);
-	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" }, this.customTheme_LastHoverPreview);
+	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
+	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
+	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" });
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
 	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
@@ -89,6 +89,10 @@ export class ThemePrompt implements Prompt {
 		if (this.lastFont != null) {
 			this._fontSelect.value = this.lastFont;
 		}
+		this._customTheme_PageMargin.value = this.customTheme_LastPageMargin;
+		this._customTheme_EditorBackground.value = this.customTheme_LastEditorBackground;
+		this._customTheme_HoverPreview.value = this.customTheme_LastHoverPreview;
+		
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
