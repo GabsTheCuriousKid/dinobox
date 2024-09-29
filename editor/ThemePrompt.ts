@@ -21,7 +21,7 @@ export class ThemePrompt implements Prompt {
 		option({ value: "amber" }, "Amber"),
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
-		option({ value: "custom_theme" }, "Custom (Method 1)"),
+		option({ value: "custom_theme" }, "Custom"),
 	);
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ style: "font-family: \'Roboto\', sans-serif;", value: "roboto" }, "Roboto (Default)"),
@@ -47,20 +47,20 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999';
 	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || 'black';
 
-	private readonly _resetColorsButton: HTMLButtonElement = button({ style: "width:75%;" }, "Reset Colors");
+	private readonly _resetColorsButton: HTMLButtonElement = button({ style: "width:55%;" }, "Reset Colors");
 
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
 	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
 	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" });
 	private readonly _customTheme_PlayHead: HTMLInputElement = input({ class: "custom playHead", type: "color", style: "width:45%;" });
 
-	private readonly _resetMainButton: HTMLButtonElement = button({ style: "width:75%;" }, "Reset Main Colors");
+	private readonly _resetMainButton: HTMLButtonElement = button({ style: "width:60%;" }, "Reset Main Colors");
 
 	private readonly _customTheme_PrimaryText: HTMLInputElement = input({ class: "custom primaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_SecondaryText: HTMLInputElement = input({ class: "custom secondaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_InvertedText: HTMLInputElement = input({ class: "custom invertedText", type: "color", style: "width:45%;" });
 
-	private readonly _resetTextButton: HTMLButtonElement = button({ style: "width:75%;" }, "Reset Text Colors");
+	private readonly _resetTextButton: HTMLButtonElement = button({ style: "width:60%;" }, "Reset Text Colors");
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
