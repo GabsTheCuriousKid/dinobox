@@ -43,9 +43,9 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastHoverPreview: string = window.localStorage.getItem("custom_HoverPreview") || 'white';
 	private readonly customTheme_LastPlayHead: string = window.localStorage.getItem("custom_PlayHead") || 'white';
 
-	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PageMargin") || 'white';
-	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_EditorBackground") || '#999';
-	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_HoverPreview") || 'black';
+	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PrimaryText") || 'white';
+	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999';
+	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || 'black';
 
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
 	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
@@ -61,39 +61,39 @@ export class ThemePrompt implements Prompt {
 	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
 
 	private readonly _customThemeSection: HTMLDivElement = div({ class: "Main", style: "display: none;" },
-		button({ class: "collapsible" }, "Customize Main Colors"),
+		button({ class: "collapsible", style: "margin-bottom: 5px;" }, "Customize Main Colors"),
 		div({ class: "collapseContent", style: "display: none;" },
 			div({ class: "Main" },
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Page Margin:"),
 					this._customTheme_PageMargin,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Editor Background:"),
 					this._customTheme_EditorBackground,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Hover Preview:"),
 					this._customTheme_HoverPreview,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Play Head:"),
 					this._customTheme_PlayHead,
 				),
 			),
 		),
-		button({ class: "collapsible" }, "Customize Text Colors"),
+		button({ class: "collapsible", style: "margin-bottom: 5px;" }, "Customize Text Colors"),
 		div({ class: "collapseContent", style: "display: none;" },
 			div({ class: "Text" },
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Primary Text:"),
 					this._customTheme_PrimaryText,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Secondary Text:"),
 					this._customTheme_SecondaryText,
 				),
-				div({ style: "display: flex; flex-direction: row; align-items: left; height: 2em; justify-content: flex-end;" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 					p("Inverted Text:"),
 					this._customTheme_InvertedText,
 				),
