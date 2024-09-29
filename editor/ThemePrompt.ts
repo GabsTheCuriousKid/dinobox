@@ -38,14 +38,14 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
-	private readonly customTheme_LastPageMargin: string = window.localStorage.getItem("custom_PageMargin") || 'black';
-	private readonly customTheme_LastEditorBackground: string = window.localStorage.getItem("custom_EditorBackground") || 'black';
-	private readonly customTheme_LastHoverPreview: string = window.localStorage.getItem("custom_HoverPreview") || 'white';
-	private readonly customTheme_LastPlayHead: string = window.localStorage.getItem("custom_PlayHead") || 'white';
+	private readonly customTheme_LastPageMargin: string = window.localStorage.getItem("custom_PageMargin") || '#000000';
+	private readonly customTheme_LastEditorBackground: string = window.localStorage.getItem("custom_EditorBackground") || '#000000';
+	private readonly customTheme_LastHoverPreview: string = window.localStorage.getItem("custom_HoverPreview") || '#FFFFFF';
+	private readonly customTheme_LastPlayHead: string = window.localStorage.getItem("custom_PlayHead") || '#FFFFFF';
 
-	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PrimaryText") || 'white';
-	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999';
-	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || 'black';
+	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PrimaryText") || '#FFFFFF';
+	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999999';
+	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || '#000000';
 
 	private readonly _resetColorsButton: HTMLButtonElement = button({ style: "width:55%;" }, "Reset Colors");
 
@@ -233,13 +233,13 @@ export class ThemePrompt implements Prompt {
 
 	private _resetColors = (): void => {
 		if (confirm("Are you sure?") === true) {
-			window.localStorage.setItem("custom_PageMargin", "black");
-			window.localStorage.setItem("custom_EditorBackground", "black");
-			window.localStorage.setItem("custom_HoverPreview", "white");
-			window.localStorage.setItem("custom_PlayHead", "white");
-			window.localStorage.setItem("custom_PrimaryText", "white");
-			window.localStorage.setItem("custom_SecondaryText", "#999");
-			window.localStorage.setItem("custom_InvertedText", "black");
+			window.localStorage.setItem("custom_PageMargin", "#000000");
+			window.localStorage.setItem("custom_EditorBackground", "#000000");
+			window.localStorage.setItem("custom_HoverPreview", "#FFFFFF");
+			window.localStorage.setItem("custom_PlayHead", "#FFFFFF");
+			window.localStorage.setItem("custom_PrimaryText", "#FFFFFF");
+			window.localStorage.setItem("custom_SecondaryText", "#999999");
+			window.localStorage.setItem("custom_InvertedText", "#000000");
 			window.location.reload()
 			this._previewTheme();
 		}
@@ -263,10 +263,10 @@ export class ThemePrompt implements Prompt {
 	}
 	private _resetMainColors = (): void => {
 		if (confirm("Are you sure?") === true) {
-			window.localStorage.setItem("custom_PageMargin", "black");
-			window.localStorage.setItem("custom_EditorBackground", "black");
-			window.localStorage.setItem("custom_HoverPreview", "white");
-			window.localStorage.setItem("custom_PlayHead", "white");
+			window.localStorage.setItem("custom_PageMargin", "#FFFFFF");
+			window.localStorage.setItem("custom_EditorBackground", "#FFFFFF");
+			window.localStorage.setItem("custom_HoverPreview", "#FFFFFF");
+			window.localStorage.setItem("custom_PlayHead", "#FFFFFF");
 			window.location.reload()
 			this._previewTheme();
 		}
@@ -286,9 +286,9 @@ export class ThemePrompt implements Prompt {
 	}
 	private _resetTextColors = (): void => {
 		if (confirm("Are you sure?") === true) {
-			window.localStorage.setItem("custom_PrimaryText", "white");
-			window.localStorage.setItem("custom_SecondaryText", "#999");
-			window.localStorage.setItem("custom_InvertedText", "black");
+			window.localStorage.setItem("custom_PrimaryText", "#FFFFFF");
+			window.localStorage.setItem("custom_SecondaryText", "#999999");
+			window.localStorage.setItem("custom_InvertedText", "#FFFFFF");
 			window.location.reload()
 			this._previewTheme();
 		}
