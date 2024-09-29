@@ -21,7 +21,7 @@ export class ThemePrompt implements Prompt {
 		option({ value: "amber" }, "Amber"),
 		option({ value: "emerald" }, "Emerald"),
 		option({ value: "amethyst" }, "Amethyst"),
-		option({ value: "custom_theme" }, "Custom"),
+		option({ value: "custom_theme" }, "Custom (Method 1)"),
 	);
 	private readonly _fontSelect: HTMLSelectElement = select({ style: "width: 100%;" },
 		option({ style: "font-family: \'Roboto\', sans-serif;", value: "roboto" }, "Roboto (Default)"),
@@ -38,17 +38,31 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
-	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "string", style: "width:45%;" });
-	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "string", style: "width:45%;" });
+	private readonly customTheme_LastPageMargin: string | null = window.localStorage.getItem("custom_PageMargin") || 'black';
+	private readonly customTheme_LastEditorBackground: string | null = window.localStorage.getItem("custom_EditorBackground") || 'black';
+	private readonly customTheme_LastHoverPreview: string | null = window.localStorage.getItem("custom_HoverPreview") || 'white';
 
+	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" }, this.customTheme_LastPageMargin);
+	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" }, this.customTheme_LastEditorBackground);
+	private readonly _customTheme_HoverPreview: HTMLInputElement = input({ class: "custom hoverPreview", type: "color", style: "width:45%;" }, this.customTheme_LastHoverPreview);
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
 	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
 
 	private readonly _customThemeSection: HTMLDivElement = div({ id: "customThemeSection", style: "display: none;" }, 
 		p("Work in progress"),
-		this._customTheme_PageMargin,
-		this._customTheme_EditorBackground,
+		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+			p("Page Margin:"),
+			this._customTheme_PageMargin,
+		),
+		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+			p("Editor Background:"),
+			this._customTheme_EditorBackground,
+		),
+		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+			p("Hover Preview:"),
+			this._customTheme_HoverPreview,
+		),
 	);
 
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
@@ -81,6 +95,7 @@ export class ThemePrompt implements Prompt {
 		this._themeSelect.addEventListener("change", this._previewTheme);
 		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
 		this._customTheme_EditorBackground.addEventListener("change", this._changeEditorBackground);
+		this._customTheme_HoverPreview.addEventListener("change", this._changeHoverPreview);
 		this._fontSelect.addEventListener("change", this._preview);
 
 		this._handleThemeChange();
@@ -137,9 +152,12 @@ export class ThemePrompt implements Prompt {
 		window.localStorage.setItem("custom_PageMargin", this._customTheme_PageMargin.value);
 		this._previewTheme();
 	}
-
 	private _changeEditorBackground = (): void => {
 		window.localStorage.setItem("custom_EditorBackground", this._customTheme_EditorBackground.value);
+		this._previewTheme();
+	}
+	private _changeHoverPreview = (): void => {
+		window.localStorage.setItem("custom_HoverPreview", this._customTheme_HoverPreview.value);
 		this._previewTheme();
 	}
 }

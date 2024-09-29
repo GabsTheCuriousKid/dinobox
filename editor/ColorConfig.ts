@@ -14,6 +14,7 @@ export interface ChannelColors extends BeepBoxOption {
 export class ColorConfig {
 	static readonly custom_pagemargin = window.localStorage.getItem("custom_PageMargin") || 'black'
 	static readonly custom_editorbackground = window.localStorage.getItem("custom_EditorBackground") || 'black'
+	static readonly custom_hoverpreview = window.localStorage.getItem("custom_HoverPreview") || 'white'
 	public static readonly themes: {[name: string]: string} = {
 		"dark classic": `
 			:root {
@@ -929,7 +930,7 @@ export class ColorConfig {
 			:root {
 				--page-margin: ${this.custom_pagemargin};
 				--editor-background: ${this.custom_editorbackground};
-				--hover-preview: white;
+				--hover-preview: ${this.custom_hoverpreview};
 				--playhead: white;
 				--primary-text: white;
 				--secondary-text: #999;
