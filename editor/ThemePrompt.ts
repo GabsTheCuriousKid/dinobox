@@ -38,9 +38,9 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
-	private readonly customTheme_LastPageMargin: string | null = window.localStorage.getItem("custom_PageMargin") || 'black';
-	private readonly customTheme_LastEditorBackground: string | null = window.localStorage.getItem("custom_EditorBackground") || 'black';
-	private readonly customTheme_LastHoverPreview: string | null = window.localStorage.getItem("custom_HoverPreview") || 'white';
+	private readonly customTheme_LastPageMargin: string = window.localStorage.getItem("custom_PageMargin") || 'black';
+	private readonly customTheme_LastEditorBackground: string = window.localStorage.getItem("custom_EditorBackground") || 'black';
+	private readonly customTheme_LastHoverPreview: string = window.localStorage.getItem("custom_HoverPreview") || 'white';
 
 	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color", style: "width:45%;" });
 	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color", style: "width:45%;" });
