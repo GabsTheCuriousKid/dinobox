@@ -155,9 +155,10 @@ export class ThemePrompt implements Prompt {
 	private _initCollapsibleSections(): void {
 		const collapsibles = this.container.querySelectorAll(".collapsible");
 		collapsibles.forEach((collapsible) => {
-			collapsible.addEventListener("click", function () {
-				this.classList.toggle("active");
-				const content = this.nextElementSibling;
+			collapsible.addEventListener("click", (event) => {
+				const target = event.currentTarget as HTMLElement;
+				target.classList.toggle("active");
+				const content = target.nextElementSibling as HTMLElement;
 				if (content.style.display === "block") {
 					content.style.display = "none";
 				} else {
