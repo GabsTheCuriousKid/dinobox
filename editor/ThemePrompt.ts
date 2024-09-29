@@ -57,7 +57,7 @@ export class ThemePrompt implements Prompt {
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
 		div({ id: "customThemeSection" }),
-		this._customThemeSection
+		this._customThemeSection,
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
