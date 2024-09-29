@@ -38,8 +38,8 @@ export class ThemePrompt implements Prompt {
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, this.Okay);
 
-	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "color" });
-	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "color" });
+	private readonly _customTheme_PageMargin: HTMLInputElement = input({ class: "custom pageMargin", type: "string" });
+	private readonly _customTheme_EditorBackground: HTMLInputElement = input({ class: "custom editorBackground", type: "string" });
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
@@ -51,6 +51,9 @@ export class ThemePrompt implements Prompt {
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
 		div({ id: "customThemeSection" }),
+		p("Work in progress"),
+		this._customTheme_PageMargin,
+		this._customTheme_EditorBackground,
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
@@ -110,18 +113,6 @@ export class ThemePrompt implements Prompt {
 	private _previewTheme = (): void => {
 		ColorConfig.setTheme(this._themeSelect.value);
 		this._doc.notifier.changed();
-
-		const customThemeSection = this.container.querySelector("#customThemeSection");
-    	if (this._themeSelect.value === "custom_theme") {
-    	    customThemeSection.innerHTML = ""; // Clear any previous content
-    	    customThemeSection.append(
-    	        p("Work in progress"),
-    	        this._customTheme_PageMargin,
-    	        this._customTheme_EditorBackground,
-    	    );
-    	} else {
-    	    customThemeSection.innerHTML = ""; // Remove custom theme inputs if another theme is selected
-    	}
 	}
 
 	private _preview = (): void => {
