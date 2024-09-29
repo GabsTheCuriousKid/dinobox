@@ -45,15 +45,19 @@ export class ThemePrompt implements Prompt {
 
 	private readonly lastFont: string | null = window.localStorage.getItem("chosenFont")
 
+	private readonly _customThemeSection: HTMLDivElement = div({ id: "customThemeSection", style: "display: none;" }, 
+		p("Work in progress"),
+		this._customTheme_PageMargin,
+		this._customTheme_EditorBackground,
+	);
+
 	public readonly container: HTMLDivElement = div({ class: "prompt noSelection", style: "width: 220px;" },
 		h2(this.SetTheme),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._themeSelect),
 		),
 		div({ id: "customThemeSection" }),
-		this._themeSelect.value === 'custom_theme' ? p("Work in progress") : null,
-		this._themeSelect.value === 'custom_theme' ? this._customTheme_PageMargin : null,
-		this._themeSelect.value === 'custom_theme' ? this._customTheme_EditorBackground : null,
+		this._customThemeSection
 		h2(this.SetFont),
 		div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
 			div({ class: "selectContainer", style: "width: 100%;" }, this._fontSelect),
@@ -78,6 +82,16 @@ export class ThemePrompt implements Prompt {
 		this._customTheme_PageMargin.addEventListener("change", this._changePageMargin);
 		this._customTheme_EditorBackground.addEventListener("change", this._changeEditorBackground);
 		this._fontSelect.addEventListener("change", this._preview);
+
+		this._handleThemeChange();
+	}
+
+	private _handleThemeChange = (): void => {
+		if (this._themeSelect.value === "custom_theme") {
+			this._customThemeSection.style.display = "block"; // Show custom theme section
+		} else {
+			this._customThemeSection.style.display = "none"; // Hide custom theme section
+		}
 	}
 
 	private _close = (): void => {
