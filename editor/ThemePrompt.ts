@@ -16,6 +16,7 @@ export class ThemePrompt implements Prompt {
 		option({ value: "light classic" }, "BeepBox Light"),
 		option({ value: "light competition" }, "BeepBox Light Competitive"),
 		option({ value: "dark dinobox" }, "DinoBox Dark"),
+		option({ value: "halloween" }, "Halloween"),
 		option({ value: "marine" }, "Marine"),
 		option({ value: "flame" }, "Flame"),
 		option({ value: "amber" }, "Amber"),
@@ -46,6 +47,8 @@ export class ThemePrompt implements Prompt {
 	private readonly customTheme_LastPrimaryText: string = window.localStorage.getItem("custom_PrimaryText") || '#FFFFFF';
 	private readonly customTheme_LastSecondaryText: string = window.localStorage.getItem("custom_SecondaryText") || '#999999';
 	private readonly customTheme_LastInvertedText: string = window.localStorage.getItem("custom_InvertedText") || '#000000';
+	private readonly customTheme_LastLoopAccent: string = window.localStorage.getItem("custom_LoopAccent") || '#7788FF';
+	private readonly customTheme_LastLinkAccent: string = window.localStorage.getItem("custom_LinkAccent") || '#9988FF';
 
 	private readonly _resetColorsButton: HTMLButtonElement = button({ style: "width:55%;" }, "Reset Colors");
 
@@ -59,8 +62,13 @@ export class ThemePrompt implements Prompt {
 	private readonly _customTheme_PrimaryText: HTMLInputElement = input({ class: "custom primaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_SecondaryText: HTMLInputElement = input({ class: "custom secondaryText", type: "color", style: "width:45%;" });
 	private readonly _customTheme_InvertedText: HTMLInputElement = input({ class: "custom invertedText", type: "color", style: "width:45%;" });
+	private readonly _customTheme_LinkAccent: HTMLInputElement = input({ class: "custom linkAccent", type: "color", style: "width:45%;" });
 
 	private readonly _resetTextButton: HTMLButtonElement = button({ style: "width:60%;" }, "Reset Text Colors");
+
+	private readonly _customTheme_LoopAccent: HTMLInputElement = input({ class: "custom loopAccent", type: "color", style: "width:45%;" });
+
+	private readonly _resetMusicUIButton: HTMLButtonElement = button({ style: "width:60%;" }, "Reset Music UI Colors");
 
 	private readonly lastTheme: string | null = window.localStorage.getItem("colorTheme")
 
@@ -106,8 +114,24 @@ export class ThemePrompt implements Prompt {
 					p("Inverted Text:"),
 					this._customTheme_InvertedText,
 				),
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+					p("Link Accent:"),
+					this._customTheme_LinkAccent,
+				),
 				div({},
 					this._resetTextButton,
+				),
+			),
+		),
+		button({ class: "collapsible", style: "margin-bottom: 5px;" }, "Customize Music UI Colors"),
+		div({ class: "collapseContent", style: "display: none;" },
+			div({ class: "MusicUI" },
+				div({ style: "display: flex; flex-direction: row; align-items: center; height: 2em; justify-content: flex-end;" },
+					p("Loop Accent:"),
+					this._customTheme_LoopAccent,
+				),
+				div({},
+					this._resetMusicUIButton,
 				),
 			),
 		),
@@ -145,11 +169,14 @@ export class ThemePrompt implements Prompt {
 		this._customTheme_PrimaryText.value = this.customTheme_LastPrimaryText;
 		this._customTheme_SecondaryText.value = this.customTheme_LastSecondaryText;
 		this._customTheme_InvertedText.value = this.customTheme_LastInvertedText;
+		this._customTheme_LoopAccent.value = this.customTheme_LastLoopAccent;
+		this._customTheme_LinkAccent.value = this.customTheme_LastLinkAccent;
 		
 		this._okayButton.addEventListener("click", this._saveChanges);
 		this._cancelButton.addEventListener("click", this._close);
 		this._resetMainButton.addEventListener("click", this._resetMainColors);
 		this._resetTextButton.addEventListener("click", this._resetTextColors);
+		this._resetMusicUIButton.addEventListener("click", this._resetMusicUIColors);
 		this._resetColorsButton.addEventListener("click", this._resetColors);
 		this.container.addEventListener("keydown", this._whenKeyPressed);
 		this._themeSelect.addEventListener("change", this._previewTheme);
@@ -160,6 +187,8 @@ export class ThemePrompt implements Prompt {
 		this._customTheme_PrimaryText.addEventListener("change", this._changePrimaryText);
 		this._customTheme_SecondaryText.addEventListener("change", this._changeSecondaryText);
 		this._customTheme_InvertedText.addEventListener("change", this._changeInvertedText);
+		this._customTheme_LoopAccent.addEventListener("change", this._changeLoopAccent);
+		this._customTheme_LinkAccent.addEventListener("change", this._changeLinkAccent);
 		this._fontSelect.addEventListener("change", this._preview);
 		this._themeSelect.addEventListener("change", this._handleThemeChange);
 
@@ -240,6 +269,8 @@ export class ThemePrompt implements Prompt {
 			window.localStorage.setItem("custom_PrimaryText", "#FFFFFF");
 			window.localStorage.setItem("custom_SecondaryText", "#999999");
 			window.localStorage.setItem("custom_InvertedText", "#000000");
+			window.localStorage.setItem("custom_loopAccent", "#7788ff");
+			window.localStorage.setItem("custom_linkAccent", "#9988ff");
 			window.location.reload()
 			this._previewTheme();
 		}
@@ -284,11 +315,28 @@ export class ThemePrompt implements Prompt {
 		window.localStorage.setItem("custom_InvertedText", this._customTheme_InvertedText.value);
 		this._previewTheme();
 	}
+	private _changeLinkAccent = (): void => {
+		window.localStorage.setItem("custom_linkAccent", this._customTheme_LinkAccent.value);
+		this._previewTheme();
+	}
 	private _resetTextColors = (): void => {
 		if (confirm("Are you sure?") === true) {
 			window.localStorage.setItem("custom_PrimaryText", "#FFFFFF");
 			window.localStorage.setItem("custom_SecondaryText", "#999999");
 			window.localStorage.setItem("custom_InvertedText", "#FFFFFF");
+			window.localStorage.setItem("custom_linkAccent", "#9988FF");
+			this._previewTheme();
+		}
+	}
+
+	private _changeLoopAccent = (): void => {
+		window.localStorage.setItem("custom_loopAccent", this._customTheme_LoopAccent.value);
+		this._previewTheme();
+	}
+
+	private _resetMusicUIColors = (): void => {
+		if (confirm("Are you sure?") === true) {
+			window.localStorage.setItem("custom_loopAccent", "#7788FF");
 			window.location.reload()
 			this._previewTheme();
 		}

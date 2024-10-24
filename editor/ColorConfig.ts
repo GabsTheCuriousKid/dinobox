@@ -17,8 +17,10 @@ export class ColorConfig {
 	static readonly custom_hoverpreview = window.localStorage.getItem("custom_HoverPreview") || 'white'
 	static readonly custom_playhead = window.localStorage.getItem("custom_PlayHead") || 'white'
 	static readonly custom_primarytext = window.localStorage.getItem("custom_PrimaryText") || 'white'
-	static readonly custom_secondarytext = window.localStorage.getItem("custom_SecondaryText") || '#999'
+	static readonly custom_secondarytext = window.localStorage.getItem("custom_SecondaryText") || '#999999'
 	static readonly custom_invertedtext = window.localStorage.getItem("custom_InvertedText") || 'black'
+	static readonly custom_loopAccent = window.localStorage.getItem("custom_loopAccent") || '#7788ff'
+	static readonly custom_linkAccent = window.localStorage.getItem("custom_linkAccent") || '#9988ff'
 	public static readonly themes: {[name: string]: string} = {
 		"dark classic": `
 			:root {
@@ -930,6 +932,96 @@ export class ColorConfig {
 				--noise7-primary-note: #C67FFF;
 			}
 		`,
+		"halloween": `
+			:root {
+    			--page-margin: #181818;
+    			--editor-background: #1a1a1a;
+    			--hover-preview: #ff7518;
+    			--playhead: #ff7518;
+    			--primary-text: #f0e68c;
+    			--secondary-text: #ff7518;
+    			--inverted-text: black;
+    			--text-selection: rgba(128,0,128,0.7);
+    			--box-selection-fill: rgba(255,255,255,0.2);
+    			--loop-accent: #ff4500;
+    			--link-accent: #9370db;
+    			--ui-widget-background: #333;
+    			--ui-widget-focus: #555;
+    			--pitch-background: #282828;
+    			--tonic: #ff6347;
+    			--fifth-note: #468;
+    			--white-piano-key: #ffa500;
+    			--black-piano-key: #333;
+    			--pitch1-secondary-channel: #ffcc00;
+    			--pitch1-primary-channel: #ffd700;
+    			--pitch1-secondary-note: #ffa500;
+    			--pitch1-primary-note: #ffec8b;
+    			--pitch2-secondary-channel: #ff4500;
+    			--pitch2-primary-channel: #ff6347;
+    			--pitch2-secondary-note: #ff8c00;
+    			--pitch2-primary-note: #ffd700;
+    			--pitch3-secondary-channel: #8b0000;
+    			--pitch3-primary-channel: #ff2400;
+    			--pitch3-secondary-note: #cd5c5c;
+    			--pitch3-primary-note: #ff7256;
+    			--pitch4-secondary-channel: #32cd32;
+    			--pitch4-primary-channel: #7fff00;
+    			--pitch4-secondary-note: #00ff00;
+    			--pitch4-primary-note: #9acd32;
+    			--pitch5-secondary-channel: #ba55d3;
+    			--pitch5-primary-channel: #dda0dd;
+    			--pitch5-secondary-note: #c71585;
+    			--pitch5-primary-note: #ff69b4;
+    			--pitch6-secondary-channel: #483d8b;
+    			--pitch6-primary-channel: #9370db;
+    			--pitch6-secondary-note: #663399;
+    			--pitch6-primary-note: #d8bfd8;
+    			--pitch7-secondary-channel: #ff7f50;
+    			--pitch7-primary-channel: #ffdab9;
+    			--pitch7-secondary-note: #fa8072;
+    			--pitch7-primary-note: #ffdead;
+    			--pitch8-secondary-channel: #ff8c00;
+    			--pitch8-primary-channel: #ffa07a;
+    			--pitch8-secondary-note: #ff4500;
+    			--pitch8-primary-note: #ffd700;
+    			--pitch9-secondary-channel: #32cd32;
+    			--pitch9-primary-channel: #98fb98;
+    			--pitch9-secondary-note: #00ff7f;
+    			--pitch9-primary-note: #7fff00;
+    			--pitch10-secondary-channel: #9932cc;
+    			--pitch10-primary-channel: #ba55d3;
+    			--pitch10-secondary-note: #800080;
+    			--pitch10-primary-note: #dda0dd;
+    			--noise1-secondary-channel: #666666;
+    			--noise1-primary-channel: #aaaaaa;
+    			--noise1-secondary-note: #888888;
+    			--noise1-primary-note: #d3d3d3;
+    			--noise2-secondary-channel: #ff6347;
+    			--noise2-primary-channel: #ffa07a;
+    			--noise2-secondary-note: #cd5c5c;
+    			--noise2-primary-note: #ffb6c1;
+    			--noise3-secondary-channel: #8b0000;
+    			--noise3-primary-channel: #cd5c5c;
+    			--noise3-secondary-note: #ff2400;
+    			--noise3-primary-note: #ff6347;
+    			--noise4-secondary-channel: #483d8b;
+    			--noise4-primary-channel: #9370db;
+    			--noise4-secondary-note: #663399;
+    			--noise4-primary-note: #d8bfd8;
+    			--noise5-secondary-channel: #228b22;
+    			--noise5-primary-channel: #32cd32;
+    			--noise5-secondary-note: #00ff00;
+    			--noise5-primary-note: #7fff00;
+    			--noise6-secondary-channel: #009b9b;
+    			--noise6-primary-channel: #00c7c7;
+    			--noise6-secondary-note: #007d7d;
+    			--noise6-primary-note: #7fe4e4;
+    			--noise7-secondary-channel: #ff00ff;
+    			--noise7-primary-channel: #ff69b4;
+    			--noise7-secondary-note: #ff1493;
+    			--noise7-primary-note: #ffb6c1;
+			}
+		`,
 		"custom_theme": `
 			:root {
 				--page-margin: ${this.custom_pagemargin};
@@ -941,8 +1033,8 @@ export class ColorConfig {
 				--inverted-text: ${this.custom_invertedtext};
 				--text-selection: rgba(119,68,255,0.99);
 				--box-selection-fill: rgba(255,255,255,0.2);
-				--loop-accent: #74f;
-				--link-accent: #98f;
+				--loop-accent: ${this.custom_loopAccent};
+				--link-accent: ${this.custom_linkAccent};
 				--ui-widget-background: #444;
 				--ui-widget-focus: #777;
 				--pitch-background: #444;
