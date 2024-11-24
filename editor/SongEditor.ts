@@ -73,6 +73,7 @@ function buildPresetOptions(isNoise: boolean): HTMLSelectElement {
 		customTypeGroup.appendChild(option({value: InstrumentType.pickedString}, EditorConfig.valueToPreset(InstrumentType.pickedString)!.name));
 		customTypeGroup.appendChild(option({value: InstrumentType.spectrum}, EditorConfig.valueToPreset(InstrumentType.spectrum)!.name));
 		customTypeGroup.appendChild(option({value: InstrumentType.fm}, EditorConfig.valueToPreset(InstrumentType.fm)!.name));
+		customTypeGroup.appendChild(option({value: InstrumentType.cursed}, EditorConfig.valueToPreset(InstrumentType.cursed)!.name));
 	}
 	menu.appendChild(customTypeGroup);
 	
@@ -987,19 +988,19 @@ export class SongEditor {
 			} else {
 				this._chipNoiseSelectRow.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.spectrum) {
+			if (instrument.type == InstrumentType.spectrum || instrument.type == InstrumentType.cursed) {
 				this._spectrumRow.style.display = "";
 				this._spectrumEditor.render();
 			} else {
 				this._spectrumRow.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.harmonics || instrument.type == InstrumentType.pickedString) {
+			if (instrument.type == InstrumentType.harmonics || instrument.type == InstrumentType.pickedString || instrument.type == InstrumentType.cursed) {
 				this._harmonicsRow.style.display = "";
 				this._harmonicsEditor.render();
 			} else {
 				this._harmonicsRow.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.pickedString) {
+			if (instrument.type == InstrumentType.pickedString || instrument.type == InstrumentType.cursed) {
 				this._stringSustainRow.style.display = "";
 				this._stringSustainSlider.updateValue(instrument.stringSustain);
 				this._stringSustainLabel.textContent = Config.enableAcousticSustain ? "Sustain (" + Config.sustainTypeNames[instrument.stringSustainType].substring(0,1).toUpperCase() + "):" : "Sustain:";
@@ -1019,13 +1020,13 @@ export class SongEditor {
 				this._fadeInOutEditor.render();
 			}
 			
-			if (instrument.type == InstrumentType.chip) {
+			if (instrument.type == InstrumentType.chip || instrument.type == InstrumentType.cursed) {
 				this._chipWaveSelectRow.style.display = "";
 				setSelectedValue(this._chipWaveSelect, instrument.chipWave);
 			} else {
 				this._chipWaveSelectRow.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.fm) {
+			if (instrument.type == InstrumentType.fm || instrument.type == InstrumentType.cursed) {
 				this._algorithmSelectRow.style.display = "";
 				this._phaseModGroup.style.display = "";
 				this._feedbackRow1.style.display = "";
@@ -1048,7 +1049,7 @@ export class SongEditor {
 				this._feedbackRow1.style.display = "none";
 				this._feedbackRow2.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.supersaw) {
+			if (instrument.type == InstrumentType.supersaw || instrument.type == InstrumentType.cursed) {
 				this._supersawDynamismRow.style.display = "";
 				this._supersawSpreadRow.style.display = "";
 				this._supersawShapeRow.style.display = "";
@@ -1060,7 +1061,7 @@ export class SongEditor {
 				this._supersawSpreadRow.style.display = "none";
 				this._supersawShapeRow.style.display = "none";
 			}
-			if (instrument.type == InstrumentType.pwm || instrument.type == InstrumentType.supersaw) {
+			if (instrument.type == InstrumentType.pwm || instrument.type == InstrumentType.supersaw || instrument.type == InstrumentType.cursed) {
 				this._pulseWidthRow.style.display = "";
 				this._pulseWidthSlider.input.title = prettyNumber(getPulseWidthRatio(instrument.pulseWidth) * 100) + "%";
 				this._pulseWidthSlider.updateValue(instrument.pulseWidth);
