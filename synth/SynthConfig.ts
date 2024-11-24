@@ -333,8 +333,7 @@ export class Config {
 		{name: "double pulse", expression: 0.4,  samples: centerWave([1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0])},
 		{name: "spiky",        expression: 0.4,  samples: centerWave([1.0, -1.0, 1.0, -1.0, 1.0, 0.0])},
 		{name: "tri-square",   expression: 0.75, samples: centerWave([0.0, 0.5, 1.0, 0.5, 0.0, -0.5, -1.0, -0.5])},
-    	{name: "reverse triangle", expression: 1.0, samples: centerWave([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0])},
-    	{name: "complex pulse", expression: 0.6, samples: centerWave([1.0, 1.0, -1.0, -1.0])}
+    	{name: "reverse triangle", expression: 1.0, samples: centerWave([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1.0])}
 	]);
 	// Noise waves have too many samples to write by hand, they're generated on-demand by getDrumWave instead.
 	public static readonly chipNoises: DictionaryArray<ChipNoise> = toNameMap([
