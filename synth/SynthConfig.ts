@@ -273,7 +273,7 @@ export class Config {
 	public static readonly instrumentCountMin: number = 1;
 	public static readonly layeredInstrumentCountMax: number = 4;
 	public static readonly patternInstrumentCountMax: number = 10;
-	public static readonly partsPerBeat: number = 120960;
+	public static readonly partsPerBeat: number = 2520;
 	public static readonly ticksPerPart: number = 2;
 	public static readonly rhythms: DictionaryArray<Rhythm> = toNameMap([
 		{name: "x2",            stepsPerBeat:0.5, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 0, 1, 1], [0, 1, 2, 1]], roundUpThresholds: null},
@@ -290,21 +290,18 @@ export class Config {
 		{name: "÷12",           stepsPerBeat:12, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷14",           stepsPerBeat:14, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷15",           stepsPerBeat:15, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
-		{name: "÷16",           stepsPerBeat:16, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷18",           stepsPerBeat:18, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷20",           stepsPerBeat:20, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷21",           stepsPerBeat:21, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "freehand (÷24)",stepsPerBeat:24, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
-		{name: "÷27",           stepsPerBeat:27, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷28",           stepsPerBeat:28, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷30",           stepsPerBeat:30, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
-		{name: "÷32",           stepsPerBeat:32, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷35",           stepsPerBeat:35, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷36",           stepsPerBeat:36, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷40",           stepsPerBeat:40, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
 		{name: "÷42",           stepsPerBeat:42, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
-		{name: "÷45",           stepsPerBeat:45, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
-		{name: "absolute freedom (÷48)",stepsPerBeat:48, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],[0, 1, 2, 1]], roundUpThresholds: null},
+		{name: "alt absolute freedom (÷45)",           stepsPerBeat:45, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],       [0, 1, 2, 1]], roundUpThresholds: null},
+		//{name: "absolute freedom (÷48)",stepsPerBeat:48, ticksPerArpeggio: 3, arpeggioPatterns: [[0], [0, 1],[0, 1, 2, 1]], roundUpThresholds: null},
 	]);
 	
 	public static readonly instrumentTypeNames: ReadonlyArray<string> = ["chip", "FM", "noise", "spectrum", "drumset", "harmonics", "PWM", "Picked String", "supersaw"]; // See InstrumentType enum above.

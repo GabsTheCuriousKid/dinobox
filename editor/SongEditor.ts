@@ -73,7 +73,7 @@ function buildPresetOptions(isNoise: boolean): HTMLSelectElement {
 		customTypeGroup.appendChild(option({value: InstrumentType.pickedString}, EditorConfig.valueToPreset(InstrumentType.pickedString)!.name));
 		customTypeGroup.appendChild(option({value: InstrumentType.spectrum}, EditorConfig.valueToPreset(InstrumentType.spectrum)!.name));
 		customTypeGroup.appendChild(option({value: InstrumentType.fm}, EditorConfig.valueToPreset(InstrumentType.fm)!.name));
-		customTypeGroup.appendChild(option({value: InstrumentType.cursed}, EditorConfig.valueToPreset(InstrumentType.cursed)!.name));
+		//customTypeGroup.appendChild(option({value: InstrumentType.cursed}, EditorConfig.valueToPreset(InstrumentType.cursed)!.name));
 	}
 	menu.appendChild(customTypeGroup);
 	
