@@ -42,9 +42,6 @@ import {ChangeTempo, ChangeMainVolume, ChangeChorus, ChangeEchoDelay, ChangeEcho
 
 const {a, button, div, input, select, span, optgroup, option} = HTML;
 
-const doc = new SongDocument
-doc.record(new ChangeRhythm(doc, Number(Config.rhythms[4])));
-
 function buildOptions(menu: HTMLSelectElement, items: ReadonlyArray<string | number>): HTMLSelectElement {
 	for (let index: number = 0; index < items.length; index++) {
 		menu.appendChild(option({value: index}, items[index]));
