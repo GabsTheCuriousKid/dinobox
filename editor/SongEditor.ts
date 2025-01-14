@@ -580,6 +580,8 @@ export class SongEditor {
 		this._rhythmSelect.appendChild(optgroup({label: this.Edit_language},
 			option({value: "forceRhythm"}, this.ForceRhythm_language),
 		));
+
+		this.doc.record(new ChangeRhythm(this.doc, 5));
 		
 		this._phaseModGroup.appendChild(div({class: "selectRow", style: `color: ${ColorConfig.secondaryText}; height: 1em; margin-top: 0.5em;`},
 			div({style: "margin-right: .1em; visibility: hidden;"}, 1 + "."),
