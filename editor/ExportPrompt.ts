@@ -47,6 +47,7 @@ export class ExportPrompt implements Prompt {
 	private readonly _formatSelect: HTMLSelectElement = select({style: "width: 100%;"},
 		option({value: "wav"}, ".wav"),
 		option({value: "mp3"}, ".mp3"),
+		option({value: "ogg"}, ".ogg"),
 		option({value: "midi"}, ".mid"),
 		option({value: "json"}, ".json (for any DinoBox version)"),
 		option({value: "html"}, ".html (opens DinoBox)"),
@@ -183,6 +184,9 @@ export class ExportPrompt implements Prompt {
 				break;
 			case "raw":
 				this._exportToRaw();
+				break;
+			case "ogg": 
+				this._exportToOgg();
 				break;
 			case "json":
 				this._exportToJson();
@@ -749,6 +753,50 @@ export class ExportPrompt implements Prompt {
 		save(blob, this._fileName.value.trim() + ".mid");
 		
 		this._close();
+	}
+
+	private _exportToOgg(): void {
+		const whenEncoderIsAvailable = (): void => {
+			const sampleRate: number = 44100; // Use consumer CD standard sample rate for .mp3 export.
+			const {recordedSamplesL, recordedSamplesR} = this._synthesize(sampleRate);
+			
+			const lamejs: any = (<any> window)["lamejs"];
+			const channelCount: number = 2;
+			const kbps: number = 192;
+			const sampleBlockSize: number = 1152;
+			const mp3encoder: any = new lamejs.Mp3Encoder(channelCount, sampleRate, kbps);
+			const mp3Data: any[] = [];
+			
+			const left: Int16Array = new Int16Array(recordedSamplesL.length);
+			const right: Int16Array = new Int16Array(recordedSamplesR.length);
+			const range: number = (1 << 15) - 1;
+			for (let i: number = 0; i < recordedSamplesL.length; i++) {
+				left[i]  = Math.floor(Math.max(-1, Math.min(1, recordedSamplesL[i])) * range);
+				right[i] = Math.floor(Math.max(-1, Math.min(1, recordedSamplesR[i])) * range);
+			}
+			
+			for (let i: number = 0; i < left.length; i += sampleBlockSize) {
+				const leftChunk: Int16Array = left.subarray(i, i + sampleBlockSize);
+				const rightChunk: Int16Array = right.subarray(i, i + sampleBlockSize);
+				const mp3buf: any = mp3encoder.encodeBuffer(leftChunk, rightChunk);
+				if (mp3buf.length > 0) mp3Data.push(mp3buf);
+			}
+			const mp3buf: any = mp3encoder.flush();
+			if (mp3buf.length > 0) mp3Data.push(mp3buf);
+			
+			const blob: Blob = new Blob(mp3Data, {type: "audio/ogg"});
+			save(blob, this._fileName.value.trim() + ".ogg");
+			this._close();
+		}
+		
+		if ("lamejs" in window) {
+			whenEncoderIsAvailable();
+		} else {
+			var script = document.createElement("script");
+			script.src = "https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js";
+			script.onload = whenEncoderIsAvailable;
+			document.head.appendChild(script);
+		}
 	}
 
 	private _exportToRaw(): void {
